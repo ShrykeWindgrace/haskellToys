@@ -1,6 +1,9 @@
 module Main where
 
 import Lib
+import StringWorks
 
 main :: IO ()
-main = someFunc
+main = do
+  someFunc
+  putStrLn $ printField $ Just "ok"
