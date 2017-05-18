@@ -7,5 +7,5 @@ printField
 where
 
 printField :: Maybe String -> String
-printField Maybe s = "<p>" ++ s ++ "</p>"
+printField (Just s) = "<p>" ++ s ++ "</p>"
 printField Nothing = ""
