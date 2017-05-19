@@ -11,9 +11,11 @@ someFunc input =
 
 
 balance3 = void (many brackets) where
-  brackets = choice [between (char o) (char c) balance3 |
+  brackets = choice $  noise : [between (char o) (char c) balance3 |
      (o,c) <- [('(',')'),('[',']'),('{','}')] ]
 
 
 {-parenSet = char '(' >> many parenSet >> char ')'-}
 {-parens = (many parenSet >> eof) <|> eof-}
+
+noise = void $ many1 alphaNum
