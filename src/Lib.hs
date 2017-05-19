@@ -4,9 +4,9 @@ module Lib
 
 import Text.Parsec
 
-someFunc :: IO ()
-someFunc =
-    if Right () == parse parens "" "()"
+someFunc :: String -> IO ()
+someFunc str=
+    if Right () == parse parens "" str
     then 
         putStrLn "parsed"
     else
