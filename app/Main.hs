@@ -4,6 +4,18 @@ import Lib
 import StringWorks
 
 main :: IO ()
-main = do
-  someFunc
-  putStrLn $ printField $ Just "ok"
+main = go
+  {-putStrLn $ printField $ Just "ok"-}
+
+
+go :: IO ()
+go = do
+  s <- getLine
+  if s == "q"
+  then
+    putStrLn "Bye"
+  else
+    do
+      someFunc s
+      go
+ 
