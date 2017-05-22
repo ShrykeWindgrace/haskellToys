@@ -3,6 +3,7 @@ module Lib
     ) where
 
 import Text.Parsec
+import Text.Parsec.String
 import Control.Monad (void)
 
 someFunc :: String -> IO ()

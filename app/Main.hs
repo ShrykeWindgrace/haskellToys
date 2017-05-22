@@ -2,9 +2,13 @@ module Main where
 
 import Lib
 import StringWorks
-
+import Qs
+import Text.Parsec
 main :: IO ()
-main = go
+main = --go
+  case  parse parseQ "" "? asd ert?" of
+    Right answ -> print $ "OK: " ++ answ
+    Left err -> print err
   {-putStrLn $ printField $ Just "ok"-}
 
 
