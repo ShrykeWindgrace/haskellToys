@@ -21,8 +21,8 @@ combiQ = parseQ <|> blankLine <|> regText <|> newline1
 
 blankLine :: Parser String
 blankLine = do
-  char ' '
-  {-endOfLine  -}
+  spaces
+  eof
   return "blank"
 
-newline1 = (newline >> return "blanche") <?> "wtf"
+newline1 = eof >> return "blank-ish" 
