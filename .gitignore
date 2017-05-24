@@ -21,3 +21,4 @@ cabal.project.local
 
 deps.pdf
 *.swp
+*.sublime*
