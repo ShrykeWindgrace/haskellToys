@@ -5,11 +5,12 @@ import Text.Parsec.String
 
 qText :: Parser String
 qText = do
-  char '?'
+  _ <- char '?'
   spaces 
   s <- regText
   return $ "Q:" ++ s
 
+parseQ :: Parser String
 parseQ = qText
 
 regText :: Parser String
@@ -25,4 +26,5 @@ blankLine = do
   eof
   return "blank"
 
+newline1 :: Parser String
 newline1 = eof >> return "blank-ish" 
