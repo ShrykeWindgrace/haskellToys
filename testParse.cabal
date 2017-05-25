@@ -7,8 +7,8 @@ license:             BSD3
 license-file:        LICENSE
 author:              Author name here
 maintainer:          example@example.com
-copyright:           2017 Author name here
-category:            Web
+copyright:           2017 TZ
+category:            parsing
 build-type:          Simple
 extra-source-files:  README.md
 cabal-version:       >=1.10
@@ -18,6 +18,8 @@ library
   exposed-modules:     Lib
                       , StringWorks
                       , Qs
+                      , Q2
+                      , AST
   build-depends:       base >= 4.7 && < 5
                       , parsec
   default-language:    Haskell2010
@@ -43,4 +45,4 @@ test-suite testParse-test
 
 source-repository head
   type:     git
-  location: https://github.com/githubuser/testParse
+  location: https://github.com/ShrykeWindgrace/haskellToys
