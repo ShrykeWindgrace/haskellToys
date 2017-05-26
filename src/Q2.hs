@@ -33,6 +33,10 @@ inlineText = do
   return (c:s)
   <?> "inlineText"
 
+-- | will replace in the future, it should not contain lists, stanzas, links etc
+rawText :: Parser String 
+rawText = inlineText
+
 -- |
 --   parser for single-character tokens
 tokenLines :: Char -> Parser String
@@ -48,7 +52,7 @@ tokenLines c = do
 longTokenLines :: String -> Parser String
 longTokenLines str = do
   _ <- string str
-  ss <- many1 $ try inlineText
+  ss <- many1 $ try rawText
   return $ '(' : str ++ ")" ++ concat ss
   <?> ("line with long token " ++ str)
 
@@ -93,7 +97,11 @@ authorText = tokenLines '@'
 commentText :: Parser String
 commentText = tokenLines '/'
 
-
+{-|
+  Источник
+-}
+sourceText :: Parser String
+sourceText = tokenLines '^'
 
 {-|
    Вопрос целиком
@@ -117,6 +125,25 @@ tourGrammar = do
   return $ concat s 
 
 
+{-|
+  Редактор
+-}
+editorHeader :: Parser String
+editorHeader = longTokenLines "#EDITOR" 
+
+
+{-|
+  Дата и место проведения
+-}
+dateHeader :: Parser String
+dateHeader = longTokenLines "#DATE" 
+
+
+{-|
+  Название турнира
+-}
+tournamentHeader :: Parser String
+tournamentHeader = longTokenLines "###" 
 
 someQQ2 :: IO()
 someQQ2 = case parse tourGrammar "" "? q1\n! a1\n\n? q2 \n! a2" of 
