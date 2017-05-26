@@ -17,8 +17,5 @@ balance3 = void (many brackets) where
      (o,c) <- [('(',')'),('[',']'),('{','}')] ]
 
 
-{-parenSet = char '(' >> many parenSet >> char ')'-}
-{-parens = (many parenSet >> eof) <|> eof-}
-
 noise :: ParsecT String u Data.Functor.Identity.Identity ()
 noise = void $ many1 alphaNum
