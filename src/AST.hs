@@ -1,7 +1,4 @@
-module AST (
-    QText,
-    printQS)
- where
+module AST where
 
 data QText = QText {
     runText :: String,
@@ -11,6 +8,10 @@ data QText = QText {
 
 printQS:: [QText] -> String
 printQS [] = ""
-printQS qs = printQS' 1 qs where
-    printQS' n [] = ""
-    printQS' n (q:qs) = "Question " ++ show n ++ "." ++ runText q ++ "\r\n" ++ "Answer: " ++ runAnswer q ++ (printQS' (n+1) qs)
+printQS quests = printQS' 1 quests where
+    printQS' :: Int -> [QText] -> String
+    printQS' _ [] = ""
+    printQS' n (q:qs) = "Question " ++ show n ++ "."
+        ++ runText q ++ "\r\n"
+        ++ "Answer: " ++ runAnswer q
+        ++ printQS' (n+1) qs

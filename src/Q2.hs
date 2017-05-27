@@ -30,7 +30,7 @@ inlineText = do
   c <- noneOf tokenList
   s <- many1 (noneOf "\n") 
   void (char '\n') <|> eof 
-  return (c:s)
+  return (c:s++"\n")
   <?> "inlineText"
 
 -- | will replace in the future, it should not contain lists, stanzas, links etc
@@ -145,7 +145,33 @@ dateHeader = longTokenLines "#DATE"
 tournamentHeader :: Parser String
 tournamentHeader = longTokenLines "###" 
 
+
+qSetNumber :: Parser Integer
+qSetNumber = do
+  _ <- string "№№"
+  spaces
+  n <- many1 digit
+  void endOfLine
+  return $ read n
+
+testGrammar :: Parser String
+testGrammar = do
+  ed <- editorHeader
+  endOfLine
+  tour <- tourGrammar
+  return $ ed ++ tour
+
+
+
 someQQ2 :: IO()
 someQQ2 = case parse tourGrammar "" "? q1\n! a1\n\n? q2 \n! a2" of 
       Right answ -> print $ "Ok: " ++   answ
+      Left err -> print err
+
+someQQ3 :: IO ()
+someQQ3 = do
+  file <- readFile "input2.txt"
+  case parse testGrammar "" file of 
+      Right answ -> print  ("Ok: " ++   answ) >>
+        writeFile "out2.txt" answ
       Left err -> print err

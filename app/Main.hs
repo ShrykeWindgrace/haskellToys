@@ -17,7 +17,8 @@ main = --go
     -- let lns = lines ln
     -- mapM_ someF1 lns -- sequence_ $ map someF1 lns== mapM_ someF1 lns
     -- mapM_ ( print . length ) lns
-    someQQ2
+    -- someQQ2
+    someQQ3
 
 
 go :: IO ()
