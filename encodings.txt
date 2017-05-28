@@ -1,0 +1,3 @@
+CP866 for token Strings
+utf-8 for Strings
+https://2cyr.com/decode/?lang=en
