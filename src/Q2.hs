@@ -4,6 +4,8 @@ import Text.Parsec
 import Text.Parsec.String
 import Control.Monad (void)
 
+import StringWorks 
+
 {-|
   List of recognised tokens as well as an endOfLine symbol
 
@@ -43,7 +45,7 @@ tokenLines :: Char -> Parser String
 tokenLines c = do
   _ <- char c
   ss <- many1 $ try inlineText
-  return $ '(':c:')': concat ss
+  return $ "(" ++ tokenToString c ++ ")" ++ concat ss
   <?> ("line with token " ++ [c])
 
 
@@ -108,10 +110,12 @@ sourceText = tokenLines '^'
 -}
 fullQuestText :: Parser String
 fullQuestText = do
+  many $ char '\n'
   q <- questText
   a <- answerText
+  a'<- optionMaybe equivText
   void endOfLine <|> eof
-  return $ q ++ a
+  return $ q ++ a ++ showMaybe a'
   <?> "fullQuestText"
 
 

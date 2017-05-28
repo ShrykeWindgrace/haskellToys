@@ -1,11 +1,16 @@
 module StringWorks
 
-(
-printField
-)
-
 where
 
-printField :: Maybe String -> String
-printField (Just s) = "<p>" ++ s ++ "</p>"
-printField Nothing = ""
+showMaybe :: Maybe String -> String
+showMaybe (Just s) = s
+showMaybe Nothing = ""
+
+tokenToString :: Char -> String
+tokenToString '?' = "Вопрос"
+tokenToString '=' = "Зачёт"
+tokenToString '@' = "Автор(ы)"
+tokenToString '^' = "Источник(и)"
+tokenToString '!' = "Ответ"
+tokenToString '/' = "Комментарии"
+tokenToString _ = "unknown token"
