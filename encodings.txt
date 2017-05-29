@@ -1,3 +1,7 @@
+windows10 @ yoga:
 CP866 for token Strings
-utf-8 for Strings
+utf-8 for parsed Strings (as in input)
 https://2cyr.com/decode/?lang=en
+
+ubuntu @ work
+looks like utf-8 everywhere
