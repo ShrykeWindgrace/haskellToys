@@ -4,7 +4,9 @@ import Text.Parsec
 import Text.Parsec.String
 import Control.Monad (void)
 
+
 import StringWorks 
+import ImageLinks 
 
 {-|
   List of recognised tokens as well as an endOfLine symbol
@@ -30,7 +32,7 @@ tokenList = "@?!-\n№#/=^"
 inlineText :: Parser String
 inlineText = do
   c <- noneOf tokenList
-  s <- many1 (noneOf "\n") 
+  s <- many1 $ try imageLink <|> (noneOf "\n") 
   void (char '\n') <|> eof 
   return (c:s++"\n")
   <?> "inlineText"
@@ -44,6 +46,7 @@ rawText = inlineText
 tokenLines :: Char -> Parser String
 tokenLines c = do
   _ <- char c
+  _ <- optionMaybe $ char '\n'
   ss <- many1 $ try inlineText
   return $ "(" ++ tokenToString c ++ ")" ++ concat ss
   <?> ("line with token " ++ [c])
@@ -55,7 +58,7 @@ longTokenLines :: String -> Parser String
 longTokenLines str = do
   _ <- string str
   ss <- many1 $ try rawText
-  return $ '(' : str ++ ")" ++ concat ss
+  return $ '(' : longTokenToString str ++ ")" ++ concat ss
   <?> ("line with long token " ++ str)
 
 
@@ -110,7 +113,7 @@ sourceText = tokenLines '^'
 -}
 fullQuestText :: Parser String
 fullQuestText = do
-  many $ char '\n'
+  _ <- many $ char '\n'
   q <- questText
   a <- answerText
   a'<- optionMaybe equivText
@@ -161,10 +164,18 @@ qSetNumber = do
 testGrammar :: Parser String
 testGrammar = do
   ed <- editorHeader
-  endOfLine
+  _ <- endOfLine
   tour <- tourGrammar
   return $ ed ++ tour
 
+
+
+blankLine :: Parser String
+blankLine = do
+  _ <- many $ char ' '
+  _ <- char '\n'
+  return ""
+  <?> "blankLine"
 
 
 someQQ2 :: IO()
