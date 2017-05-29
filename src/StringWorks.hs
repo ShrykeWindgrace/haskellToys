@@ -14,3 +14,11 @@ tokenToString '^' = "Источник(и)"
 tokenToString '!' = "Ответ"
 tokenToString '/' = "Комментарии"
 tokenToString _ = "unknown token"
+
+
+longTokenToString :: String -> String
+longTokenToString "###" = "Название турнира"
+longTokenToString "#EDITOR" = "Редактор"
+longTokenToString "#DATE" = "Время и место проведения"
+longTokenToString "!=" = "незачёт"
+longTokenToString _ = "Неизвестный токен"
