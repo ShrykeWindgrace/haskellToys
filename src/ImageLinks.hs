@@ -39,7 +39,7 @@ linkContents = do
 
 
 -- (img w=20px h=40px kotik.jpg)
-imageLink :: Parser Char
+imageLink :: Parser String -- Char
 imageLink = do
     between (string "(img")  (char ')') linkContents
-    return '&'
+    return "&&"
