@@ -32,14 +32,19 @@ tokenList = "@?!-\n№#/=^"
 inlineText :: Parser String
 inlineText = do
   c <- noneOf tokenList
-  s <- many1 $ try imageLink <|> (noneOf "\n") 
+  s <- many1 $ try imageLink <|>  noneOf "\n"
   void (char '\n') <|> eof 
   return (c:s++"\n")
   <?> "inlineText"
 
--- | will replace in the future, it should not contain lists, stanzas, links etc
+-- | do not parse anything inside this string
 rawText :: Parser String 
-rawText = inlineText
+rawText = do
+  c <- noneOf tokenList
+  s <- many1 $  noneOf "\n"
+  void (char '\n') <|> eof 
+  return (c:s++"\n")
+  <?> "rawText"
 
 -- |
 --   parser for single-character tokens
