@@ -2,10 +2,12 @@ module Qs (parseQ, combiQ, blankLine) where
 
 import Text.Parsec
 import Text.Parsec.String
+import Control.Monad (void)
+
 
 qText :: Parser String
 qText = do
-  _ <- char '?'
+  void $ char '?'
   spaces 
   s <- regText
   return $ "Q:" ++ s
