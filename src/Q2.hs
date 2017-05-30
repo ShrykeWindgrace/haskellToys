@@ -7,6 +7,7 @@ import Control.Monad (void)
 
 import StringWorks 
 import ImageLinks 
+import Inline
 
 {-|
   List of recognised tokens as well as an endOfLine symbol
@@ -14,7 +15,7 @@ import ImageLinks
   regular lines can not begin with these symbols
 -}
 tokenList :: String
-tokenList = "@?!-\n№#/=^"
+tokenList = "@?!-\n№#/=^<>"
 
 
 {-|
@@ -32,7 +33,7 @@ tokenList = "@?!-\n№#/=^"
 inlineText :: Parser String
 inlineText = do
   c <- noneOf tokenList
-  s <- many1 $ try imageLink <|>  noneOf "\n"
+  s <- many1 $ try imageLink <|> try emphText'' <|> noneOf "\n"
   void (char '\n') <|> eof 
   return (c:s++"\n")
   <?> "inlineText"
