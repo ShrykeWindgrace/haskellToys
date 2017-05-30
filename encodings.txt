@@ -5,3 +5,6 @@ https://2cyr.com/decode/?lang=en
 
 ubuntu @ work
 looks like utf-8 everywhere
+
+windows10 @ work:
+error on writeFile, "out2.txt: commitBuffer: invalid argument (invalid character)"
