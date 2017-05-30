@@ -11,4 +11,13 @@ default:
     error on writeFile, "out2.txt: commitBuffer: invalid argument (invalid character)"
 after chcp 65001: // utf8
     looks like utf-8 everywhere
+
+
+windows10 @ dell:
+default:
+    error on writeFile, "out2.txt: commitBuffer: invalid argument (invalid character)"
+after chcp 65001: // utf8
+    looks like utf-8 everywhere
+
+
     
