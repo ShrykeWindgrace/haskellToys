@@ -122,9 +122,10 @@ fullQuestText = do
   _ <- many $ char '\n'
   q <- questText
   a <- answerText
-  a'<- optionMaybe equivText
+  opts <- many $ choice  [try equivText, try authorText, try sourceText]
+  -- a'<- optionMaybe equivText
   void endOfLine <|> eof
-  return $ q ++ a ++ showMaybe a'
+  return $ q ++ a ++ concat opts-- ++ showMaybe a'
   <?> "fullQuestText"
 
 
