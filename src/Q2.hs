@@ -3,7 +3,7 @@ module Q2 where
 import Text.Parsec
 import Text.Parsec.String
 import Control.Monad (void)
-
+import Data.List
 
 import StringWorks 
 import ImageLinks 
@@ -114,6 +114,15 @@ commentText = tokenLines '/'
 sourceText :: Parser String
 sourceText = tokenLines '^'
 
+
+listLines :: Parser String
+listLines = do
+  char '-'
+  s <- inlineText
+  nextS <- many listLines
+  return $ concat (s:nextS)
+
+
 {-|
    Вопрос целиком
 -}
@@ -122,10 +131,18 @@ fullQuestText = do
   _ <- many $ char '\n'
   q <- questText
   a <- answerText
-  opts <- many $ choice  [try equivText, try authorText, try sourceText]
+  opts <- many $ choice [
+    try equivText,
+    try authorText,
+    try sourceText,
+    try commentText,
+    try notEquivText,
+    try listLines
+    ]
+  -- li <- optionMaybe listLines
   -- a'<- optionMaybe equivText
   void endOfLine <|> eof
-  return $ q ++ a ++ concat opts-- ++ showMaybe a'
+  return $ q ++ a ++ concat opts -- ++ showMaybe li -- ++  a'
   <?> "fullQuestText"
 
 
