@@ -1,5 +1,11 @@
 module QNumber where
 
+import Text.Parsec
+import Text.Parsec.String
+import Control.Monad (void)
+-- import Data.List
+
+
 type QModifier = Maybe (Either String Int)
 
 
@@ -26,6 +32,35 @@ nextNumber n (Just (Left _)) = succ n
 scaa' :: [Int] -> [QModifier] -> [Int]
 scaa' ns [] = ns 
 scaa' [] qs = scaa' [0] qs 
-scaa' (n:ns) (q:qs) = scaa' ((nextNumber n q) : n: ns)  qs
+scaa' (n:ns) (q:qs) = scaa' (nextNumber n q : n: ns)  qs
 
+scaa :: [Int]
 scaa = reverse $ scaa' [1] someQNS
+
+
+qSoftReset :: Parser (Either String Int)
+qSoftReset = do
+    void $ char '№'
+    void $ many $ char ' '
+    s <- many1 $ noneOf " \n"
+    void $ char '\n'
+    return $ Left s
+
+
+qHardReset :: Parser (Either String Int)
+qHardReset = do
+    void $ char '№'
+    void $ many $ char ' '
+    s <- many1 digit
+    void $ char '\n'  
+    return $ Right $ read s
+
+
+questModifier :: Parser QModifier
+questModifier = optionMaybe $ try qSoftReset <|> try qHardReset
+
+
+showQ :: QModifier -> String
+showQ Nothing = ""
+showQ (Just (Right newInt)) = show newInt ++ "\n"
+showQ (Just (Left tempStr)) = tempStr ++ "\n"

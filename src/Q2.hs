@@ -3,11 +3,12 @@ module Q2 where
 import Text.Parsec
 import Text.Parsec.String
 import Control.Monad (void)
-import Data.List
+-- import Data.List
 
 import StringWorks 
 import ImageLinks 
 import Inline
+import QNumber
 
 {-|
   List of recognised tokens as well as an endOfLine symbol
@@ -117,7 +118,7 @@ sourceText = tokenLines '^'
 
 listLines :: Parser String
 listLines = do
-  char '-'
+  _ <- char '-'
   s <- inlineText
   nextS <- many listLines
   return $ concat (s:nextS)
@@ -130,6 +131,7 @@ fullQuestText :: Parser String
 fullQuestText = do
   _ <- many $ char '\n'
   q <- questText
+  qm <-questModifier
   a <- answerText
   opts <- many $ choice [
     try equivText,
@@ -142,7 +144,7 @@ fullQuestText = do
   -- li <- optionMaybe listLines
   -- a'<- optionMaybe equivText
   void endOfLine <|> eof
-  return $ q ++ a ++ concat opts -- ++ showMaybe li -- ++  a'
+  return $ q ++ a ++ concat opts  ++ showQ qm
   <?> "fullQuestText"
 
 
