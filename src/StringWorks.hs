@@ -13,7 +13,7 @@ tokenToString '@' = "Автор(ы)"
 tokenToString '^' = "Источник(и)"
 tokenToString '!' = "Ответ"
 tokenToString '/' = "Комментарии"
-tokenToString _ = "unknown token"
+tokenToString _ = "Неизвестный токен"
 
 
 longTokenToString :: String -> String
