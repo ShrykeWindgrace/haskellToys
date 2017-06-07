@@ -41,15 +41,15 @@ scaa = reverse $ scaa' [1] someQNS
 qSoftReset :: Parser (Either String Int)
 qSoftReset = do
     void $ char '№'
-    void $ many $ char ' '
-    s <- many1 $ noneOf " \n"
+    c <- noneOf "№"
+    s <- many1 $ noneOf "\n"
     void $ char '\n'
-    return $ Left s
+    return $ Left (c:s)
 
 
 qHardReset :: Parser (Either String Int)
 qHardReset = do
-    void $ char '№'
+    void $ string "№№"
     void $ many $ char ' '
     s <- many1 digit
     void $ char '\n'  
@@ -57,7 +57,7 @@ qHardReset = do
 
 
 questModifier :: Parser QModifier
-questModifier = optionMaybe $ try qSoftReset <|> try qHardReset
+questModifier = optionMaybe $ try qHardReset <|> try qSoftReset
 
 
 showQ :: QModifier -> String
