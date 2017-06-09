@@ -42,5 +42,5 @@ options = Options <$>
 
 optionsH = info (options <**> helper)
             ( fullDesc
-            <> progDesc "Print a greeting for TARGET"
-            <> header "hello - a test for optparse-applicative" )
+            <> progDesc "Parse files in 4s format"
+            <> header "header" )
