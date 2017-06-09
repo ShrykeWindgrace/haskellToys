@@ -42,5 +42,5 @@ options = Options <$>
 
 optionsH = info (options <**> helper)
             ( fullDesc
-            <> progDesc "Parse files in 4s format"
-            <> header "header" )
+            <> progDesc "Parse INPUT_FILE assuming it has 4s format, output the result in OUTPUT_FILE"
+            <> header "Parse files in 4s format" )
