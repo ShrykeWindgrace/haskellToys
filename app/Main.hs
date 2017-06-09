@@ -2,13 +2,13 @@ module Main where
 
 -- import Lib
 -- import StringWorks
-import Qs
+-- import Qs
 import Q2
-import Text.Parsec
-import Text.Parsec.String
-import Control.Monad (void)
+-- import Text.Parsec
+-- import Text.Parsec.String
+-- import Control.Monad (void)
 import OptionsCLI
-import Data.Semigroup ((<>))
+-- import Data.Semigroup ((<>))
 
 
 
@@ -34,20 +34,20 @@ main' opt =
 
 
 
-go :: IO ()
-go = do
-  s <- getLine
-  if s == "q"
-  then
-    putStrLn "Bye"
-  else
-    do
-      someF1 s
-      go
+-- go :: IO ()
+-- go = do
+--   s <- getLine
+--   if s == "q"
+--   then
+--     putStrLn "Bye"
+--   else
+--     do
+--       someF1 s
+--       go
  
 
-someF1 :: String -> IO ()
-someF1 str =  case  parse combiQ "" str of
-    Right answ -> print $ "OK: " ++ answ
-    Left err -> print err
+-- someF1 :: String -> IO ()
+-- someF1 str =  case  parse combiQ "" str of
+--     Right answ -> print $ "OK: " ++ answ
+--     Left err -> print err
  
