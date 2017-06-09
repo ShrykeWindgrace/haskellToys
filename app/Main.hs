@@ -7,18 +7,31 @@ import Q2
 import Text.Parsec
 import Text.Parsec.String
 import Control.Monad (void)
+import OptionsCLI
+import Data.Semigroup ((<>))
+
 
 
 main :: IO ()
 main = --go
-  do
+       main' =<< execParser optionsH
+         -- where
+           
+  -- do
     -- ln <- readFile "input.txt"
     -- print ln
     -- let lns = lines ln
     -- mapM_ someF1 lns -- sequence_ $ map someF1 lns== mapM_ someF1 lns
     -- mapM_ ( print . length ) lns
     -- someQQ2
-    someQQ3
+    -- someQQ3
+
+main' :: Options -> IO()
+main' opt = 
+  if dryRun opt
+   then putStrLn "Dry Run"
+   else putStrLn (input opt) >> putStrLn (output opt) >> someQQ3 (input opt) (output opt)
+
 
 
 go :: IO ()

@@ -23,8 +23,10 @@ library
                       , ImageLinks
                       , Inline
                       , QNumber
+                      , OptionsCLI
   build-depends:       base >= 4.7 && < 5
                       , parsec
+                      , optparse-applicative
   default-language:    Haskell2010
 
 executable testParse-exe
@@ -34,6 +36,7 @@ executable testParse-exe
   build-depends:       base
                      , testParse
                      , parsec
+                     , optparse-applicative
   default-language:    Haskell2010
 
 test-suite testParse-test

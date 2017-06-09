@@ -209,10 +209,10 @@ someQQ2 = case parse tourGrammar "" "? q1\n! a1\n\n? q2 \n! a2" of
       Right answ -> print $ "Ok: " ++   answ
       Left err -> print err
 
-someQQ3 :: IO ()
-someQQ3 = do
-  file <- readFile "input2.txt"
+someQQ3 :: String -> String -> IO ()
+someQQ3 inF outF= do
+  file <- readFile inF
   case parse testGrammar "" file of 
       Right answ -> print  ("Ok: " ++   answ) >>
-        writeFile "out2.txt" answ
+        writeFile outF answ
       Left err -> print err
