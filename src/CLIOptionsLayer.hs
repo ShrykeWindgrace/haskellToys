@@ -24,7 +24,7 @@ options = Options <$>
     <*>
     switch (long "printToConsole" <> short 'p' <> help "whether to print to console the resulting output")
     <*>
-    switch (long "dryRun" <> help "whether to run parser")
+    switch (long "dryRun" <> short 'd' <> help "whether to run parser")
 
 optionsH :: ParserInfo Options
 optionsH = info (options <**> helper)
