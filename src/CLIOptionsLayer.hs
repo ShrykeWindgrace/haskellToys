@@ -26,7 +26,7 @@ options = Options <$>
     <*>
     switch (long "dryRun" <> help "whether to run parser")
 
-
+optionsH :: ParserInfo Options
 optionsH = info (options <**> helper)
             ( fullDesc
             <> progDesc "Parse INPUT_FILE assuming it has 4s format, output the result in OUTPUT_FILE"
@@ -37,7 +37,9 @@ mainParametrised :: Options -> IO()
 mainParametrised opt = 
   if dryRun opt
    then putStrLn "Dry Run"
-   else putStrLn (input opt) >> putStrLn (output opt) >> someQQ3 (input opt) (output opt)
+   else putStrLn ("Input file: " ++ input opt) >>
+        putStrLn ("Output file: " ++ output opt) >>
+        someQQ3 (printToConsole opt) (input opt) (output opt)
 
 
 
