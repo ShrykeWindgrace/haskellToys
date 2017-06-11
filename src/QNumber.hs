@@ -62,5 +62,5 @@ questModifier = optionMaybe $ try qSoftReset <|> try qHardReset
 
 showQ :: QModifier -> String
 showQ Nothing = ""
-showQ (Just (Right newInt)) = show newInt ++ "\n"
-showQ (Just (Left tempStr)) = tempStr ++ "\n"
+showQ (Just (Right newInt)) = "(Номер вопроса)" ++ show newInt ++ "\n"
+showQ (Just (Left tempStr)) = "(Номер вопроса)" ++ tempStr ++ "\n"
