@@ -18,9 +18,9 @@ data Options = Options
 
 options :: Parser Options
 options = Options <$>
-    strOption (long "input" <> short 'i' <> metavar "INPUT_FILE" <> help "path to input file" <> value "input2.txt")
+    strOption (long "input" <> short 'i' <> metavar "INPUT_FILE" <> help "path to input file" <> value "input.txt" <> showDefault)
     <*>
-    strOption (long "input" <> short 'o' <> metavar "OUTPUT_FILE" <> help "path to output file" <> value "out2.txt")
+    strOption (long "input" <> short 'o' <> metavar "OUTPUT_FILE" <> help "path to output file" <> value "out.txt" <> showDefault)
     <*>
     switch (long "printToConsole" <> short 'p' <> help "whether to print to console the resulting output")
     <*>
