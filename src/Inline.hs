@@ -15,3 +15,7 @@ emphText' = ("<e>" ++) . (++ "</e>") <$> between (char '_') (char '_') (many1 $ 
 
 emphText'' :: Parser Char
 emphText'' = const 'E' <$> between (char '_') (char '_') (many1 $ noneOf "_\n")
+
+
+stressedWord :: Parser String
+stressedWord = ("<str>" ++) . (++ "<str>") <$> ((:[]) <$> between (many alphaNum) (many1 alphaNum) (char '`'))
