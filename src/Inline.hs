@@ -11,7 +11,7 @@ emphText = do
   return $ "EMPH:" ++ s
 
 emphText' :: Parser String
-emphText' = (++ "EMPH:") <$> between (char '_') (char '_') (many1 $ noneOf "_\n")
+emphText' = ("<e>" ++) . (++ "</e>") <$> between (char '_') (char '_') (many1 $ noneOf "_\n")
 
 emphText'' :: Parser Char
 emphText'' = const 'E' <$> between (char '_') (char '_') (many1 $ noneOf "_\n")
