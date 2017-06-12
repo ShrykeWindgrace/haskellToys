@@ -7,14 +7,14 @@ where
 import Data.Semigroup ((<>))
 import Options.Applicative 
 import Q2
-
-
+import Version
 
 data Options = Options
   { input  :: String
   , output  :: String
   , printToConsole  :: Bool
-  , dryRun  :: Bool}
+  , dryRun  :: Bool
+  , showVersion :: Bool}
 
 options :: Parser Options
 options = Options <$>
@@ -25,6 +25,8 @@ options = Options <$>
     switch (long "printToConsole" <> short 'p' <> help "whether to print to console the resulting output")
     <*>
     switch (long "dryRun" <> short 'd' <> help "whether to run parser")
+    <*>
+    switch (long "version" <> short 'v' <> help "show version")
 
 optionsH :: ParserInfo Options
 optionsH = info (options <**> helper)
@@ -34,12 +36,13 @@ optionsH = info (options <**> helper)
 
 
 mainParametrised :: Options -> IO()
-mainParametrised opt = 
-  if dryRun opt
-   then putStrLn "Dry Run"
-   else putStrLn ("Input file: " ++ input opt) >>
-        putStrLn ("Output file: " ++ output opt) >>
-        someQQ3 (printToConsole opt) (input opt) (output opt)
+mainParametrised opt  
+  | showVersion opt = putStrLn $ "Current version is " ++ version
+  | dryRun opt = putStrLn "Dry Run"
+  | otherwise = 
+      putStrLn ("Input file: " ++ input opt) >>
+      putStrLn ("Output file: " ++ output opt) >>
+      someQQ3 (printToConsole opt) (input opt) (output opt)
 
 
 
