@@ -18,4 +18,9 @@ emphText'' = const 'E' <$> between (char '_') (char '_') (many1 $ noneOf "_\n")
 
 
 stressedWord :: Parser String
-stressedWord = ("<str>" ++) . (++ "<str>") <$> ((:[]) <$> between (many alphaNum) (many1 alphaNum) (char '`'))
+stressedWord = do
+    pref <- many letter
+    _ <- char '`'
+    s <- letter
+    post <- many letter
+    return $ pref ++ "<str>" ++ [s] ++ "</str>" ++ post
