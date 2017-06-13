@@ -25,6 +25,7 @@ library
                       , QNumber
                       , CLIOptionsLayer
                       , Version
+                      , InlineSpace
   build-depends:       base >= 4.7 && < 5
                       , parsec
                       , optparse-applicative

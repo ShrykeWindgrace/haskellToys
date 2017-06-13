@@ -8,14 +8,15 @@ where
 import Text.Parsec
 import Text.Parsec.String
 import Control.Monad (void)
+import InlineSpace (spaces')
 
 
 sizeParse :: Char -> Parser Integer
 sizeParse c = do
     void $ char c
-    spaces
+    spaces'
     void $ char '='
-    spaces
+    spaces'
     s <- many1 digit
     void $ string "px"
     return $ read s
