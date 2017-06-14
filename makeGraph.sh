@@ -1,2 +1,2 @@
-echo 'run stack and dot'
-stack dot | dot -Tpdf -o deps.pdf
+echo 'run stack and dot; take all dependencies, even external'
+stack dot --external | dot -Tpdf -o deps.pdf
