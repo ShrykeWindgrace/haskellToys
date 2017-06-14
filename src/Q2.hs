@@ -189,10 +189,12 @@ qSetNumber = do
 
 testGrammar :: Parser String
 testGrammar = do
+  to <- tournamentHeader
+  spaces
   ed <- editorHeader
-  _ <- endOfLine
+  spaces
   tour <- tourGrammar
-  return $ ed ++ tour
+  return $ to ++ ed ++ tour
 
 
 
