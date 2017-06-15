@@ -8,6 +8,7 @@ import Control.Monad (void)
 import StringWorks 
 import ImageLinks 
 import Inline
+import InlineSpace
 import QNumber
 
 {-|
@@ -53,8 +54,9 @@ rawText = do
 tokenLines :: Char -> Parser String
 tokenLines c = do
   _ <- char c
+  spaces'
   _ <- optionMaybe $ char '\n'
-  ss <- many1 $ try inlineText
+  ss <- many1 $ (try inlineText <|> listLines)
   return $ "(" ++ tokenToString c ++ ")" ++ concat ss
   <?> ("line with token " ++ [c])
 
@@ -182,10 +184,11 @@ tournamentHeader = longTokenLines "###"
 qSetNumber :: Parser Integer
 qSetNumber = do
   _ <- string "№№"
-  spaces
+  spaces'
   n <- many1 digit
   void endOfLine
   return $ read n
+
 
 testGrammar :: Parser String
 testGrammar = do
