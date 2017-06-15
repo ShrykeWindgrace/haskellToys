@@ -31,11 +31,11 @@ heiParse = sizeParse 'h'
 
 linkContents :: Parser ()
 linkContents = do
-    spaces
+    spaces'
     optional widParse
-    spaces
+    spaces'
     optional heiParse
-    spaces
+    spaces'
     void $ many1 $ noneOf ")\n"
 
 
