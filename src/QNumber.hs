@@ -3,6 +3,7 @@ module QNumber where
 import Text.Parsec
 import Text.Parsec.String
 import Control.Monad (void)
+import InlineSpace
 -- import Data.List
 
 
@@ -50,7 +51,7 @@ qSoftReset = do
 qHardReset :: Parser (Either String Int)
 qHardReset = do
     void $ string "№№"
-    void $ many $ char ' '
+    spaces'
     s <- many1 digit
     void $ char '\n'  
     return $ Right $ read s
