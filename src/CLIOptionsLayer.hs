@@ -42,7 +42,7 @@ mainParametrised opt
   | otherwise = 
       putStrLn ("Input file: " ++ input opt) >>
       putStrLn ("Output file: " ++ output opt) >>
-      someQQ3 (printToConsole opt) (input opt) (output opt)
+      someQQ (printToConsole opt) (input opt) (output opt)
 
 
 

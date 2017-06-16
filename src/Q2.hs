@@ -46,7 +46,7 @@ rawText = do
   c <- noneOf tokenList
   s <- many1 $  noneOf "\n"
   void (char '\n') <|> eof 
-  return (c:s++"\n")
+  return (c : s ++ "\n")
   <?> "rawText"
 
 -- |
@@ -56,7 +56,7 @@ tokenLines c = do
   _ <- char c
   spaces'
   _ <- optionMaybe $ char '\n'
-  ss <- many1 $ (try inlineText <|> listLines)
+  ss <- many1 (try inlineText <|> listLines)
   return $ "(" ++ tokenToString c ++ ")" ++ concat ss
   <?> ("line with token " ++ [c])
 
@@ -123,7 +123,7 @@ listLines = do
   _ <- char '-'
   s <- inlineText
   nextS <- many listLines
-  return $ concat (s:nextS)
+  return $ concat ( ("<li> " ++ s ++ "</li>\n") : nextS)
 
 
 {-|
@@ -209,15 +209,10 @@ blankLine = do
   <?> "blankLine"
 
 
-someQQ2 :: IO()
-someQQ2 = case parse tourGrammar "" "? q1\n! a1\n\n? q2 \n! a2" of 
-      Right answ -> print $ "Ok: " ++   answ
-      Left err -> print err
-
-someQQ3 :: Bool -> String -> String -> IO ()
-someQQ3 cons inF outF= do
-  file <- readFile inF
-  case parse testGrammar "" file of 
+someQQ :: Bool -> String -> String -> IO ()
+someQQ cons inF outF = do
+  parseResult <- parseFromFile testGrammar inF
+  case parseResult of 
       Right answ -> putStrLn  ("Ok! " ++ if cons then answ else "") >>
         writeFile outF answ
       Left err -> print err
