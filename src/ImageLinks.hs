@@ -13,6 +13,7 @@ import InlineSpace (spaces')
 
 sizeParse :: Char -> Parser Integer
 sizeParse c = do
+    spaces'
     void $ char c
     spaces'
     void $ char '='
@@ -39,8 +40,30 @@ linkContents = do
     void $ many1 $ noneOf ")\n"
 
 
+linkContents' :: Parser ILink
+linkContents' = do
+    spaces'
+    w <- optionMaybe widParse
+    spaces'
+    h <- optionMaybe heiParse
+    spaces'
+    l <- many1 $ noneOf ")\n"
+    return $ ILink l w h
+
+
 -- (img w=20px h=40px kotik.jpg)
 imageLink :: Parser Char 
 imageLink = do
     between (string "(img")  (char ')') linkContents
     return '&'
+
+
+imageLink' :: Parser ILink 
+imageLink' = 
+    between (string "(img")  (char ')') linkContents'
+
+data ILink = ILink {
+    link :: String,
+    width :: Maybe Integer,
+    height :: Maybe Integer
+    } deriving (Eq, Show)
