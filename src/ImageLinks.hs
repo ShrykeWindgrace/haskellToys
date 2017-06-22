@@ -54,6 +54,7 @@ linkContents' = do
 -- (img w=20px h=40px kotik.jpg)
 imageLink :: Parser Char 
 imageLink = do
+    spaces'
     between (string "(img")  (char ')') linkContents
     return '&'
 
