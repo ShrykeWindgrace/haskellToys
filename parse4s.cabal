@@ -2,12 +2,12 @@ name:                parse4s
 version:             0.1.0.0
 -- synopsis:
 -- description:
-homepage:            https://github.com/githubuser/parse4s#readme
+homepage:            https://github.com/ShrykeWindgrace/haskellToys#readme
 license:             BSD3
 license-file:        LICENSE
-author:              Author name here
-maintainer:          example@example.com
-copyright:           2017 TZ
+author:              TZ
+maintainer:          tz@academ.email
+copyright:           2017
 category:            parsing
 build-type:          Simple
 extra-source-files:  README.md
@@ -15,9 +15,7 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:    StringWorks
-                      , Qs
-                      , Q2
+  exposed-modules:      Q2
                       , AST
                       , ImageLinks
                       , Inline
@@ -25,6 +23,7 @@ library
                       , CLIOptionsLayer
                       , Version
                       , InlineSpace
+  other-modules:        Render.StringWorks
   build-depends:       base >= 4.7 && < 5
                       , parsec
                       , optparse-applicative

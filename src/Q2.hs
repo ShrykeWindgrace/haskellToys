@@ -5,7 +5,7 @@ import Text.Parsec.String
 import Control.Monad (void)
 -- import Data.List
 
-import StringWorks 
+import Render.StringWorks 
 import ImageLinks 
 import Inline
 import InlineSpace
