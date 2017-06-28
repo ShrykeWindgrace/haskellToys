@@ -29,7 +29,7 @@ options = Options <$>
     switch (long "version" <> short 'v' <> help "show version")
 
 optionsH :: ParserInfo Options
-optionsH = info (options <**> helper)
+optionsH = info (helper <*> options)
             ( fullDesc
             <> progDesc "Parse INPUT_FILE assuming it has 4s format, output the result in OUTPUT_FILE"
             <> header "Parse files in 4s format" )
@@ -47,4 +47,4 @@ mainParametrised opt
 
 
 main' :: IO ()
-main' = mainParametrised =<< execParser optionsH
+main' = execParser optionsH >>= mainParametrised
