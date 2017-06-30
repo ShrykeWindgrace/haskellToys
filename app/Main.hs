@@ -1,7 +1,7 @@
 module Main where
 
-import Q2
-import CLIOptionsLayer(main')
+import           CLIOptionsLayer (main')
+import           Q2
 
 main :: IO ()
 main = main'

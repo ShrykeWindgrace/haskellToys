@@ -5,10 +5,10 @@ module ImageLinks
 
 where
 
-import Text.Parsec
-import Text.Parsec.String
-import Control.Monad (void)
-import InlineSpace (spaces')
+import           Control.Monad      (void)
+import           InlineSpace        (spaces')
+import           Text.Parsec
+import           Text.Parsec.String
 
 
 sizeParse :: Char -> Parser Integer
@@ -52,19 +52,19 @@ linkContents' = do
 
 
 -- (img w=20px h=40px kotik.jpg)
-imageLink :: Parser Char 
+imageLink :: Parser Char
 imageLink = do
     spaces'
     between (string "(img")  (char ')') linkContents
     return '&'
 
 
-imageLink' :: Parser ILink 
-imageLink' = 
+imageLink' :: Parser ILink
+imageLink' =
     between (string "(img")  (char ')') linkContents'
 
 data ILink = ILink {
-    link :: String,
-    width :: Maybe Integer,
+    link   :: String,
+    width  :: Maybe Integer,
     height :: Maybe Integer
     } deriving (Eq, Show)
