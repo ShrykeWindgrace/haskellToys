@@ -1,12 +1,12 @@
 module QNumber where
 
-import           Control.Monad      (void)
 import           InlineSpace
 import           Text.Parsec
 import           Text.Parsec.String
 
--- import Data.List
-type QModifier = Maybe (Either String Int)
+
+type QModifier = Either String Int
+type QModifierM = Maybe QModifier
 
 {-|
     Basic test to output question number
@@ -14,20 +14,20 @@ type QModifier = Maybe (Either String Int)
     Right newInt - the questions now count from this number
     Left tempStr - temporary question number
 -}
-printQN :: Int -> QModifier -> String
+printQN :: Int -> QModifierM -> String
 printQN n Nothing               = show n
 printQN _ (Just (Right newInt)) = show newInt
 printQN _ (Just (Left tempStr)) = tempStr
 
-someQNS :: [QModifier]
+someQNS :: [QModifierM]
 someQNS = [Nothing, Nothing, Just $ Right 12, Just $ Left "q?"]
 
-nextNumber :: Int -> QModifier -> Int
+nextNumber :: Int -> QModifierM -> Int
 nextNumber n Nothing               = succ n
 nextNumber _ (Just (Right newInt)) = newInt
 nextNumber n (Just (Left _))       = succ n
 
-scaa' :: [Int] -> [QModifier] -> [Int]
+scaa' :: [Int] -> [QModifierM] -> [Int]
 scaa' ns []         = ns
 scaa' [] qs         = scaa' [0] qs
 scaa' (n:ns) (q:qs) = scaa' (nextNumber n q : n : ns) qs
@@ -35,26 +35,31 @@ scaa' (n:ns) (q:qs) = scaa' (nextNumber n q : n : ns) qs
 scaa :: [Int]
 scaa = reverse $ scaa' [1] someQNS
 
-qSoftReset :: Parser (Either String Int)
+qSoftReset :: Parser QModifier
 qSoftReset = do
-  void $ char '№'
+  () <$ char '№'
   c <- noneOf "№"
   s <- many1 $ noneOf "\n"
-  void $ char '\n'
+  () <$ char '\n'
   return $ Left (c : s)
 
-qHardReset :: Parser (Either String Int)
+qHardReset :: Parser QModifier
 qHardReset = do
-  void $ string "№№"
+  () <$ string "№№"
   spaces'
   s <- many1 digit
-  void $ char '\n'
+  () <$ char '\n'
   return $ Right $ read s
 
-questModifier :: Parser QModifier
+
+questModifier :: Parser QModifierM
 questModifier = optionMaybe $ try qHardReset <|> try qSoftReset
 
-showQ :: QModifier -> String
+
+{--!
+-- Show question number modifier
+--}
+showQ :: QModifierM -> String
 showQ Nothing               = ""
 showQ (Just (Right newInt)) = "(Номер вопроса)" ++ show newInt ++ "\n"
 showQ (Just (Left tempStr)) = "(Номер вопроса)" ++ tempStr ++ "\n"
