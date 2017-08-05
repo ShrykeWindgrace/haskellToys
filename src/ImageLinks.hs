@@ -1,7 +1,9 @@
 module ImageLinks
-    (
-        imageLink
-    )
+    -- (
+    --     imageLink,
+    --     imageLink',
+    --     ILink
+    -- )
 
 where
 
