@@ -7,7 +7,7 @@ module ImageLinks
 
 where
 
-import           Control.Monad      (void)
+-- import           Control.Monad      (void)
 import           InlineSpace        (spaces')
 import           Text.Parsec
 import           Text.Parsec.String
@@ -16,12 +16,12 @@ import           Text.Parsec.String
 sizeParse :: Char -> Parser Integer
 sizeParse c = do
     spaces'
-    void $ char c
+    () <$ char c
     spaces'
-    void $ char '='
+    () <$ char '='
     spaces'
     s <- many1 digit
-    void $ string "px"
+    () <$ string "px"
     return $ read s
 
 
@@ -39,7 +39,7 @@ linkContents = do
     spaces'
     optional heiParse
     spaces'
-    void $ many1 $ noneOf ")\n"
+    () <$ (many1 $ noneOf ")\n")
 
 
 linkContents' :: Parser ILink
