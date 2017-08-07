@@ -1,4 +1,7 @@
-module ImageLinkSpec where
+module ImageLinkSpec
+(imSpec)
+
+where
 
 import           ImageLinks
 import           Test.Hspec
