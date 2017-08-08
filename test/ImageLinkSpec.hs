@@ -1,5 +1,5 @@
 module ImageLinkSpec
-(imSpec)
+(imSpec, imSpec2)
 
 where
 
@@ -21,13 +21,13 @@ showMaybe (Just n) = show n
 
 showWidth :: ILink -> String
 showWidth iLink
-    | isNothing (width iLink) = ""
-    | otherwise = "w = " ++ showMaybe (width iLink) ++ "px"
+    | isNothing (width iLink) = " "
+    | otherwise = "w = " ++ showMaybe (width iLink) ++ "px "
 
 showHeight :: ILink -> String
 showHeight iLink
-    | isNothing (height iLink) = ""
-    | otherwise = "w = " ++ showMaybe (height iLink) ++ "px"
+    | isNothing (height iLink) = " "
+    | otherwise = "h = " ++ showMaybe (height iLink) ++ "px "
 
 
 
@@ -43,10 +43,14 @@ dataSetString = linkToParseable <$> dataSet
 shoulders :: [Expectation]
 shoulders = zipWith shouldBe (parseHelper <$> dataSetString) (Right <$> dataSet)
 
-specs = (\x ->  describe x  (it "should be ok")) <$> dataSetString 
+its'= it "should be ok" <$> shoulders
+
+specs = describe <$> dataSetString 
 
 imSpec2 ::[Spec]
-imSpec2 = zipWith ($) specs shoulders
+imSpec2 = zipWith ($) specs its'
+
+imSpec2' = sequence imSpec2
 
 imSpec :: Spec
 imSpec = do
