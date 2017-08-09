@@ -14,6 +14,7 @@ parseHelper = parse imageLink' ""
 linkText :: String
 linkText = "test.jpg"
 
+
 showMaybe :: Maybe Integer -> String
 showMaybe Nothing  = ""
 showMaybe (Just n) = show n
@@ -40,17 +41,20 @@ dataSet = [ILink linkText w h | w <- [Nothing, Just 600], h <- [Nothing, Just 40
 dataSetString ::[String]
 dataSetString = linkToParseable <$> dataSet
 
-shoulders :: [Expectation]
-shoulders = zipWith shouldBe (parseHelper <$> dataSetString) (Right <$> dataSet)
+shoulds :: [Expectation]
+shoulds = zipWith shouldBe (parseHelper <$> dataSetString) (Right <$> dataSet)
 
-its'= it "should be ok" <$> shoulders
+its' :: [SpecWith ()]
+its'= it "should be ok" <$> shoulds
 
-specs = describe <$> dataSetString 
+specs :: [SpecWith a -> SpecWith a]
+specs = describe <$> dataSetString
 
-imSpec2 ::[Spec]
-imSpec2 = zipWith ($) specs its'
+imSpec2' ::[Spec]
+imSpec2' = zipWith ($) specs its'
 
-imSpec2' = sequence imSpec2
+imSpec2 :: Spec
+imSpec2 = sequence_ imSpec2'
 
 imSpec :: Spec
 imSpec = do
@@ -74,5 +78,3 @@ imSpec = do
     describe "(img h=400px w = 600px test.jpg)" $
         it "should be well-parsed to link and width" $
             parseHelper "(img h=400px w = 600px test.jpg)" `shouldBe` (Right $ ILink "test.jpg" (Just 600) (Just 400))
-
-
