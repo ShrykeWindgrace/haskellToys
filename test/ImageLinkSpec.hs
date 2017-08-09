@@ -44,14 +44,16 @@ dataSetString = linkToParseable <$> dataSet
 shoulds :: [Expectation]
 shoulds = zipWith shouldBe (parseHelper <$> dataSetString) (Right <$> dataSet)
 
-its' :: [SpecWith ()]
-its'= it "should be ok" <$> shoulds
+its' = it <$> (map (++ " should be ok") dataSetString)
+
+its :: [SpecWith ()]
+its = zipWith ($)  its' shoulds
 
 specs :: [SpecWith a -> SpecWith a]
 specs = describe <$> dataSetString
 
 imSpec2' ::[Spec]
-imSpec2' = zipWith ($) specs its'
+imSpec2' = zipWith ($) specs its
 
 imSpec2 :: Spec
 imSpec2 = sequence_ imSpec2'
