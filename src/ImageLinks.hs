@@ -7,10 +7,11 @@ module ImageLinks
 
 where
 
--- import           Control.Monad      (void)
 import           InlineSpace        (spaces')
 import           Text.Parsec
+import           Text.Parsec.Perm
 import           Text.Parsec.String
+
 
 
 sizeParse :: Char -> Parser Integer
@@ -39,7 +40,7 @@ linkContents = do
     spaces'
     optional heiParse
     spaces'
-    () <$ (many1 $ noneOf ")\n")
+    () <$ many1 (noneOf ")\n")
 
 
 linkContents' :: Parser ILink
@@ -53,6 +54,18 @@ linkContents' = do
     return $ ILink l w h
 
 
+
+toMaybe :: Parser a -> Parser (Maybe a)
+toMaybe _parser = Just <$> try _parser
+
+
+linkContentsP :: Parser ILink
+linkContentsP =  permute (ILink
+    <$$> (spaces' >> many1 (noneOf ")\n"))
+    <|?> (Nothing,  toMaybe widParse)
+    <|?> (Nothing,  toMaybe heiParse))
+
+
 -- (img w=20px h=40px kotik.jpg)
 imageLink :: Parser Char
 imageLink = do
@@ -64,6 +77,12 @@ imageLink = do
 imageLink' :: Parser ILink
 imageLink' =
     between (string "(img")  (char ')') linkContents'
+
+imageLinkP :: Parser ILink
+imageLinkP =
+    between (string "(img")  (char ')') linkContentsP
+
+
 
 data ILink = ILink {
     link   :: String,
