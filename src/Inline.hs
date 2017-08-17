@@ -1,10 +1,10 @@
 module Inline where
 
 
-import Text.Parsec
-import Text.Parsec.String
-import Data.List (intercalate)
--- import Control.Monad (void)
+import           Data.List          (intercalate)
+import           InlineSpace        (spaces')
+import           Text.Parsec
+import           Text.Parsec.String
 
 emphText :: Parser String
 emphText = do
@@ -34,10 +34,10 @@ regularWord = do
     first <- satisfy (/= '_') -- does not start with emphasis token
     middle <- many $ noneOf " _\n" -- word ends with a space
     return $ first:middle -- give back everything else
-                          -- 
+                          --
 oneWord :: Parser String
 oneWord = do
-    _ <- many $ char ' '  -- eat all spaces
+    spaces'  -- eat all spaces
     try stressedWord <|> try regularWord
 
 emphText''' :: Parser String
