@@ -171,10 +171,9 @@ tournamentHeader = longTokenLines "###"
 qSetNumber :: Parser Integer
 qSetNumber = do
   _ <- string "№№"
-  spaces'
-  n <- many1 digit
+  n <- decimal
   void endOfLine
-  return $ read n
+  return n
 
 testGrammar :: Parser String
 testGrammar = do

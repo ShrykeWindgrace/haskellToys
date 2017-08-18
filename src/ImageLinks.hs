@@ -7,6 +7,7 @@ module ImageLinks
 
 where
 
+import           Inline             (decimal)
 import           InlineSpace        (spaces')
 import           Text.Parsec
 import           Text.Parsec.Perm
@@ -21,9 +22,10 @@ sizeParse c = do
     spaces'
     () <$ char '='
     spaces'
-    s <- many1 digit
+    s <- decimal
+    spaces'
     () <$ string "px"
-    return $ read s
+    return s
 
 
 widParse :: Parser Integer

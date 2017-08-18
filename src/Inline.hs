@@ -42,3 +42,7 @@ oneWord = do
 
 emphText''' :: Parser String
 emphText''' = ("<e>" ++) . (++ "</e>") <$> (intercalate " ") <$> between (char '_') (char '_') (many oneWord)
+
+
+decimal :: Parser Integer
+decimal = read <$> (spaces' >> many1 digit)

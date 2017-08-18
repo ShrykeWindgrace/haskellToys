@@ -1,11 +1,12 @@
 module QNumber where
 
 import           InlineSpace
+import           Inline
 import           Text.Parsec
 import           Text.Parsec.String
 
 
-type QModifier = Either String Int
+type QModifier = Either String Integer
 type QModifierM = Maybe QModifier
 
 {-|
@@ -14,7 +15,7 @@ type QModifierM = Maybe QModifier
     Right newInt - the questions now count from this number
     Left tempStr - temporary question number
 -}
-printQN :: Int -> QModifierM -> String
+printQN :: Integer -> QModifierM -> String
 printQN n Nothing               = show n
 printQN _ (Just (Right newInt)) = show newInt
 printQN _ (Just (Left tempStr)) = tempStr
@@ -22,17 +23,17 @@ printQN _ (Just (Left tempStr)) = tempStr
 someQNS :: [QModifierM]
 someQNS = [Nothing, Nothing, Just $ Right 12, Just $ Left "q?"]
 
-nextNumber :: Int -> QModifierM -> Int
-nextNumber n Nothing               = succ n
+nextNumber :: Integer -> QModifierM -> Integer
+nextNumber n Nothing               = n + 1
 nextNumber _ (Just (Right newInt)) = newInt
-nextNumber n (Just (Left _))       = succ n
+nextNumber n (Just (Left _))       = n + 1
 
-scaa' :: [Int] -> [QModifierM] -> [Int]
+scaa' :: [Integer] -> [QModifierM] -> [Integer]
 scaa' ns []         = ns
 scaa' [] qs         = scaa' [0] qs
 scaa' (n:ns) (q:qs) = scaa' (nextNumber n q : n : ns) qs
 
-scaa :: [Int]
+scaa :: [Integer]
 scaa = reverse $ scaa' [1] someQNS
 
 qSoftReset :: Parser QModifier
@@ -46,10 +47,9 @@ qSoftReset = do
 qHardReset :: Parser QModifier
 qHardReset = do
   () <$ string "№№"
-  spaces'
-  s <- many1 digit
+  s <- decimal
   () <$ char '\n'
-  return $ Right $ read s
+  return $ Right s
 
 
 questModifier :: Parser QModifierM
