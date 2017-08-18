@@ -18,6 +18,7 @@ cabal.sandbox.config
 .stack-work/
 cabal.project.local
 .HTF/
+*.tix
 
 deps.pdf
 *.swp
