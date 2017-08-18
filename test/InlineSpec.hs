@@ -21,6 +21,9 @@ dssgr = ["удар<str>е</str>ние", "<str>е</str>"]
 dataSetStressBad :: [String]
 dataSetStressBad = ["", "`", "сомелье`", "нет", "удар``ение", "уд`ар`ение"]
 
+dataSetStressBadDescr :: [String]
+dataSetStressBadDescr = ["пустая строка", "только ударение", "повисшее ударение", "нет ударения", "два ударения подряд", "два ударения не подряд"]
+
 shoulds :: [Expectation]
 shoulds = zipWith shouldBe (parseHelper <$> dataSetStressGood) (Right <$> dssgr)
 
@@ -29,7 +32,7 @@ shouldsNeg = (`shouldSatisfy` isLeft) <$> (parseHelper <$> dataSetStressBad)
 
 its' = it <$> map (++ " should be ok") dataSetStressGood
 
-itsNeg' = it <$> map (++ " should not be ok") dataSetStressBad
+itsNeg' = it <$> map (++ " should not be ok") dataSetStressBadDescr
 
 its :: [SpecWith ()]
 its = zipWith ($)  (its' ++ itsNeg') (shoulds ++ shouldsNeg)

@@ -24,7 +24,7 @@ stressedWord = do
     pref <- many letter
     _ <- char '`'
     s <- letter
-    post <- many letter
+    post <- many letter --TODO words with two non-consecutive stresses are well-parsed, even if they should not
     return $ pref ++ "<str>" ++ [s] ++ "</str>" ++ post
 
 
