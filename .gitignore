@@ -24,3 +24,6 @@ deps.pdf
 *.swp
 *.sublime*
 out*.txt
+
+.idea
+*.iml
