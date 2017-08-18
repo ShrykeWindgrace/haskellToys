@@ -19,7 +19,7 @@ dssgr :: [String]
 dssgr = ["удар<str>е</str>ние", "<str>е</str>"]
 
 dataSetStressBad :: [String]
-dataSetStressBad = ["", "`", "сомелье`", "нет", "удар``ение"]
+dataSetStressBad = ["", "`", "сомелье`", "нет", "удар``ение", "уд`ар`ение"]
 
 shoulds :: [Expectation]
 shoulds = zipWith shouldBe (parseHelper <$> dataSetStressGood) (Right <$> dssgr)
