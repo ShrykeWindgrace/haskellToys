@@ -41,7 +41,7 @@ oneWord = do
     try stressedWord <|> try regularWord
 
 emphText''' :: Parser String
-emphText''' = ("<e>" ++) . (++ "</e>") <$> (intercalate " ") <$> between (char '_') (char '_') (many oneWord)
+emphText''' = ("<e>" ++) . (++ "</e>") . unwords <$> between (char '_') (char '_') (many oneWord)
 
 
 decimal :: Parser Integer

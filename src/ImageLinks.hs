@@ -58,7 +58,8 @@ linkContents' = do
 
 
 toMaybe :: Parser a -> Parser (Maybe a)
-toMaybe _parser = Just <$> try _parser
+-- toMaybe _parser = Just <$> try _parser
+toMaybe = fmap Just . try
 
 
 linkContentsP :: Parser ILink
