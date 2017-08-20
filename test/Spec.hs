@@ -4,4 +4,6 @@ import           ImageLinkSpec
 import           Test.Hspec
 import           Text.Parsec
 
-main = hspec imSpec2 >> hspec imSpec >> hspec inlineSpec
+specs = hspec <$> [imSpec2, imSpec, inlineSpec]
+
+main = sequence_ specs
