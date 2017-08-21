@@ -26,5 +26,6 @@ extra-deps:
 - transformers-compat-0.5.1.4
 - ghc-paths-0.1.0.9
 - syb-0.7
+- base-compat-0.9.3
 
 resolver: ghc-8.2.1
