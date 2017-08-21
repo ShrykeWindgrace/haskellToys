@@ -1,7 +1,7 @@
 module Helpers where
 
 import           Text.Parsec (parse, ParseError)
-import           Text.Parsec.String
+import           Text.Parsec.String (Parser)
 
 
 parseGen :: Parser a -> String -> Either ParseError a
