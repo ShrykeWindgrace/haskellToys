@@ -1,9 +1,10 @@
 module InlineSpec (spec) where
 
-import           Helpers     (parseGen, isLeft)
+import           Control.Monad (zipWithM_)
+import           Helpers       (isLeft, parseGen)
 import           Inline
 import           Test.Hspec
-import           Text.Parsec (ParseError)
+import           Text.Parsec   (ParseError)
 
 
 parseHelper :: String -> Either ParseError String
@@ -37,8 +38,5 @@ its = zipWith ($)  (its' ++ itsNeg') (shoulds ++ shouldsNeg)
 specs :: [SpecWith a -> SpecWith a]
 specs = describe <$> (dataSetStressGood ++ dataSetStressBad)
 
-imSpec2' ::[Spec]
-imSpec2' = zipWith ($) specs its
-
 spec :: Spec
-spec = sequence_ imSpec2'
+spec = zipWithM_ ($) specs its

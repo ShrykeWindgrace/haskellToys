@@ -3,6 +3,7 @@ module ImageLinkSpec
 
 where
 
+import           Control.Monad (zipWithM_)
 import           Data.Maybe
 import           Helpers
 import           ImageLinks 
@@ -53,11 +54,8 @@ its = zipWith ($)  its' shoulds
 specs :: [SpecWith a -> SpecWith a]
 specs = describe <$> dataSetString
 
-imSpec2' ::[Spec]
-imSpec2' = zipWith ($) specs its
-
 specAuto :: Spec
-specAuto = sequence_ imSpec2'
+specAuto = zipWithM_ ($) specs its
 
 specManual :: Spec
 specManual = do
