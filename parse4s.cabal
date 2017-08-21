@@ -45,6 +45,7 @@ test-suite parse4s-test
   main-is:             Spec.hs
   other-modules:       ImageLinkSpec
                      , InlineSpec
+                     , DecimalSpec
                      , Helpers
   build-depends:       base
                       , parse4s
