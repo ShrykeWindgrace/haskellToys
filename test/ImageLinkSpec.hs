@@ -1,15 +1,16 @@
 module ImageLinkSpec
-(imSpec, imSpec2)
+(spec)
 
 where
 
 import           Data.Maybe
-import           ImageLinks
+import           Helpers
+import           ImageLinks 
 import           Test.Hspec
-import           Text.Parsec
+import           Text.Parsec (ParseError)
 
 parseHelper :: String -> Either ParseError ILink
-parseHelper = parse imageLinkP ""
+parseHelper = parseGen imageLinkP
 
 linkText :: String
 linkText = "test.jpg"
@@ -55,11 +56,11 @@ specs = describe <$> dataSetString
 imSpec2' ::[Spec]
 imSpec2' = zipWith ($) specs its
 
-imSpec2 :: Spec
-imSpec2 = sequence_ imSpec2'
+specAuto :: Spec
+specAuto = sequence_ imSpec2'
 
-imSpec :: Spec
-imSpec = do
+specManual :: Spec
+specManual = do
     describe "(img test.jpg)" $
         it "should be well parsed to \"test.jpg\"" $
             parseHelper "(img test.jpg)" `shouldBe` (Right $ ILink "test.jpg" Nothing Nothing)
@@ -80,3 +81,7 @@ imSpec = do
     describe "(img h=400px w = 600px test.jpg)" $
         it "should be well-parsed to link and width" $
             parseHelper "(img h=400px w = 600px test.jpg)" `shouldBe` (Right $ ILink "test.jpg" (Just 600) (Just 400))
+
+
+spec :: Spec
+spec = specManual >> specAuto

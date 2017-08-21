@@ -1,16 +1,13 @@
-module InlineSpec (inlineSpec) where
+module InlineSpec (spec) where
 
+import           Helpers     (parseGen, isLeft)
 import           Inline
 import           Test.Hspec
-import           Text.Parsec
+import           Text.Parsec (ParseError)
 
-
-isLeft :: Either a b -> Bool
-isLeft (Right _) = False
-isLeft (Left _)  = True
 
 parseHelper :: String -> Either ParseError String
-parseHelper = parse stressedWord ""
+parseHelper = parseGen stressedWord
 
 dataSetStressGood :: [String]
 dataSetStressGood = ["удар`ение", "`е"]
@@ -43,5 +40,5 @@ specs = describe <$> (dataSetStressGood ++ dataSetStressBad)
 imSpec2' ::[Spec]
 imSpec2' = zipWith ($) specs its
 
-inlineSpec :: Spec
-inlineSpec = sequence_ imSpec2'
+spec :: Spec
+spec = sequence_ imSpec2'
