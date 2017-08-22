@@ -1,6 +1,5 @@
 module QNumber where
 
-import           InlineSpace
 import           Inline
 import           Text.Parsec
 import           Text.Parsec.String
