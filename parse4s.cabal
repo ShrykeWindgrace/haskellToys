@@ -23,6 +23,7 @@ library
                       , CLIOptionsLayer
                       , Version
                       , InlineSpace
+                      , Tech
   other-modules:        Render.StringWorks
   build-depends:       base >= 4.7 && < 5
                       , parsec

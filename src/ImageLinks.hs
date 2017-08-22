@@ -8,6 +8,7 @@ module ImageLinks
 where
 
 import           Inline             (decimal)
+import           Tech             (lexeme)
 import           InlineSpace        (spaces')
 import           Text.Parsec
 import           Text.Parsec.Perm
@@ -17,14 +18,10 @@ import           Text.Parsec.String
 
 sizeParse :: Char -> Parser Integer
 sizeParse c = do
-    spaces'
-    () <$ char c
-    spaces'
-    () <$ char '='
-    spaces'
-    s <- decimal
-    spaces'
-    () <$ string "px"
+    lexeme $ char c
+    lexeme $ char '='
+    s <- lexeme decimal
+    lexeme $ string "px"
     return s
 
 

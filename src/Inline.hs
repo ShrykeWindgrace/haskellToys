@@ -3,6 +3,7 @@ module Inline where
 
 import           Data.List          (intercalate)
 import           InlineSpace        (spaces')
+import           Tech               (lexeme)
 import           Text.Parsec
 import           Text.Parsec.String
 
@@ -45,4 +46,4 @@ emphText''' = ("<e>" ++) . (++ "</e>") . unwords <$> between (char '_') (char '_
 
 
 decimal :: Parser Integer
-decimal = read <$> (spaces' >> many1 digit)
+decimal = read <$> lexeme (many1 digit)
