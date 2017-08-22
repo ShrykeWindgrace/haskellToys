@@ -33,7 +33,7 @@ regularWord :: Parser String
 regularWord = do
     -- _ <- many $ char ' '  -- eat all spaces
     first <- satisfy (/= '_') -- does not start with emphasis token
-    middle <- many $ noneOf " _\n" -- word ends with a space
+    middle <- many $ noneOf " _\n\t" -- word ends with a space
     return $ first:middle -- give back everything else
                           --
 oneWord :: Parser String
@@ -45,5 +45,8 @@ emphText''' :: Parser String
 emphText''' = ("<e>" ++) . (++ "</e>") . unwords <$> between (char '_') (char '_') (many oneWord)
 
 
+{-|
+    Parse non-negative integer; eats all preceding space
+-}
 decimal :: Parser Integer
-decimal = read <$> lexeme (many1 digit)
+decimal = read <$> lexeme (many1 digit) <?> "decimal digit"
