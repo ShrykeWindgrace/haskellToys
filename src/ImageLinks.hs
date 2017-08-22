@@ -8,8 +8,8 @@ module ImageLinks
 where
 
 import           Inline             (decimal)
-import           Tech             (lexeme)
 import           InlineSpace        (spaces')
+import           Tech               (lexeme, toMaybe)
 import           Text.Parsec
 import           Text.Parsec.Perm
 import           Text.Parsec.String
@@ -53,15 +53,9 @@ linkContents' = do
     return $ ILink l w h
 
 
-
-toMaybe :: Parser a -> Parser (Maybe a)
--- toMaybe _parser = Just <$> try _parser
-toMaybe = fmap Just . try
-
-
 linkContentsP :: Parser ILink
 linkContentsP =  permute (ILink
-    <$$> (spaces' >> many1 (noneOf ")\n"))
+    <$$> (lexeme ( many1 (noneOf ")\n")))
     <|?> (Nothing,  toMaybe widParse)
     <|?> (Nothing,  toMaybe heiParse))
 
