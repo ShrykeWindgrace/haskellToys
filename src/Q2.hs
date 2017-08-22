@@ -8,6 +8,7 @@ import           ImageLinks
 import           Inline
 import           InlineSpace
 import           QNumber
+import           Tech               (lexeme)
 -- import Data.List
 import           Render.StringWorks
 
@@ -184,12 +185,8 @@ testGrammar = do
   tour <- tourGrammar
   return $ to ++ ed ++ tour
 
-blankLine :: Parser String
-blankLine = do
-  _ <- many $ char ' '
-  _ <- char '\n'
-  return ""
-  <?> "blankLine"
+blankLine :: Parser ()
+blankLine = void (lexeme endOfLine <?> "\"\\n\" or \"\\r\\n\"")
 
 someQQ :: Bool -> String -> String -> IO ()
 someQQ cons inF outF = do
