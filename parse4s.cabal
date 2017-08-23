@@ -25,6 +25,7 @@ library
                       , InlineSpace
                       , Tech
   other-modules:        Render.StringWorks
+                      , Structures.Words
   build-depends:       base >= 4.7 && < 5
                       , parsec
                       , optparse-applicative
