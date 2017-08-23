@@ -12,7 +12,7 @@ before_test:
 
 - curl -sS -ostack.zip -L --insecure http://www.stackage.org/stack/windows-i386
 - 7z x stack.zip stack.exe
-- cp stack/%STACK_FILE%/stack.yaml .
+# - cp stack/%STACK_FILE%/stack.yaml .
 clone_folder: "c:\\stack"
 
 test_script:
@@ -20,4 +20,4 @@ test_script:
 - stack path
 # The ugly echo "" hack is to avoid complaints about 0 being an invalid file
 # descriptor
-- echo "" | stack --no-terminal build
+- echo "" | stack --no-terminal test
