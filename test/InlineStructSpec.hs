@@ -16,7 +16,7 @@ dataSetStressGood :: [String]
 dataSetStressGood = ["удар`ение", "`е"]
 
 dssgr :: [OneWord]
-dssgr = Left <$> [StressedWord "удар" 'е' "ние", StressedWord "" 'е' ""]
+dssgr = [StressedWord "удар" 'е' "ние", StressedWord "" 'е' ""]
 
 dataSetStressBad :: [String]
 dataSetStressBad = ["", "`", "сомелье`", "нет", "удар``ение", "уд`ар`ение"]

@@ -39,7 +39,7 @@ stressedWord' = do
     s <- letter
     post <- many letter --TODO words with two non-consecutive stresses are well-parsed, even if they should not
     choice [() <$ try (oneOf " \n\t\r"), eof]
-    return $ Left $ StressedWord pref s post
+    return $ StressedWord pref s post
 
 regularWord :: Parser String
 regularWord = do
@@ -54,7 +54,7 @@ regularWord' = do
     -- _ <- many $ char ' '  -- eat all spaces
     first <- satisfy (/= '_') -- does not start with emphasis token
     middle <- many $ noneOf " _\n\t`" -- word ends with a space and does not contain stresses
-    return $ Right $ RegWord $ first:middle -- give back everything else
+    return $ RegWord $ first:middle -- give back everything else
 
 
 oneWord :: Parser String
