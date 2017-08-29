@@ -15,8 +15,6 @@ clone_folder: "c:\\stack"
 
 test_script:
 - stack setup > nul
-- stack path
-- chcp 65001
+- chcp 65001 && echo "" | stack --no-terminal test
 # The ugly echo "" hack is to avoid complaints about 0 being an invalid file
 # descriptor
-- echo "" | stack --no-terminal test
