@@ -12,7 +12,7 @@ import           Test.Hspec
 import           Text.Parsec (ParseError)
 
 parseHelper :: String -> Either ParseError ILink
-parseHelper = parseGen imageLinkP
+parseHelper = parseGen imageLink
 
 linkText :: String
 linkText = "test.jpg"

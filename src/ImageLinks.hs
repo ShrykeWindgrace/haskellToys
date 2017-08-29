@@ -32,32 +32,16 @@ widParse = sizeParse 'w'
 heiParse :: Parser Integer
 heiParse = sizeParse 'h'
 
-
-linkContents :: Parser ()
-linkContents = do
-    spaces'
-    optional widParse
-    spaces'
-    optional heiParse
-    spaces'
-    () <$ many1 (noneOf ")\n")
-
-
-linkContentsP :: Parser ILink
-linkContentsP =  permute (ILink
+linkContents :: Parser ILink
+linkContents =  permute (ILink
     <$$> (lexeme ( many1 (noneOf ")\n")))
     <|?> (Nothing,  toMaybe widParse)
     <|?> (Nothing,  toMaybe heiParse))
 
 
 -- (img w=20px h=40px kotik.jpg)
-imageLink :: Parser Char
-imageLink = do
-    spaces'
+
+
+imageLink :: Parser ILink
+imageLink =
     between (string "(img")  (char ')') linkContents
-    return '&'
-
-
-imageLinkP :: Parser ILink
-imageLinkP =
-    between (string "(img")  (char ')') linkContentsP

@@ -35,7 +35,7 @@ tokenList = "@?!-\n№#/=^<>"
 inlineText :: Parser String
 inlineText =
   do c <- noneOf tokenList
-     s <- many1 $ try imageLink <|> try emphText'' <|> noneOf "\n"
+     s <- many1 $ (const '&' <$> try imageLink) <|> try emphText'' <|> noneOf "\n"
      void (char '\n') <|> eof
      return (c : s ++ "\n")
      <?> "inlineText"
