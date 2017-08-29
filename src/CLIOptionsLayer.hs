@@ -4,7 +4,7 @@ module CLIOptionsLayer
 
 import           Data.Semigroup      ((<>))
 import           Options.Applicative
-import           Q2
+import           MeltingPot
 import           Version
 
 data Options = Options

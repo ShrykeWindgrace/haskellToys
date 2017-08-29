@@ -1,4 +1,4 @@
-module Q2 where
+module MeltingPot where
 
 import           Control.Monad      (void)
 import           Text.Parsec
@@ -9,7 +9,6 @@ import           Inline
 import           InlineSpace
 import           QNumber
 import           Tech               (lexeme)
--- import Data.List
 import           Render.StringWorks
 
 {-|
@@ -29,8 +28,6 @@ tokenList = "@?!-\n№#/=^<>"
   implement inline modifiers:
 
       * emphasis
-      * image links
-      * accents
 -}
 inlineText :: Parser String
 inlineText =
