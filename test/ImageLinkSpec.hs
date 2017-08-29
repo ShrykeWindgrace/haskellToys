@@ -7,6 +7,7 @@ import           Control.Monad (zipWithM_)
 import           Data.Maybe
 import           Helpers
 import           ImageLinks 
+import           Structures.Words
 import           Test.Hspec
 import           Text.Parsec (ParseError)
 

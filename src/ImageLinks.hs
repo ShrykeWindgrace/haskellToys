@@ -9,6 +9,7 @@ where
 
 import           Inline             (decimal)
 import           InlineSpace        (spaces')
+import           Structures.Words
 import           Tech               (lexeme, toMaybe)
 import           Text.Parsec
 import           Text.Parsec.Perm
@@ -42,17 +43,6 @@ linkContents = do
     () <$ many1 (noneOf ")\n")
 
 
-linkContents' :: Parser ILink
-linkContents' = do
-    spaces'
-    w <- optionMaybe widParse
-    spaces'
-    h <- optionMaybe heiParse
-    spaces'
-    l <- many1 $ noneOf ")\n"
-    return $ ILink l w h
-
-
 linkContentsP :: Parser ILink
 linkContentsP =  permute (ILink
     <$$> (lexeme ( many1 (noneOf ")\n")))
@@ -68,18 +58,6 @@ imageLink = do
     return '&'
 
 
-imageLink' :: Parser ILink
-imageLink' =
-    between (string "(img")  (char ')') linkContents'
-
 imageLinkP :: Parser ILink
 imageLinkP =
     between (string "(img")  (char ')') linkContentsP
-
-
-
-data ILink = ILink {
-    link   :: String,
-    width  :: Maybe Integer,
-    height :: Maybe Integer
-    } deriving (Eq, Show)
