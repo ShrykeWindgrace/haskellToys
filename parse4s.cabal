@@ -24,8 +24,8 @@ library
                       , Version
                       , InlineSpace
                       , Tech
-  other-modules:        Render.StringWorks
                       , Structures.Words
+  other-modules:        Render.StringWorks
   build-depends:       base >= 4.7 && < 5
                       , parsec
                       , optparse-applicative
@@ -47,6 +47,7 @@ test-suite parse4s-test
   main-is:             Spec.hs
   other-modules:       ImageLinkSpec
                      , InlineSpec
+                     , InlineStructSpec
                      , DecimalSpec
                      , Helpers
   build-depends:       base
