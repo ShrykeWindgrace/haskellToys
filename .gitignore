@@ -27,3 +27,5 @@ out*.txt
 
 .idea
 *.iml
+
+.weeder.yaml

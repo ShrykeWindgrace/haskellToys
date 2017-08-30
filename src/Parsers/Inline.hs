@@ -1,23 +1,12 @@
 module Parsers.Inline where
 
 
-import           Data.List          (intercalate)
-import           Parsers.InlineSpace        (spaces')
+import           Data.List           (intercalate)
+import           Parsers.InlineSpace (spaces')
+import           Parsers.Tech        (lexeme)
 import           Structures.Words
-import           Parsers.Tech               (lexeme)
 import           Text.Parsec
 import           Text.Parsec.String
-
-emphText :: Parser String
-emphText = do
-  s <- between (char '_') (char '_') $ many1 $ noneOf "_\n"
-  return $ "EMPH:" ++ s
-
-emphText' :: Parser String
-emphText' = ("<e>" ++) . (++ "</e>") <$> between (char '_') (char '_') (many1 $ noneOf "_\n")
-
-emphText'' :: Parser Char
-emphText'' = const 'E' <$> between (char '_') (char '_') (many1 $ noneOf "_\n")
 
 
 stressedWord :: Parser String
@@ -67,9 +56,6 @@ oneWord' :: Parser OneWord
 oneWord' = do
     spaces'  -- eat all spaces
     try stressedWord' <|> try regularWord'
-
-emphText''' :: Parser String
-emphText''' = ("<e>" ++) . (++ "</e>") . unwords <$> between (char '_') (char '_') (many oneWord)
 
 
 {-|

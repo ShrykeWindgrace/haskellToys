@@ -26,6 +26,7 @@ library
                       , Parsers.Tech
                       , Structures.Words
   other-modules:        Render.StringWorks
+                      , Parsers.Tokens
   build-depends:       base >= 4.7 && < 5
                       , parsec
                       , optparse-applicative
