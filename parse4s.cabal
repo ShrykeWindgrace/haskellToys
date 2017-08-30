@@ -17,7 +17,7 @@ library
   hs-source-dirs:      src
   exposed-modules:      MeltingPot
                       , AST
-                      , ImageLinks
+                      , Parsers.ImageLinks
                       , Inline
                       , QNumber
                       , CLIOptionsLayer

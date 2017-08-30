@@ -6,7 +6,7 @@ where
 import           Control.Monad (zipWithM_)
 import           Data.Maybe
 import           Helpers
-import           ImageLinks 
+import           Parsers.ImageLinks 
 import           Structures.Words
 import           Test.Hspec
 import           Text.Parsec (ParseError)

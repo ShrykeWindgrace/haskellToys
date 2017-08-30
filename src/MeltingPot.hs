@@ -4,7 +4,7 @@ import           Control.Monad      (void)
 import           Text.Parsec
 import           Text.Parsec.String
 
-import           ImageLinks
+import           Parsers.ImageLinks
 import           Inline
 import           InlineSpace
 import           QNumber
@@ -17,7 +17,7 @@ import           Render.StringWorks
   regular lines can not begin with these symbols
 -}
 tokenList :: String
-tokenList = "@?!-\n№#/=^<>"
+tokenList = "@?!-\n№#/=^<>["
 
 {-|
   Current implementation of regular text

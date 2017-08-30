@@ -1,4 +1,4 @@
-module ImageLinks
+module Parsers.ImageLinks
     -- (
     --     imageLink,
     --     imageLink',
@@ -8,7 +8,6 @@ module ImageLinks
 where
 
 import           Inline             (decimal)
-import           InlineSpace        (spaces')
 import           Structures.Words
 import           Tech               (lexeme, toMaybe)
 import           Text.Parsec
