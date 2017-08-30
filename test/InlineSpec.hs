@@ -3,7 +3,7 @@ module InlineSpec (spec) where
 import           Control.Monad (zipWithM_)
 import           Data.Either   (isLeft)
 import           Helpers       (parseGen)
-import           Inline
+import           Parsers.Inline
 import           Test.Hspec
 import           Text.Parsec   (ParseError)
 

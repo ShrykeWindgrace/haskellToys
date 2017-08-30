@@ -1,8 +1,8 @@
-module Tech (lexeme, toMaybe) where
+module Parsers.Tech (lexeme, toMaybe) where
 
 import Text.Parsec
 import Text.Parsec.String
-import InlineSpace (spaces')
+import Parsers.InlineSpace (spaces')
 
 
 {-|

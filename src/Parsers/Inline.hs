@@ -1,10 +1,10 @@
-module Inline where
+module Parsers.Inline where
 
 
 import           Data.List          (intercalate)
-import           InlineSpace        (spaces')
+import           Parsers.InlineSpace        (spaces')
 import           Structures.Words
-import           Tech               (lexeme)
+import           Parsers.Tech               (lexeme)
 import           Text.Parsec
 import           Text.Parsec.String
 

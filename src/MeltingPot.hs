@@ -5,10 +5,10 @@ import           Text.Parsec
 import           Text.Parsec.String
 
 import           Parsers.ImageLinks
-import           Inline
-import           InlineSpace
+import           Parsers.Inline
+import           Parsers.InlineSpace
 import           QNumber
-import           Tech               (lexeme)
+import           Parsers.Tech               (lexeme)
 import           Render.StringWorks
 
 {-|

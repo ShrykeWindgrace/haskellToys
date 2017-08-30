@@ -2,7 +2,7 @@ module DecimalSpec (spec) where
 
 import           Data.Either     (isLeft)
 import           Helpers         (parseGen)
-import           Inline          (decimal)
+import           Parsers.Inline          (decimal)
 import           Test.Hspec
 import           Test.QuickCheck
 import           Text.Parsec

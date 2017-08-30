@@ -1,6 +1,6 @@
 module QNumber where
 
-import           Inline
+import           Parsers.Inline (decimal)
 import           Text.Parsec
 import           Text.Parsec.String
 

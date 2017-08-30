@@ -18,12 +18,12 @@ library
   exposed-modules:      MeltingPot
                       , AST
                       , Parsers.ImageLinks
-                      , Inline
+                      , Parsers.Inline
                       , QNumber
                       , CLIOptionsLayer
                       , Version
-                      , InlineSpace
-                      , Tech
+                      , Parsers.InlineSpace
+                      , Parsers.Tech
                       , Structures.Words
   other-modules:        Render.StringWorks
   build-depends:       base >= 4.7 && < 5

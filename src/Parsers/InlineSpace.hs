@@ -1,4 +1,4 @@
-module InlineSpace
+module Parsers.InlineSpace
   ( spaces'
   ) where
 

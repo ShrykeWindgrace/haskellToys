@@ -7,9 +7,9 @@ module Parsers.ImageLinks
 
 where
 
-import           Inline             (decimal)
+import           Parsers.Inline             (decimal)
 import           Structures.Words
-import           Tech               (lexeme, toMaybe)
+import           Parsers.Tech               (lexeme, toMaybe)
 import           Text.Parsec
 import           Text.Parsec.Perm
 import           Text.Parsec.String

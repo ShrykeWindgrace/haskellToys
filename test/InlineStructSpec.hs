@@ -3,7 +3,7 @@ module InlineStructSpec (spec) where
 import           Control.Monad    (zipWithM_)
 import           Data.Either      (isLeft)
 import           Helpers          (parseGen)
-import           Inline
+import           Parsers.Inline
 import           Structures.Words
 import           Test.Hspec
 import           Text.Parsec      (ParseError)
