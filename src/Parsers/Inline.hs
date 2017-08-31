@@ -63,3 +63,7 @@ oneWord' = do
 -}
 decimal :: Parser Integer
 decimal = read <$> lexeme (many1 digit) <?> "decimal digit"
+
+
+rawLine :: Parser String
+rawLine = lexeme $ many $ noneOf "\r\n"

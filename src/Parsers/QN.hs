@@ -1,6 +1,6 @@
 module Parsers.QN where
 
-import           Parsers.Inline     (decimal)
+import           Parsers.Inline     (decimal, rawLine)
 import           Parsers.Tech
 import           Structures.QNumber
 import           Text.Parsec
@@ -26,6 +26,9 @@ qHardReset = do
 
 qHardReset' :: Parser QModifier
 qHardReset' = Hard <$> between (string "№№") (lexeme endOfLine) decimal
+
+qSoftReset' :: Parser QModifier
+qSoftReset' = Soft <$> between (char '№') (lexeme endOfLine) rawLine -- TODO use usualLine
 
 
 questModifier :: Parser QModifierM
