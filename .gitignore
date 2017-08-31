@@ -21,6 +21,7 @@ cabal.project.local
 *.tix
 
 deps.pdf
+structure.pdf
 *.swp
 *.sublime*
 out*.txt
