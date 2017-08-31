@@ -19,11 +19,12 @@ library
                       , AST
                       , Parsers.ImageLinks
                       , Parsers.Inline
-                      , QNumber
+                      , Structures.QNumber
                       , CLIOptionsLayer
                       , Version
                       , Parsers.InlineSpace
                       , Parsers.Tech
+                      , Parsers.QN
                       , Structures.Words
   other-modules:        Render.StringWorks
                       , Parsers.Tokens

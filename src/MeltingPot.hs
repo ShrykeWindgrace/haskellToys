@@ -1,20 +1,11 @@
 module MeltingPot where
 
 import           Control.Monad       (void)
-import           Parsers.Inline
 import           Parsers.Tokens
-import           QNumber
 import           Text.Parsec
 import           Text.Parsec.String
 
 
-
--- listLines :: Parser String
--- listLines = do
---   _ <- char '-'
---   s <- inlineText
---   nextS <- many listLines
---   return $ concat (("<li> " ++ s ++ "</li>\n") : nextS)
 
 {-|
    Вопрос целиком
@@ -23,7 +14,7 @@ fullQuestText :: Parser String
 fullQuestText =
   do _ <- many $ char '\n'
      q <- questText
-     qm <- questModifier
+     -- qm <- questModifier
      a <- answerText
      opts <-
        many $
@@ -38,7 +29,7 @@ fullQuestText =
   -- li <- optionMaybe listLines
   -- a'<- optionMaybe equivText
      void endOfLine <|> eof
-     return $ q ++ a ++ concat opts ++ showQ qm
+     return $ q ++ a ++ concat opts -- ++ showQ qm
      <?> "fullQuestText"
 
 {-|
@@ -50,13 +41,6 @@ tourGrammar = do
   return $ concat s
 
 
-
-qSetNumber :: Parser Integer
-qSetNumber = do
-  _ <- string "№№"
-  n <- decimal
-  void endOfLine
-  return n
 
 testGrammar :: Parser String
 testGrammar = do
