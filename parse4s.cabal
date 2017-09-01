@@ -26,6 +26,7 @@ library
                       , Parsers.QN
                       , Structures.Words
                       , Structures.Lines
+                      , Structures.Quest
   other-modules:        Render.StringWorks
                       , Parsers.Tokens
   build-depends:       base >= 4.7 && < 5
