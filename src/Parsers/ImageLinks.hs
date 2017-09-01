@@ -33,7 +33,7 @@ heiParse = sizeParse 'h'
 
 linkContents :: Parser ILink
 linkContents =  permute (ILink
-    <$$> (lexeme ( many1 (noneOf ")\n")))
+    <$$> lexeme ( many1 (noneOf ")\n"))
     <|?> (Nothing,  toMaybe widParse)
     <|?> (Nothing,  toMaybe heiParse))
 
