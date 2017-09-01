@@ -7,6 +7,7 @@ import           Parsers.Tech        (lexeme)
 import           Structures.Words
 import           Text.Parsec
 import           Text.Parsec.String
+import qualified Structures.Lines as SL
 
 
 stressedWord :: Parser String
@@ -67,3 +68,6 @@ decimal = read <$> lexeme (many1 digit) <?> "decimal digit"
 
 rawLine :: Parser String
 rawLine = lexeme $ many $ noneOf "\r\n"
+
+regLine :: Parser SL.Line
+regLine = SL.Line <$> many1 oneWord' -- or just many?

@@ -16,7 +16,6 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:      MeltingPot
-                      , AST
                       , Parsers.ImageLinks
                       , Parsers.Inline
                       , Structures.QNumber
@@ -26,6 +25,7 @@ library
                       , Parsers.Tech
                       , Parsers.QN
                       , Structures.Words
+                      , Structures.Lines
   other-modules:        Render.StringWorks
                       , Parsers.Tokens
   build-depends:       base >= 4.7 && < 5

@@ -1,8 +1,9 @@
 module Structures.Lines where 
 
 import Structures.Words
-data ListLines = ListLines [Lines] deriving (Eq)
 
+data Line = Line [OneWord] deriving (Eq)
 
-data Line = []
+instance Show Line where
+    show (Line words) = unwords (show <$> words)
 
