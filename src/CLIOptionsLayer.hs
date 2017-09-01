@@ -23,7 +23,7 @@ options =
      short 'i' <>
      metavar "INPUT_FILE" <>
      help "path to input file" <>
-     value "input.txt" <>
+     value "test\\inputs\\input.txt" <>
      showDefault) <*>
   strOption
     (long "input" <>
