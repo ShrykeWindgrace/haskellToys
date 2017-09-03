@@ -17,7 +17,6 @@ data QFieldType = QText | QAnswer | QEquiv | QAuthor | QComment | QNotEquiv | QS
 instance Show QFieldType where
     show QText = "?"
     show QEquiv = "="
-    show QText = "?"
     show QAuthor = "@"
     show QSource = "^"
     show QAnswer = "!"
