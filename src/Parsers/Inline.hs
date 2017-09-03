@@ -43,7 +43,9 @@ regularWord' :: Parser OneWord
 regularWord' = do
     -- _ <- many $ char ' '  -- eat all spaces
     first <- satisfy (/= '_') -- does not start with emphasis token
-    middle <- many $ noneOf " _\n\t`" -- word ends with a space and does not contain stresses
+    middle <- many $ noneOf " \n\t`" -- word ends with a space and does not contain stresses
+    choice [() <$ try (oneOf " \n\t\r"), eof]
+
     return $ RegWord $ first:middle -- give back everything else
 
 

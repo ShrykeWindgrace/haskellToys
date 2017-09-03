@@ -10,27 +10,30 @@ import           Text.Parsec      (ParseError)
 
 
 parseHelper :: String -> Either ParseError OneWord
-parseHelper = parseGen stressedWord'
+parseHelper = parseGen oneWord'
 
 dataSetStressGood :: [String]
 dataSetStressGood = ["удар`ение", "`е"]
 
+dataSetUnstressGood :: [String]
+dataSetUnstressGood = ["слово", "а", "КАПСЛОК", "зАбОрЧиК", "цифры11", "знакПрепинания;", "без_пробела"]
+
 dssgr :: [OneWord]
-dssgr = [StressedWord "удар" 'е' "ние", StressedWord "" 'е' ""]
+dssgr = [StressedWord "удар" 'е' "ние", StressedWord "" 'е' ""] ++ (RegWord <$> dataSetUnstressGood)
 
 dataSetStressBad :: [String]
-dataSetStressBad = ["", "`", "сомелье`", "нет", "удар``ение", "уд`ар`ение"]
+dataSetStressBad = ["", "сомелье`", "удар``ение", "уд`ар`ение"]
 
 dataSetStressBadDescr :: [String]
-dataSetStressBadDescr = ["пустая строка", "только ударение", "повисшее ударение", "нет ударения", "два ударения подряд", "два ударения не подряд"]
+dataSetStressBadDescr = ["пустая строка", "повисшее ударение", "нет ударения", "два ударения подряд", "два ударения не подряд"]
 
 shoulds :: [Expectation]
-shoulds = zipWith shouldBe (parseHelper <$> dataSetStressGood) (Right <$> dssgr)
+shoulds = zipWith shouldBe (parseHelper <$> (dataSetStressGood ++ dataSetUnstressGood)) (Right <$> dssgr)
 
 shouldsNeg :: [Expectation]
 shouldsNeg = (`shouldSatisfy` isLeft) <$> (parseHelper <$> dataSetStressBad)
 
-its' = it <$> map (++ " should be ok") dataSetStressGood
+its' = it <$> map (++ " should be ok") (dataSetStressGood ++ dataSetUnstressGood)
 
 itsNeg' = it <$> map (++ " should not be ok") dataSetStressBadDescr
 
@@ -38,7 +41,7 @@ its :: [SpecWith ()]
 its = zipWith ($)  (its' ++ itsNeg') (shoulds ++ shouldsNeg)
 
 specs :: [SpecWith a -> SpecWith a]
-specs = describe <$> (dataSetStressGood ++ dataSetStressBad)
+specs = describe <$> (dataSetStressGood ++ dataSetUnstressGood ++ dataSetStressBad)
 
 spec :: Spec
 spec = zipWithM_ ($) specs its
