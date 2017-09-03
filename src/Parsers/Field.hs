@@ -1,4 +1,4 @@
-module Field where
+module Parsers.Field where
 
 import Text.Parsec
 import Text.Parsec.String
