@@ -10,7 +10,7 @@ import           Text.Parsec      (ParseError)
 
 
 parseHelper :: String -> Either ParseError OneWord
-parseHelper = parseGen oneWord'
+parseHelper = parseGen oneWord
 
 dataSetStressGood :: [String]
 dataSetStressGood = ["удар`ение", "`е"]

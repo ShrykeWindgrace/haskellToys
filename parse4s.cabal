@@ -49,7 +49,6 @@ test-suite parse4s-test
   hs-source-dirs:      test
   main-is:             Spec.hs
   other-modules:       ImageLinkSpec
-                     , InlineSpec
                      , InlineStructSpec
                      , DecimalSpec
                      , Helpers
