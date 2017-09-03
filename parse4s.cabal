@@ -24,6 +24,7 @@ library
                       , Parsers.InlineSpace
                       , Parsers.Tech
                       , Parsers.QN
+                      , Parsers.Field
                       , Structures.Words
                       , Structures.Lines
                       , Structures.Quest
