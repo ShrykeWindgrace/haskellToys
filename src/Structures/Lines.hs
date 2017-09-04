@@ -1,9 +1,9 @@
-module Structures.Lines where 
+module Structures.Lines where
 
-import Structures.Words
+import           Structures.Words
 
 data Line = Line [OneWord] deriving (Eq)
 
 instance Show Line where
-    show (Line words) = unwords (show <$> words)
+    show (Line _words) = unwords (show <$> _words)
 

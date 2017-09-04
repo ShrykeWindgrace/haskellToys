@@ -1,8 +1,8 @@
 module Parsers.Field where
 
-import Text.Parsec
-import Text.Parsec.String
-import Structures.Quest
+import           Structures.Quest
+import           Text.Parsec
+import           Text.Parsec.String
 
 
 fieldType :: String -> Parser QFieldType

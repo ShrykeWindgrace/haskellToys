@@ -1,15 +1,15 @@
 {-# LANGUAGE TemplateHaskell #-}
 module QFTSpec (spec) where
 
-import           Data.Either     (isLeft)
-import           Helpers         (parseGen)
+import           Data.DeriveTH
+import           Data.Either               (isLeft)
+import           Helpers                   (parseGen)
 import           Parsers.Field
-import Structures.Quest
+import           Structures.Quest
 import           Test.Hspec
 import           Test.QuickCheck
+import           Test.QuickCheck.Arbitrary
 import           Text.Parsec
-import Test.QuickCheck.Arbitrary
-import Data.DeriveTH
 
 
 $( derive makeArbitrary ''QFieldType ) -- Arbitrary instance for QFieldType to facilitate automated checks
