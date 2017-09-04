@@ -25,7 +25,7 @@ qHardReset = do
 
 
 qHardReset' :: Parser QModifier
-qHardReset' = Hard <$> between (string "№№") (lexeme endOfLine) decimal
+qHardReset' = Hard <$> (string "№№" >> lexeme decimal)
 
 qSoftReset' :: Parser QModifier
 qSoftReset' = Soft <$> between (char '№') (lexeme endOfLine) rawLine -- TODO use usualLine
@@ -33,6 +33,3 @@ qSoftReset' = Soft <$> between (char '№') (lexeme endOfLine) rawLine -- TODO u
 
 questModifier :: Parser QModifierM
 questModifier = optionMaybe $ try qHardReset <|> try qSoftReset
-
-
-
