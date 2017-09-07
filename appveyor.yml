@@ -4,12 +4,18 @@ environment:
   global:
     STACK_ROOT: "c:\\sr"
 
-before_test:
+install:
 # http://help.appveyor.com/discussions/problems/6312-curl-command-not-found
 - set PATH=C:\Program Files\Git\mingw64\bin;%PATH%
 
 - curl -sS -ostack.zip -L --insecure http://www.stackage.org/stack/windows-i386
 - 7z x stack.zip stack.exe
+# Install parsec, text and mtl, also alex and happy
+  - echo "" | appveyor-retry cabal install parsec-3.1.11 text-1.2.2.2 mtl-2.2.1 alex-3.1.7 happy-1.19.5
+
+
+#before_test:
+
 
 clone_folder: "c:\\stack"
 
