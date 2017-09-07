@@ -5,7 +5,9 @@ module CLIOptionsLayer
 import           Data.Semigroup      ((<>))
 import           Options.Applicative
 import           MeltingPot
-import           Version
+-- import           Version
+import qualified Data.Version as DV (showVersion)
+import Paths_parse4s (version)
 
 data Options = Options
   { input          :: String
@@ -56,7 +58,7 @@ optionsH =
 
 mainParametrised :: Options -> IO ()
 mainParametrised opt
-  | showVersion opt = putStrLn $ "Current version is " ++ version
+  | showVersion opt = putStrLn $ "Current version is " ++ DV.showVersion version
   | dryRun opt = putStrLn "Dry Run"
   | otherwise =
     putStrLn ("Input file: " ++ input opt) >>

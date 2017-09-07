@@ -20,7 +20,7 @@ library
                       , Parsers.Inline
                       , Structures.QNumber
                       , CLIOptionsLayer
-                      , Version
+--                      , Version
                       , Parsers.InlineSpace
                       , Parsers.Tech
                       , Parsers.QN
@@ -30,6 +30,7 @@ library
                       , Structures.Quest
   other-modules:        Render.StringWorks
                       , Parsers.Tokens
+                      , Paths_parse4s
   build-depends:       base >= 4.7 && < 5
                       , parsec
                       , optparse-applicative
