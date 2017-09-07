@@ -11,7 +11,7 @@ install:
 - curl -sS -ostack.zip -L --insecure http://www.stackage.org/stack/windows-i386
 - 7z x stack.zip stack.exe
 # Install parsec, text and mtl, also alex and happy
-- echo "" | appveyor-retry cabal install parsec-3.1.11 text-1.2.2.2 mtl-2.2.1 alex-3.1.7 happy-1.19.5
+- echo "" | appveyor-retry stack install happy-1.19.6
 
 
 #before_test:
