@@ -1,1 +1,3 @@
 https://github.com/aisamanra/haddock-cheatsheet/blob/master/haddocks.pdf
+
+https://db.chgk.info/txt/ruscup13.txt

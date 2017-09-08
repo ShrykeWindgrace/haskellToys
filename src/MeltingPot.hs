@@ -1,9 +1,10 @@
 module MeltingPot where
 
-import           Control.Monad       (void)
+import           Control.Monad          (void)
+import           Parsers.InlineSpace    (spaces')
 import           Parsers.Tokens
-import           Text.Parsec
-import           Text.Parsec.String
+import           Text.Megaparsec
+import           Text.Megaparsec.String
 
 
 
@@ -28,7 +29,7 @@ fullQuestText =
          ]
   -- li <- optionMaybe listLines
   -- a'<- optionMaybe equivText
-     void endOfLine <|> eof
+     void eol <|> eof
      return $ q ++ a ++ concat opts -- ++ showQ qm
      <?> "fullQuestText"
 
@@ -37,7 +38,7 @@ fullQuestText =
 -}
 tourGrammar :: Parser String
 tourGrammar = do
-  s <- many1 fullQuestText
+  s <- some fullQuestText
   return $ concat s
 
 
@@ -45,23 +46,8 @@ tourGrammar = do
 testGrammar :: Parser String
 testGrammar = do
   to <- tournamentHeader
-  spaces
+  spaces'
   ed <- editorHeader
-  spaces
+  spaces'
   tour <- tourGrammar
   return $ to ++ ed ++ tour
-
-
-
-someQQ :: Bool -> String -> String -> IO ()
-someQQ cons inF outF = do
-  parseResult <- parseFromFile testGrammar inF
-  case parseResult of
-    Right answ ->
-      putStrLn
-        ("Ok! " ++
-         if cons
-           then answ
-           else "") >>
-      writeFile outF answ
-    Left err -> print err

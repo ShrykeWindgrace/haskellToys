@@ -9,9 +9,9 @@ import           Helpers
 import           Parsers.ImageLinks
 import           Structures.Words
 import           Test.Hspec
-import           Text.Parsec        (ParseError)
+import           Text.Megaparsec                
 
-parseHelper :: String -> Either ParseError ILink
+parseHelper :: String -> Either (ParseError (Token String) Dec) ILink
 parseHelper = parseGen imageLink
 
 linkText :: String

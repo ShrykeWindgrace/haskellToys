@@ -1,9 +1,9 @@
 module Parsers.Field where
 
 import           Structures.Quest
-import           Text.Parsec
-import           Text.Parsec.String
+import           Text.Megaparsec        
+import           Text.Megaparsec.String
 
 
 fieldType :: String -> Parser QFieldType
-fieldType str = try (string str) >> return (charToFT str)
+fieldType str = string str >> return (charToFT str)

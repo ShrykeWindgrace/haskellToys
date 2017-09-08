@@ -4,10 +4,9 @@ module CLIOptionsLayer
 
 import           Data.Semigroup      ((<>))
 import           Options.Applicative
-import           MeltingPot
 -- import           Version
-import qualified Data.Version as DV (showVersion)
-import Paths_parse4s (version)
+import qualified Data.Version        as DV (showVersion)
+import           Paths_parse4s       (version)
 
 data Options = Options
   { input          :: String
@@ -62,8 +61,7 @@ mainParametrised opt
   | dryRun opt = putStrLn "Dry Run"
   | otherwise =
     putStrLn ("Input file: " ++ input opt) >>
-    putStrLn ("Output file: " ++ output opt) >>
-    someQQ (printToConsole opt) (input opt) (output opt)
+    putStrLn ("Output file: " ++ output opt) >> undefined
 
 main' :: IO ()
 main' = execParser optionsH >>= mainParametrised

@@ -6,17 +6,17 @@ import           Parsers.InlineSpace (spaces')
 import           Parsers.Tech        (lexeme)
 import qualified Structures.Lines    as SL
 import           Structures.Words
-import           Text.Parsec
-import           Text.Parsec.String
+import           Text.Megaparsec        
+import           Text.Megaparsec.String
 
 
 stressedWord :: Parser OneWord
 stressedWord = do
     -- _ <- many $ char ' '  -- eat all spaces
-    pref <- many letter
+    pref <- many letterChar
     _ <- char '`'
-    s <- letter
-    post <- many letter
+    s <- letterChar
+    post <- many letterChar
     choice [() <$ try (oneOf " \n\t\r"), eof]
     return $ StressedWord pref s post
 
@@ -41,11 +41,11 @@ oneWord = do
     Parse non-negative integer; eats all preceding space
 -}
 decimal :: Parser Integer
-decimal = read <$> lexeme (many1 digit) <?> "decimal digit"
+decimal = read <$> lexeme (some digitChar) <?> "decimal digit"
 
 
 rawLine :: Parser String
-rawLine = lexeme $ many1 $ noneOf "\r\n"
+rawLine = lexeme $ some $ noneOf "\r\n"
 
 regLine :: Parser SL.Line
-regLine = SL.Line <$> many1 oneWord -- or just many?
+regLine = SL.Line <$> some oneWord -- or just many?

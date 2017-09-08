@@ -10,9 +10,9 @@ where
 import           Parsers.Inline             (decimal)
 import           Structures.Words
 import           Parsers.Tech               (lexeme, toMaybe)
-import           Text.Parsec
-import           Text.Parsec.Perm
-import           Text.Parsec.String
+import           Text.Megaparsec        
+import           Text.Megaparsec.Perm
+import           Text.Megaparsec.String
 
 
 
@@ -32,8 +32,8 @@ heiParse :: Parser Integer
 heiParse = sizeParse 'h'
 
 linkContents :: Parser ILink
-linkContents =  permute (ILink
-    <$$> lexeme ( many1 (noneOf ")\n"))
+linkContents =  makePermParser (ILink
+    <$$> lexeme ( some (noneOf ")\n"))
     <|?> (Nothing,  toMaybe widParse)
     <|?> (Nothing,  toMaybe heiParse))
 

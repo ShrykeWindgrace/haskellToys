@@ -1,8 +1,8 @@
 module Helpers where
 
-import           Text.Parsec (parse, ParseError)
-import           Text.Parsec.String (Parser)
+import           Text.Megaparsec        
+import           Text.Megaparsec.String (Parser)
 
 
-parseGen :: Parser a -> String -> Either ParseError a
+parseGen :: Parser a -> String -> Either (ParseError (Token String) Dec) a
 parseGen _parser = parse _parser ""

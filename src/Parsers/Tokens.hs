@@ -1,9 +1,20 @@
-module Parsers.Tokens where
+module Parsers.Tokens (
+          equivText
+         ,  authorText
+         ,  sourceText
+         ,  commentText
+         ,  notEquivText
+         ,  listLines
+         ,  questText
+         ,  answerText
+         ,  tournamentHeader
+         ,  editorHeader
+  ) where
 
 import           Parsers.InlineSpace
 import           Render.StringWorks
-import           Text.Parsec
-import           Text.Parsec.String
+import           Text.Megaparsec        
+import           Text.Megaparsec.String
 
 inlineText = undefined
 rawText = undefined
@@ -13,7 +24,7 @@ listLines = undefined
   List of recognised tokens as well as an endOfLine symbol
 
   regular lines can not begin with these symbols
--}
+-}tournamentHeader
 tokenList :: String
 tokenList = "@?!-\n№#/=^<>["
 
@@ -24,8 +35,8 @@ tokenLines :: Char -> Parser String
 tokenLines c =
   do _ <- char c
      spaces'
-     _ <- optionMaybe $ char '\n'
-     ss <- many1 (try inlineText <|> listLines)
+     _ <- optional newline
+     ss <- some (try inlineText <|> listLines)
      return $ "(" ++ tokenToString c ++ ")" ++ concat ss
      <?> ("line with token " ++ [c])
 
@@ -34,7 +45,7 @@ tokenLines c =
 longTokenLines :: String -> Parser String
 longTokenLines str =
   do _ <- string str
-     ss <- many1 $ try rawText
+     ss <- some $ try rawText
      return $ '(' : longTokenToString str ++ ")" ++ concat ss
      <?> ("line with long token " ++ str)
 

@@ -9,13 +9,13 @@ import           Structures.Quest
 import           Test.Hspec
 import           Test.QuickCheck
 import           Test.QuickCheck.Arbitrary
-import           Text.Parsec
+import           Text.Megaparsec        
 
 
 $( derive makeArbitrary ''QFieldType ) -- Arbitrary instance for QFieldType to facilitate automated checks
 
 
-parserHelper :: QFieldType -> Either ParseError QFieldType
+parserHelper :: QFieldType -> Either (ParseError (Token String) Dec) QFieldType
 parserHelper ft = parseGen (fieldType (show ft)) (show ft)
 
 
