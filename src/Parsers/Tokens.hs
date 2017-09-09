@@ -24,7 +24,7 @@ listLines = undefined
   List of recognised tokens as well as an endOfLine symbol
 
   regular lines can not begin with these symbols
--}tournamentHeader
+-}
 tokenList :: String
 tokenList = "@?!-\n№#/=^<>["
 
