@@ -25,7 +25,7 @@ dataSetStressBad :: [String]
 dataSetStressBad = ["", "сомелье`", "удар``ение", "уд`ар`ение"]
 
 dataSetStressBadDescr :: [String]
-dataSetStressBadDescr = ["пустая строка", "повисшее ударение", "нет ударения", "два ударения подряд", "два ударения не подряд"]
+dataSetStressBadDescr = ["пустая строка", "повисшее ударение", "два ударения подряд", "два ударения не подряд"]
 
 shoulds :: [Expectation]
 shoulds = zipWith shouldBe (parseHelper <$> (dataSetStressGood ++ dataSetUnstressGood)) (Right <$> dssgr)
