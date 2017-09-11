@@ -2,8 +2,10 @@ module Structures.Lines where
 
 import           Structures.Words
 
-data Line = Line [OneWord] deriving (Eq)
+data Line = Line [OneWord] deriving (Eq) -- TODO rename to avoid "qualified imports" requirement
 
 instance Show Line where
     show (Line _words) = unwords (show <$> _words)
 
+
+data ListLines = ListLines [Line] deriving (Eq, Show)

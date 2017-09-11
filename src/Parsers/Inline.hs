@@ -1,10 +1,9 @@
 module Parsers.Inline where
 
 
-import           Data.List           (intercalate)
-import           Parsers.InlineSpace (spaces')
-import           Parsers.Tech        (lexeme)
-import qualified Structures.Lines    as SL
+import           Data.List          (intercalate)
+import           Parsers.Tech       (lexeme)
+import qualified Structures.Lines   as SL
 import           Structures.Words
 import           Text.Parsec
 import           Text.Parsec.String
@@ -12,29 +11,26 @@ import           Text.Parsec.String
 
 stressedWord :: Parser OneWord
 stressedWord = do
-    -- _ <- many $ char ' '  -- eat all spaces
     pref <- many letter
     _ <- char '`'
     s <- letter
     post <- many letter
-    choice [() <$ try (oneOf " \n\t\r"), eof]
+    try $ lookAhead $ choice [() <$ try (oneOf " \n\t\r"), eof] -- end of word; TODO to refactor this parser
     return $ StressedWord pref s post
 
 
 regularWord :: Parser OneWord
 regularWord = do
     -- _ <- many $ char ' '  -- eat all spaces
-    first <- satisfy (/= '_') -- does not start with emphasis token
+    first <- noneOf "_`" -- does not start with emphasis token or a stress mark
     middle <- many $ noneOf " \n\t`" -- word ends with a space and does not contain stresses
-    choice [() <$ try (oneOf " \n\t\r"), eof]
+    try $ lookAhead $ choice [() <$ try (oneOf " \n\t\r"), eof] -- end of word; TODO to refactor this parser
 
     return $ RegWord $ first:middle -- give back everything else
 
 
 oneWord :: Parser OneWord
-oneWord = do
-    spaces'  -- eat all spaces
-    try stressedWord <|> try regularWord
+oneWord = lexeme $ try stressedWord <|> try  regularWord
 
 
 {-|

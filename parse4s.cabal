@@ -20,11 +20,11 @@ library
                       , Parsers.Inline
                       , Structures.QNumber
                       , CLIOptionsLayer
---                      , Version
                       , Parsers.InlineSpace
                       , Parsers.Tech
                       , Parsers.QN
                       , Parsers.Field
+                      , Parsers.Lines
                       , Structures.Words
                       , Structures.Lines
                       , Structures.Quest
@@ -53,6 +53,7 @@ test-suite parse4s-test
                      , DecimalSpec
                      , QFTSpec
                      , QNSpec
+                     , LineSpec
                      , Helpers
   build-depends:       base
                       , parse4s
