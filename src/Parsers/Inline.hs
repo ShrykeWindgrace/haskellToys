@@ -1,7 +1,6 @@
 module Parsers.Inline where
 
 
-import           Data.List          (intercalate)
 import           Parsers.Tech       (lexeme)
 import qualified Structures.Lines   as SL
 import           Structures.Words
@@ -30,7 +29,7 @@ regularWord = do
 
 
 oneWord :: Parser OneWord
-oneWord = lexeme $ try stressedWord <|> try  regularWord
+oneWord = try stressedWord <|> try  regularWord
 
 
 {-|

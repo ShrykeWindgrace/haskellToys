@@ -5,23 +5,29 @@ import           Parsers.Lines
 import           Structures.Lines
 import           Structures.Words
 import           Test.Hspec
-import           Text.Parsec        hiding (Line)
-import           Text.Parsec.String
+import           Text.Parsec      (ParseError)
 
+parseHelper :: String -> Either ParseError Line
 parseHelper = parseGen pLine
 
 spec :: Spec
 spec = do
-    describe "b`asic line" $
+    describe "\"строка с удар`ением\"" $
         it ("should be well-parsed to " ++ show expectGood) $
-            parseHelper "b`asic line" `shouldBe` Right expectGood
-    describe "basic line" $
+            parseHelper "строка с удар`ением" `shouldBe` Right expectGood
+    describe "\"строка без ударения  \"" $
         it ("should be well-parsed to " ++ show expectGood') $
-            parseHelper "basic line" `shouldBe` Right expectGood'
+            parseHelper "строка без ударения  " `shouldBe` Right expectGood'
+    describe "\"-раз строчка -два строчка  \"" $
+        it ("should be well-parsed to " ++ show expectGood'') $
+            parseGen pLines "-раз строчка \n-два строчка  \n" `shouldBe` Right expectGood''           
 
 expectGood :: Line
-expectGood = Line [StressedWord "b" 'a' "sic", RegWord "line"]
+expectGood = Line [RegWord "строка", RegWord "с", StressedWord "удар" 'е' "нием"]
 
 
 expectGood' :: Line
-expectGood' = Line [RegWord "basic", RegWord "line"]
+expectGood' = Line $ RegWord <$> words "строка без ударения  "
+
+expectGood'' :: ListLines
+expectGood'' = ListLines $ Line <$> [[RegWord "раз", RegWord "строчка"], [RegWord "два", RegWord "строчка"]]
