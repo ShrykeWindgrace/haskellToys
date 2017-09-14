@@ -47,7 +47,7 @@ executable parse4s-exe
 test-suite parse4s-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
-  main-is:             Spec.hs
+  main-is:             Main.hs
   other-modules:       ImageLinkSpec
                      , InlineStructSpec
                      , DecimalSpec
@@ -55,6 +55,7 @@ test-suite parse4s-test
                      , QNSpec
                      , LineSpec
                      , Helpers
+                     , Spec
   build-depends:       base
                       , parse4s
                       , parsec >= 3.1.11
