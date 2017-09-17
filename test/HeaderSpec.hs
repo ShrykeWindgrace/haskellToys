@@ -8,12 +8,27 @@ import           Structures.Header
 import           Test.Hspec
 import           Test.QuickCheck
 import           Text.Parsec
+import           Text.Parsec.String
+import           Debug.Trace
 
 parserHelper :: String -> Either ParseError Editor
-parserHelper n = parseGen parseEditor (edLine ++ " " ++ n ++"\n")
+parserHelper n = parseGen (seeNext 20 >> parseEditor) (edLine ++ " " ++ n ++ "\n")
 
 tester :: String -> Bool
-tester x =  Right (Editor x) == parserHelper x || null ((filter (/= ' ') . filter (/= '\t')) x) 
+tester x =  Right (Editor x) == parserHelper x && valid x where
+    valid s = not (0 == length x || '\n' `elem` s || last s `elem` "\t ") 
 
-spec = describe "parseEditor" $ it "should correctly parse editor" $
-    property $ \x -> tester (x:: String)
+spec = do
+    describe "parseEditor" $ it "should correctly parse editor" $
+        property $ \x -> tester (x:: String)
+    describe "manual empty string" $ it "empty string" $
+        isLeft (parserHelper "") `shouldBe` True
+
+
+
+seeNext :: Int -> Parser ()
+seeNext n = do
+  s <- getParserState
+  let out = take n (stateInput s)
+  traceShowM out
+  return ()
