@@ -1,4 +1,4 @@
-module Render.StringWorks (longTokenToString, tokenToString)
+module Render.StringWorks (longTokenToString, tokenToString, edLine)
 
 where
 
@@ -22,3 +22,6 @@ longTokenToString "#EDITOR" = "Редактор"
 longTokenToString "#DATE"   = "Время и место проведения"
 longTokenToString "!="      = "незачёт"
 longTokenToString _         = "Неизвестный токен"
+
+edLine :: String
+edLine = "#EDITOR"

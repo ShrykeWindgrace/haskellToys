@@ -25,11 +25,14 @@ library
                       , Parsers.QN
                       , Parsers.Field
                       , Parsers.Lines
+                      , Parsers.Header
                       , Structures.Words
                       , Structures.Lines
                       , Structures.Quest
-  other-modules:        Render.StringWorks
-                      , Parsers.Tokens
+                      , Structures.Header
+                      , Structures.Composers
+                      , Render.StringWorks
+  other-modules:        Parsers.Tokens
                       , Paths_parse4s
   build-depends:       base >= 4.7 && < 5
                       , parsec
@@ -52,6 +55,7 @@ test-suite parse4s-test
                      , InlineStructSpec
                      , DecimalSpec
                      , QFTSpec
+                     , HeaderSpec
                      , QNSpec
                      , LineSpec
                      , Helpers

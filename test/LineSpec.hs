@@ -4,6 +4,7 @@ import           Helpers
 import           Parsers.Lines
 import           Structures.Lines
 import           Structures.Words
+import           Structures.Composers
 import           Test.Hspec
 import           Text.Parsec      (ParseError)
 
@@ -23,11 +24,11 @@ spec = do
             parseGen pLines "-раз строчка \n-два строчка  \n" `shouldBe` Right expectGood''           
 
 expectGood :: Line
-expectGood = Line [RegWord "строка", RegWord "с", StressedWord "удар" 'е' "нием"]
+expectGood = RegWord "строка" $:$ RegWord "с" $:$ Line [StressedWord "удар" 'е' "нием"]
 
 
 expectGood' :: Line
 expectGood' = Line $ RegWord <$> words "строка без ударения  "
 
 expectGood'' :: ListLines
-expectGood'' = ListLines $ Line <$> [[RegWord "раз", RegWord "строчка"], [RegWord "два", RegWord "строчка"]]
+expectGood'' = ListLines [RegWord "раз" $+$ RegWord "строчка", RegWord "два" $+$ RegWord "строчка"]
