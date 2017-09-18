@@ -9,8 +9,7 @@ import           Test.Hspec
 import           Test.QuickCheck
 import           Text.Parsec
 import           Text.Parsec.String
-import           Debug.Trace
-
+import Parsers.Debug  (seeNext)
 parserHelper :: String -> Either ParseError Editor
 parserHelper n = parseGen (seeNext 20 >> parseEditor) (edLine ++ " " ++ n ++ "\n")
 
@@ -23,12 +22,3 @@ spec = do
         property $ \x -> tester (x:: String)
     describe "manual empty string" $ it "empty string" $
         isLeft (parserHelper "") `shouldBe` True
-
-
-
-seeNext :: Int -> Parser ()
-seeNext n = do
-  s <- getParserState
-  let out = take n (stateInput s)
-  traceShowM out
-  return ()
