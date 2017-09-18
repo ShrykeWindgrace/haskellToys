@@ -7,4 +7,9 @@ import           Text.Parsec
 import           Text.Parsec.String
 
 parseEditor :: Parser Editor
-parseEditor = Editor <$> (string edLine >> skipSpaces >> manyTill anyChar newline)
+parseEditor = Editor <$> do
+    string edLine
+    skipSpaces
+    c <- nonSpaceChar
+    cs <- manyTill anyChar newline
+    return (c:cs)

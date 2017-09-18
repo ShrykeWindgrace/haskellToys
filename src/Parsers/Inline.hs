@@ -21,7 +21,7 @@ stressedWord = do
 regularWord :: Parser OneWord
 regularWord = do
     -- _ <- many $ char ' '  -- eat all spaces
-    first <- noneOf "_`" -- does not start with emphasis token or a stress mark
+    first <- noneOf "_`\n" -- does not start with emphasis token or a stress mark
     middle <- many $ noneOf " \n\t`" -- word ends with a space and does not contain stresses
     try $ lookAhead $ choice [() <$ try (oneOf " \n\t\r"), eof] -- end of word; TODO to refactor this parser
 

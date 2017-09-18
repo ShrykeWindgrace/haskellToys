@@ -14,8 +14,13 @@ parserHelper :: String -> Either ParseError Editor
 parserHelper n = parseGen (seeNext 20 >> parseEditor) (edLine ++ " " ++ n ++ "\n")
 
 tester :: String -> Bool
-tester x =  Right (Editor x) == parserHelper x && valid x where
-    valid s = not (0 == length x || '\n' `elem` s || last s `elem` "\t ") 
+tester x
+    | null x = isLeft (parserHelper x) -- is parses ParseError
+    | '\n' `elem` x = True -- short-circuit this case
+    | '\r' `elem` x = True -- short-circuit this case
+    | ' ' `elem` x = True -- short-circuit this case
+    | '\t' `elem` x = True -- short-circuit this case
+    | otherwise = Right (Editor x) == parserHelper x
 
 spec = do
     describe "parseEditor" $ it "should correctly parse editor" $

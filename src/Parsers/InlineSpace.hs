@@ -3,7 +3,8 @@ module Parsers.InlineSpace
     blankLine,
     blankLines,
     spaceChar,
-    skipSpaces
+    skipSpaces,
+    nonSpaceChar
   ) where
 
 import           Text.Parsec
@@ -16,6 +17,9 @@ spaces' = many spaceChar
 
 spaceChar :: Parser Char
 spaceChar = oneOf " \t"
+
+nonSpaceChar :: Parser Char
+nonSpaceChar = noneOf " \t\n\r"
 
 skipSpaces :: Parser ()
 skipSpaces = skipMany spaceChar
