@@ -2,7 +2,7 @@ module DecimalSpec (spec) where
 
 import           Data.Either     (isLeft)
 import           Helpers         (parseGen)
-import           Parsers.Inline          (decimal)
+import           Parsers.Inline  (decimal)
 import           Test.Hspec
 import           Test.QuickCheck
 import           Text.Parsec
@@ -17,4 +17,4 @@ tester x
     | otherwise = Right x == parserHelper x
 
 spec = describe "decimal parser" $ it "should correctly parse positive integers" $
-    property $ \x -> tester (x:: Integer)
+    property $ tester
