@@ -1,7 +1,7 @@
 module Parsers.Inline where
 
 
-import           Parsers.Tech       (lexeme)
+import           Parsers.Tech       (lexeme, wordEnd)
 import qualified Structures.Lines   as SL
 import           Structures.Words
 import           Text.Parsec
@@ -14,7 +14,7 @@ stressedWord = do
     _ <- char '`'
     s <- letter
     post <- many letter
-    try $ lookAhead $ choice [() <$ try (oneOf " \n\t\r"), eof] -- end of word; TODO to refactor this parser
+    wordEnd
     return $ StressedWord pref s post
 
 
@@ -23,8 +23,7 @@ regularWord = do
     -- _ <- many $ char ' '  -- eat all spaces
     first <- noneOf "_`\n" -- does not start with emphasis token or a stress mark
     middle <- many $ noneOf " \n\t`" -- word ends with a space and does not contain stresses
-    try $ lookAhead $ choice [() <$ try (oneOf " \n\t\r"), eof] -- end of word; TODO to refactor this parser
-
+    wordEnd
     return $ RegWord $ first:middle -- give back everything else
 
 

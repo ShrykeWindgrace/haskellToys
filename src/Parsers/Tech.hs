@@ -1,4 +1,4 @@
-module Parsers.Tech (lexeme, toMaybe) where
+module Parsers.Tech (lexeme, toMaybe, wordEnd) where
 
 import           Parsers.InlineSpace (spaces')
 import           Text.Parsec
@@ -19,3 +19,10 @@ lexeme _parser = spaces' >> _parser
 toMaybe :: Parser a -> Parser (Maybe a)
 -- toMaybe _parser = Just <$> try _parser
 toMaybe = fmap Just . try
+
+
+{-
+    Parser for "this is the end of the current word, but we do not consume that end"
+-}
+wordEnd :: Parser ()
+wordEnd = try $ lookAhead $ choice [eof,() <$ space]
