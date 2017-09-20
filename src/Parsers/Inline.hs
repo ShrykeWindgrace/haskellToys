@@ -1,6 +1,7 @@
 module Parsers.Inline where
 
 
+import           Parsers.ImageLinks
 import           Parsers.Tech       (lexeme, wordEnd)
 import qualified Structures.Lines   as SL
 import           Structures.Words
@@ -21,21 +22,16 @@ stressedWord = do
 regularWord :: Parser OneWord
 regularWord = do
     -- _ <- many $ char ' '  -- eat all spaces
-    first <- noneOf "_`\n" -- does not start with emphasis token or a stress mark
+    first <- noneOf "_`\n\t" -- does not start with emphasis token or a stress mark
     middle <- many $ noneOf " \n\t`" -- word ends with a space and does not contain stresses
     wordEnd
     return $ RegWord $ first:middle -- give back everything else
 
 
 oneWord :: Parser OneWord
-oneWord = try stressedWord <|> try  regularWord
+oneWord = try (ILinkStr <$> imageLink) <|> try stressedWord <|> try  regularWord
 
 
-{-|
-    Parse non-negative integer; eats all preceding space
--}
-decimal :: Parser Integer
-decimal = read <$> lexeme (many1 digit) <?> "decimal digit"
 
 
 rawLine :: Parser String

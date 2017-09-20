@@ -1,13 +1,12 @@
 module Parsers.ImageLinks
-    -- (
-    --     imageLink,
-    --     imageLink',
-    --     ILink
-    -- )
+    (
+        imageLink,
+        ILink
+    )
 
 where
 
-import           Parsers.Inline             (decimal)
+import           Parsers.Primitives             (decimal)
 import           Structures.Words
 import           Parsers.Tech               (lexeme, toMaybe)
 import           Text.Parsec

@@ -1,6 +1,7 @@
 module Parsers.QN where
 
-import           Parsers.Inline     (decimal, rawLine)
+import           Parsers.Inline     (rawLine)
+import           Parsers.Primitives (decimal)
 import           Parsers.Tech
 import           Structures.QNumber
 import           Text.Parsec
