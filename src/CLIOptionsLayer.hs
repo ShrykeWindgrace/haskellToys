@@ -3,11 +3,12 @@ module CLIOptionsLayer
   ) where
 
 import           Data.Semigroup      ((<>))
-import           Options.Applicative
 import           MeltingPot
+import           Options.Applicative
 -- import           Version
-import qualified Data.Version as DV (showVersion)
-import Paths_parse4s (version)
+import qualified Data.Version        as DV (showVersion)
+import           Paths_parse4s       (version)
+import           System.FilePath     ((</>))
 
 data Options = Options
   { input          :: String
@@ -17,6 +18,9 @@ data Options = Options
   , showVersion    :: Bool
   }
 
+defaultInputFile :: FilePath
+defaultInputFile  = "test" </> "inputs" </> "input.txt"
+
 options :: Parser Options
 options =
   Options <$>
@@ -25,7 +29,7 @@ options =
      short 'i' <>
      metavar "INPUT_FILE" <>
      help "path to input file" <>
-     value "test\\inputs\\input.txt" <>
+     value defaultInputFile <>
      showDefault) <*>
   strOption
     (long "input" <>
