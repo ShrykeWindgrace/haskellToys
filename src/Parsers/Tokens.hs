@@ -26,7 +26,7 @@ tokenLines c =
      spaces'
      _ <- optionMaybe $ char '\n'
      ss <- many1 (try inlineText <|> listLines)
-     return $ "(" ++ tokenToString c ++ ")" ++ concat ss
+     return $ "(" ++ (tokenToString [c]) ++ ")" ++ concat ss
 
 -- |
 --   parser for multicharacter tokens
@@ -34,4 +34,4 @@ longTokenLines :: String -> Parser String
 longTokenLines str =
   do _ <- string str
      ss <- many1 $ try rawText
-     return $ '(' : longTokenToString str ++ ")" ++ concat ss
+     return $ '(' : tokenToString str ++ ")" ++ concat ss

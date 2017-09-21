@@ -1,4 +1,4 @@
-module Render.StringWorks (longTokenToString, tokenToString, edLine)
+module Render.StringWorks
 
 where
 
@@ -6,22 +6,21 @@ showMaybe :: Maybe String -> String
 showMaybe (Just s) = s
 showMaybe Nothing  = ""
 
-tokenToString :: Char -> String
-tokenToString '?' = "Вопрос"
-tokenToString '=' = "Зачёт"
-tokenToString '@' = "Автор(ы)"
-tokenToString '^' = "Источник(и)"
-tokenToString '!' = "Ответ"
-tokenToString '/' = "Комментарии"
+tokenToString :: String -> String
+tokenToString "?" = "Вопрос"
+tokenToString "=" = "Зачёт"
+tokenToString "@" = "Автор(ы)"
+tokenToString "^" = "Источник(и)"
+tokenToString "!" = "Ответ"
+tokenToString "/" = "Комментарии"
+tokenToString "###"     = "Название турнира"
+tokenToString "#EDITOR" = "Редактор"
+tokenToString "#DATE"   = "Время и место проведения"
+tokenToString "!="      = "незачёт"
 tokenToString _   = "Неизвестный токен"
-
-
-longTokenToString :: String -> String
-longTokenToString "###"     = "Название турнира"
-longTokenToString "#EDITOR" = "Редактор"
-longTokenToString "#DATE"   = "Время и место проведения"
-longTokenToString "!="      = "незачёт"
-longTokenToString _         = "Неизвестный токен"
 
 edLine :: String
 edLine = "#EDITOR"
+
+class ShowNatural a where
+    showNatural :: a -> String

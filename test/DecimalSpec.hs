@@ -17,4 +17,4 @@ tester x
     | otherwise = Right x == parserHelper x
 
 spec = describe "decimal parser" $ it "should correctly parse positive integers" $
-    property $ tester
+    property tester

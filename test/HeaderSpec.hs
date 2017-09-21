@@ -1,6 +1,6 @@
 module HeaderSpec (spec) where
 
-import           Data.Either        (isLeft)
+import           Data.Either        (isRight, isLeft)
 import           Helpers            (parseGen)
 import           Parsers.Header
 import           Render.StringWorks (edLine)
@@ -21,10 +21,11 @@ tester x
     | '\r' `elem` x = True -- short-circuit this case
     | ' ' `elem` x = True -- short-circuit this case
     | '\t' `elem` x = True -- short-circuit this case
-    | otherwise = Right (Editor x) == parserHelper x
+    | '`' `elem` x = True -- short-circuit this case
+    | '_' `elem` x = True -- short-circuit this case
+    | otherwise = isRight(parserHelper x)
 
 spec = -- do
-    describe "parseEditor" $ it "should correctly parse editor" $
-        property $ tester
+    describe "parseEditor" $ it "should correctly parse editor" $ property tester
     -- describe "manual empty string" $ it "empty string" $
     --     isLeft (parserHelper "") `shouldBe` True

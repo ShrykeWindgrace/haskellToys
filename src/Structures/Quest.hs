@@ -2,6 +2,7 @@ module Structures.Quest where
 
 import Structures.QNumber
 import Structures.Lines
+import Render.StringWorks
 
 
 data Question = Question {
@@ -22,6 +23,9 @@ instance Show QFieldType where
     show QAnswer = "!"
     show QComment = "/"
     show QNotEquiv = "!="
+
+instance ShowNatural QFieldType where
+    showNatural = tokenToString . show 
 
 charToFT :: String -> QFieldType
 charToFT "?" = QText -- "Вопрос"

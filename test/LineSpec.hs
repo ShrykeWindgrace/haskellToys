@@ -21,7 +21,7 @@ spec = do
             parseHelper "строка без ударения  " `shouldBe` Right expectGood'
     describe "\"-раз строчка -два строчка  \"" $
         it ("should be well-parsed to " ++ show expectGood'') $
-            parseGen pLines "-one line \n-two line  \n" `shouldBe` Right expectGood''
+            parseGen pLines "-one line \n-two line  " `shouldBe` Right expectGood''
 
 expectGood :: Line
 expectGood = RegWord "строка" $:$ RegWord "с" $:$ Line [StressedWord "удар" 'е' "нием"]
