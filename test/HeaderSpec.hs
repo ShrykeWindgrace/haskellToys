@@ -11,7 +11,7 @@ import           Text.Parsec
 import           Text.Parsec.String
 
 
-parserHelper :: String -> Either ParseError Editor
+parserHelper :: String -> Either ParseError HeaderItem
 parserHelper n = parseGen parseEditor (edLine ++ " " ++ n ++ "\n")
 
 tester :: String -> Bool
