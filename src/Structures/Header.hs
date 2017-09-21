@@ -1,16 +1,19 @@
 module Structures.Header where
 
 
-import Render.StringWorks
+import           Render.StringWorks
 
+data HeaderItemType = Editor | Title | TDate deriving (Eq, Show)
 
-data HeaderItem = Editor String | Title String | TDate String deriving (Eq, Show)
+data HeaderItem = HeaderItem HeaderItemType String deriving (Eq, Show)
 
 instance ShowNatural HeaderItem where
-    showNatural (Editor s) = s
-    showNatural (Title s) = s
-    showNatural (TDate s) = s
+    showNatural (HeaderItem _ s) = s
+    -- showNatural Title s)  = s
+    -- showNatural TDate s)  = s
 
-instance HasToken HeaderItem where
-    tokenOf (Editor _) = edLine
-    tokenOf _ = undefined
+instance HasToken HeaderItemType where
+    tokenOf Editor = edLine
+    tokenOf Title  = titleLine
+    tokenOf TDate  = dateLine
+    tokenOf _      = error "invalid header item type encountered"
