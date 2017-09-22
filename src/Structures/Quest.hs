@@ -9,9 +9,24 @@ data Question = Question {
     modifier :: QModifierM,
     text :: [Line],
     answer :: [Line]
-} deriving (Show)
+} deriving (Show, Eq)
 
-data Tour = Tour [Question] deriving (Show)
+
+data Tour = Tour {quests :: [Question], comment :: Maybe Comment} deriving (Show, Eq)
+
+
+newtype Comment = Comment { unComment :: String } deriving (Eq, Show)
+
+
+instance ShowNatural Comment where
+    showNatural = unComment
+
+
+instance HasToken Question where
+    tokenOf = const "?"
+
+instance HasToken Comment where
+    tokenOf = const "#"
 
 data QFieldType = QText | QAnswer | QEquiv | QAuthor | QComment | QNotEquiv | QSource deriving (Eq)
 
