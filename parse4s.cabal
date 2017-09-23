@@ -15,8 +15,7 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:      MeltingPot
-                      , Parsers.ImageLinks
+  exposed-modules:      Parsers.ImageLinks
                       , Parsers.Inline
                       , Structures.QNumber
                       , CLIOptionsLayer

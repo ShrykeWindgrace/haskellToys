@@ -3,7 +3,6 @@ module CLIOptionsLayer
   ) where
 
 import           Data.Semigroup      ((<>))
-import           MeltingPot
 import           Options.Applicative
 -- import           Version
 import qualified Data.Version        as DV (showVersion)
@@ -67,7 +66,7 @@ mainParametrised opt
   | otherwise =
     putStrLn ("Input file: " ++ input opt) >>
     putStrLn ("Output file: " ++ output opt) >>
-    someQQ (printToConsole opt) (input opt) (output opt)
+    putStrLn "TBI"
 
 main' :: IO ()
 main' = execParser optionsH >>= mainParametrised
