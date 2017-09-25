@@ -1,3 +1,5 @@
+{-# LANGUAGE RecordWildCards #-}
+
 module CLIOptionsLayer
   ( main'
   ) where
@@ -5,6 +7,7 @@ module CLIOptionsLayer
 import           Data.Semigroup      ((<>))
 import           Options.Applicative
 -- import           Version
+import           Control.Monad       (when)
 import qualified Data.Version        as DV (showVersion)
 import           Paths_parse4s       (version)
 import           System.FilePath     ((</>))
@@ -60,13 +63,13 @@ optionsH =
      header "Parse files in 4s format")
 
 mainParametrised :: Options -> IO ()
-mainParametrised opt
-  | showVersion opt = putStrLn $ "Current version is " ++ DV.showVersion version
-  | dryRun opt = putStrLn "Dry Run"
+mainParametrised Options{..}
+  | showVersion = putStrLn $ "Current version is " ++ DV.showVersion version
+  | dryRun = putStrLn "Dry Run"
   | otherwise =
-    putStrLn ("Input file: " ++ input opt) >>
-    putStrLn ("Output file: " ++ output opt) >>
-    putStrLn "TBI"
+    putStrLn ("Input file: " ++ input) >>
+    putStrLn ("Output file: " ++ output) >>
+    when printToConsole (putStrLn "TBI")
 
 main' :: IO ()
 main' = execParser optionsH >>= mainParametrised
