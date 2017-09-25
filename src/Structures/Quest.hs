@@ -12,7 +12,10 @@ data Question = Question {
 } deriving (Show, Eq)
 
 
-data Tour = Tour {quests :: [Question], comment :: Maybe Comment} deriving (Show, Eq)
+data Tour = Tour {
+    quests :: [Question],
+    comment :: Maybe Comment
+    } deriving (Show, Eq)
 
 
 newtype Comment = Comment { unComment :: String } deriving (Eq, Show)
@@ -42,12 +45,20 @@ instance Show QFieldType where
 instance ShowNatural QFieldType where
     showNatural = tokenToString . show 
 
-charToFT :: String -> QFieldType
-charToFT "?" = QText -- "Вопрос"
-charToFT "=" = QEquiv -- "Зачёт"
-charToFT "@" = QAuthor -- "Автор(ы)"
-charToFT "^" = QSource -- "Источник(и)"
-charToFT "!" = QAnswer -- "Ответ"
-charToFT "/" = QComment -- "Комментарии"
-charToFT "!="= QNotEquiv -- "незачёт"
-charToFT _   = error "illegal question field type identifier"
+instance HasToken QFieldType where
+    tokenOf = show
+
+
+
+instance Read QFieldType where
+    readsPrec _ str = [(charToFT str, "")] where
+        charToFT :: String -> QFieldType
+        charToFT "?" = QText -- "Вопрос"
+        charToFT "=" = QEquiv -- "Зачёт"
+        charToFT "@" = QAuthor -- "Автор(ы)"
+        charToFT "^" = QSource -- "Источник(и)"
+        charToFT "!" = QAnswer -- "Ответ"
+        charToFT "/" = QComment -- "Комментарии"
+        charToFT "!="= QNotEquiv -- "незачёт"
+        charToFT _   = error "illegal question field type identifier"
+        
