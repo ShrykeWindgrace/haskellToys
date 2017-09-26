@@ -17,10 +17,10 @@ import           Text.Parsec.String
 
 sizeParse :: Char -> Parser Integer
 sizeParse c = do
-    lexeme $ char c
-    lexeme $ char '='
+    _ <- lexeme $ char c
+    _ <- lexeme $ char '='
     s <- lexeme decimal
-    lexeme $ string "px"
+    _ <- lexeme $ string "px"
     return s
 
 

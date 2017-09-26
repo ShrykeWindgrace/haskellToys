@@ -9,7 +9,6 @@ extra-deps:
 - ansi-wl-pprint-0.6.8
 - async-2.1.1.1
 - base-compat-0.9.3
-- call-stack-0.1.0
 - cpphs-1.20.8
 - derive-2.6.3
 - hashable-1.2.6.1
@@ -35,4 +34,8 @@ extra-deps:
 - transformers-compat-0.5.1.4
 - uniplate-1.6.12
 - unordered-containers-0.2.8.0
+- blaze-builder-0.4.0.2
+- call-stack-0.1.0
+- lucid-2.9.8.1
+- mmorph-1.1.0
 resolver: ghc-8.2.1

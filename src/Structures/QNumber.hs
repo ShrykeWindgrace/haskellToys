@@ -1,5 +1,6 @@
 module Structures.QNumber where
 
+import Render.StringWorks
 
 data QModifier = Soft String | Hard Integer
   deriving (Eq)
@@ -8,6 +9,10 @@ instance Show QModifier where
   show (Soft line) = line
   show (Hard int)  = show int
 
+
+instance ShowNatural QModifier where
+    showNatural (Soft line) = "Вопрос " ++ line
+    showNatural (Hard int) = "Вопрос " ++ show int
 
 type QModifierM = Maybe QModifier
 

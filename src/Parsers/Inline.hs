@@ -2,7 +2,7 @@ module Parsers.Inline where
 
 
 import           Parsers.ImageLinks
-import           Parsers.Tech       (lexeme, wordEnd)
+import           Parsers.Tech       (wordEnd)
 import           Structures.Words
 import           Text.Parsec
 import           Text.Parsec.String

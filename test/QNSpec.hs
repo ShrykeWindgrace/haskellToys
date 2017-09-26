@@ -16,5 +16,6 @@ tester x
     | x < 0 = isLeft $ parserHelper x
     | otherwise = Right (Hard x) == parserHelper x
 
+spec :: Spec
 spec = describe "qHardReset" $ it "should correctly parse hard reset" $
-    property $ \x -> tester (x:: Integer)
+    property tester

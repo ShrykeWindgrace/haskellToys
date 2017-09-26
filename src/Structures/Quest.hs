@@ -31,7 +31,7 @@ instance HasToken Question where
 instance HasToken Comment where
     tokenOf = const "#"
 
-data QFieldType = QText | QAnswer | QEquiv | QAuthor | QComment | QNotEquiv | QSource deriving (Eq)
+data QFieldType = QText | QAnswer | QEquiv | QAuthor | QComment | QNotEquiv | QSource deriving (Eq, Enum)
 
 instance Show QFieldType where
     show QText = "?"
@@ -41,6 +41,9 @@ instance Show QFieldType where
     show QAnswer = "!"
     show QComment = "/"
     show QNotEquiv = "!="
+
+allQFTs :: [QFieldType]
+allQFTs = [toEnum 0 ..]
 
 instance ShowNatural QFieldType where
     showNatural = tokenToString . show 

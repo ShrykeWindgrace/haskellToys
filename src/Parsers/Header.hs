@@ -14,13 +14,9 @@ parseHeaderGen t = HeaderItem t . showNatural <$>
     (string (tokenOf t) >> skipSpaces >> pLine <* choice [eof, () <$ endOfLine])
 
 
-headerItems :: [HeaderItemType]
-headerItems = [Editor, Title, TDate]
-
-
 headerParsers :: [Parser HeaderItem]
-headerParsers = parseHeaderGen <$> headerItems
+headerParsers = parseHeaderGen <$> allHeaderItemTypes
 
 
 parseEditor :: Parser HeaderItem
-parseEditor = head headerParsers
+parseEditor = parseHeaderGen Editor

@@ -4,8 +4,10 @@ module Structures.Header where
 import           Render.StringWorks
 
 
-data HeaderItemType = Editor | Title | TDate deriving (Eq, Show)
+data HeaderItemType = Editor | Title | TDate deriving (Eq, Show, Enum)
 
+allHeaderItemTypes :: [HeaderItemType]
+allHeaderItemTypes = [toEnum 0 ..]
 
 data HeaderItem = HeaderItem HeaderItemType String deriving (Eq, Show)
 

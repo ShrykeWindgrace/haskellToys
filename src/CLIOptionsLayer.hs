@@ -5,9 +5,10 @@ module CLIOptionsLayer
   ) where
 
 import           Data.Semigroup      ((<>))
+import           Data.Maybe      (fromJust, isNothing)
 import           Options.Applicative
--- import           Version
-import           Control.Monad       (when)
+import           Control.Applicative (optional)
+import           Control.Monad       (when, unless)
 import qualified Data.Version        as DV (showVersion)
 import           Paths_parse4s       (version)
 import           System.FilePath     ((</>))
@@ -18,6 +19,8 @@ data Options = Options
   , printToConsole :: Bool
   , dryRun         :: Bool
   , showVersion    :: Bool
+  , withAnswers    :: Bool
+  , customCSS      :: Maybe String
   }
 
 defaultInputFile :: FilePath
@@ -36,7 +39,7 @@ options =
   strOption
     (long "input" <>
      short 'o' <>
-      metavar "OUTPUT_FILE" <>
+     metavar "OUTPUT_FILE" <>
      help "path to output file" <>
      value "out.txt" <>
      showDefault) <*>
@@ -51,7 +54,13 @@ options =
   switch
    (long "version" <>
     short 'v' <>
-    help "show version")
+    help "show version") <*>
+  switch
+   (long "no-answers" <>
+    help "use this if you do not want to see answers") <*>
+  optional (strOption
+    (long "use-custom-CSS" <> help "custom css file" <> metavar "CSS_FILE"))
+
 
 optionsH :: ParserInfo Options
 optionsH =
@@ -69,7 +78,9 @@ mainParametrised Options{..}
   | otherwise =
     putStrLn ("Input file: " ++ input) >>
     putStrLn ("Output file: " ++ output) >>
+    unless (isNothing customCSS) (putStr "using custom css file: " >> print (fromJust customCSS)) >>
     when printToConsole (putStrLn "TBI")
+
 
 main' :: IO ()
 main' = execParser optionsH >>= mainParametrised

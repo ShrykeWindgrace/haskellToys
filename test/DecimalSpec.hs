@@ -16,5 +16,6 @@ tester x
     | x < 0 = isLeft $ parserHelper x
     | otherwise = Right x == parserHelper x
 
+spec :: Spec
 spec = describe "decimal parser" $ it "should correctly parse positive integers" $
     property tester

@@ -33,8 +33,10 @@ shoulds = zipWith shouldBe (parseHelper <$> (dataSetStressGood ++ dataSetUnstres
 shouldsNeg :: [Expectation]
 shouldsNeg = (`shouldSatisfy` isLeft) <$> (parseHelper <$> dataSetStressBad)
 
+its' :: [Expectation -> SpecWith (Arg Expectation)]
 its' = it <$> map (++ " should be ok") (dataSetStressGood ++ dataSetUnstressGood)
 
+itsNeg' :: [Expectation -> SpecWith (Arg Expectation)]
 itsNeg' = it <$> map (++ " should not be ok") dataSetStressBadDescr
 
 its :: [SpecWith ()]

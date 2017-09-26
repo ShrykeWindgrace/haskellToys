@@ -47,6 +47,7 @@ dataSetString = linkToParseable <$> dataSet
 shoulds :: [Expectation]
 shoulds = zipWith shouldBe (parseHelper <$> dataSetString) (Right <$> dataSet)
 
+its' :: [Expectation -> SpecWith (Arg Expectation)]
 its' = it <$> map (++ " should be ok") dataSetString
 
 its :: [SpecWith ()]

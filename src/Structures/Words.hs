@@ -1,13 +1,9 @@
-module Structures.Words
-    -- (
-    --     RegWord,
-    --     StressedWord,
-    --     OneWord
-    -- )
-    where
+module Structures.Words where
+
 
 data OneWord = StressedWord String Char String | RegWord String | ILinkStr ILink
     deriving (Eq)
+
 
 instance Show OneWord where
     show (RegWord word) = word

@@ -8,7 +8,6 @@ import           Structures.Header
 import           Test.Hspec
 import           Test.QuickCheck
 import           Text.Parsec
-import           Text.Parsec.String
 
 
 parserHelper :: String -> Either ParseError HeaderItem
@@ -25,6 +24,7 @@ tester x
     | '_' `elem` x = True -- short-circuit this case
     | otherwise = isRight(parserHelper x)
 
+spec :: Spec
 spec = -- do
     describe "parseEditor" $ it "should correctly parse editor" $ property tester
     -- describe "manual empty string" $ it "empty string" $
