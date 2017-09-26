@@ -6,7 +6,7 @@ import Render.StringWorks
 
 
 data Question = Question {
-    modifier :: QModifierM,
+    modifier :: QModifier,
     text :: [Line],
     answer :: [Line]
 } deriving (Show, Eq)
