@@ -1,6 +1,6 @@
 module Structures.QNumber where
 
-import Render.StringWorks
+import Constants.StringWorks
 
 data QModifier = Soft String | Hard Integer
   deriving (Eq)

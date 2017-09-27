@@ -1,17 +1,19 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE RecordWildCards   #-}
 
-module Render.Html.Rend where 
+module Render.Html.Rend where
 
 
-import Structures.QNumber
-import Structures.Words
-import Data.Text hiding (foldr1, map)
-import Lucid
-import Data.Maybe (maybeToList)
-import Structures.Quest
-import Structures.Lines
-import Data.Semigroup ((<>))
+import           Data.List          (sort)
+import           Data.Maybe         (maybeToList)
+import           Data.Text          hiding (foldr1, map)
+import           Lucid
+import           Constants.StringWorks
+import           Structures.Lines
+import           Structures.Header
+import           Structures.QNumber
+import           Structures.Quest
+import           Structures.Words
 
 instance ToHtml QModifier where
     toHtml (Soft line) = div_ [class_ "qnm"] $ do
@@ -47,29 +49,41 @@ instance ToHtml OneWord where
 
 
 instance ToHtml Line where
-    toHtml (Line list) = div_ $ do
-        foldr1 (<>) (toHtml <$> list)
+    toHtml (Line list) = div_ $ htmlListFold list
 
-    toHtmlRaw (Line list) = div_ $ do
-        foldr1 (<>) (toHtmlRaw <$> list)
+    toHtmlRaw (Line list) = div_ $ htmlListFoldRaw list
 
 
--- instance ToHtml Question where
---     toHtml Question {..} = div_ [class_ "question"] $ do
---         toHtml modifier
---         div_ [class_ "questText"] $ do
---             htmlListFold text
---         div_ [class_ "answerText"] $ do
---             htmlListFold answer
---     toHtmlRaw Question {..} = div_ $ do
---         undefined
+instance ToHtml Question where
+    toHtml Question {..} = div_ [class_ "question"] $ do
+        toHtml modifier
+        let sorted_ = sort fields
+        htmlListFold sorted_
+    toHtmlRaw  Question {..} = div_ [class_ "question"] $ do
+        toHtml modifier
+        let sorted_ = sort fields
+        htmlListFoldRaw sorted_
+
+instance ToHtml QField where
+    toHtml (QField t list) = div_ [class_ $ pack $ showNatural t] $ htmlListFold list
+
+    toHtmlRaw (QField t list) = div_ [class_ $ pack $ showNatural t] $ htmlListFoldRaw list
 
 
--- htmlListFold :: (ToHtml a) => [a] -> Html ()
--- htmlListFold = htmlListFoldBase toHtml
+htmlListFold :: (ToHtml a, Monad m) => [a] -> HtmlT m ()
+htmlListFold = htmlListFoldBase toHtml
 
--- htmlListFoldRaw :: (ToHtml a) => [a] -> Html ()
--- htmlListFoldRaw = htmlListFoldBase toHtmlRaw
+htmlListFoldRaw :: (ToHtml a, Monad m) => [a] -> HtmlT m ()
+htmlListFoldRaw = htmlListFoldBase toHtmlRaw
 
--- htmlListFoldBase :: (ToHtml a) => (a -> Html ()) -> [a] -> Html ()
--- htmlListFoldBase fn = (foldr1 (<>)) . (map fn)
+htmlListFoldBase :: (ToHtml a, Monad m) => (a -> HtmlT m ()) -> [a] -> HtmlT m ()
+htmlListFoldBase fn = foldr1 mappend . map fn
+
+
+instance ToHtml HeaderItem where
+    toHtml (HeaderItem t str)
+        | t == Title = h1_ $ toHtml $ (pack str)
+        | otherwise = div_ [class_ $ pack $ showNatural t] $ toHtml (pack str)
+    toHtmlRaw (HeaderItem t str)
+        | t == Title = h1_ $ toHtmlRaw $ (pack str)
+        | otherwise = div_ [class_ $ pack $ showNatural t] $ toHtmlRaw (pack str)

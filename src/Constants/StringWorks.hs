@@ -1,4 +1,4 @@
-module Render.StringWorks
+module Constants.StringWorks
 
 where
 

@@ -1,7 +1,7 @@
 module Structures.Lines where
 
 import           Structures.Words
-import           Render.StringWorks
+import           Constants.StringWorks
 
 data Line = Line [OneWord] deriving (Eq, Show) -- TODO rename to avoid "qualified imports" requirement
 

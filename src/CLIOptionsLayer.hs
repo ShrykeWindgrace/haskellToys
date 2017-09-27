@@ -13,6 +13,12 @@ import qualified Data.Version        as DV (showVersion)
 import           Paths_parse4s       (version)
 import           System.FilePath     ((</>))
 
+import Render.Html.Rend
+import Structures.Quest
+import Lucid
+import qualified Data.Text.IO as DIO
+import qualified Data.Text.Lazy as DL
+
 data Options = Options
   { input          :: String
   , output         :: String
@@ -79,6 +85,7 @@ mainParametrised Options{..}
     putStrLn ("Input file: " ++ input) >>
     putStrLn ("Output file: " ++ output) >>
     unless (isNothing customCSS) (putStr "using custom css file: " >> print (fromJust customCSS)) >>
+    DIO.putStrLn (DL.toStrict $ renderText $ toHtml testQuestion) >>
     when printToConsole (putStrLn "TBI")
 
 

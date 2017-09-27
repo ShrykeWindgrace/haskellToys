@@ -3,7 +3,7 @@ module HeaderSpec (spec) where
 import           Data.Either        (isRight, isLeft)
 import           Helpers            (parseGen)
 import           Parsers.Header
-import           Render.StringWorks (edLine)
+import           Constants.StringWorks (edLine)
 import           Structures.Header
 import           Test.Hspec
 import           Test.QuickCheck

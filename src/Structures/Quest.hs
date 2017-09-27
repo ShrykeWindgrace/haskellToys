@@ -2,20 +2,20 @@ module Structures.Quest where
 
 import Structures.QNumber
 import Structures.Lines
-import Render.StringWorks
+import Structures.Words
+import Constants.StringWorks
 
 
 data Question = Question {
     modifier :: QModifier,
-    text :: [Line],
-    answer :: [Line]
-} deriving (Show, Eq)
+    fields :: [QField]
+} deriving (Eq, Show)
 
 
 data Tour = Tour {
     quests :: [Question],
     comment :: Maybe Comment
-    } deriving (Show, Eq)
+    } deriving (Eq, Show)
 
 
 newtype Comment = Comment { unComment :: String } deriving (Eq, Show)
@@ -31,7 +31,7 @@ instance HasToken Question where
 instance HasToken Comment where
     tokenOf = const "#"
 
-data QFieldType = QText | QAnswer | QEquiv | QAuthor | QComment | QNotEquiv | QSource deriving (Eq, Enum)
+data QFieldType = QText | QAnswer | QEquiv | QNotEquiv | QComment | QSource | QAuthor deriving (Eq, Enum, Ord)
 
 instance Show QFieldType where
     show QText = "?"
@@ -52,6 +52,14 @@ instance HasToken QFieldType where
     tokenOf = show
 
 
+data QField = QField QFieldType [Line] deriving (Eq, Show)
+instance ShowNatural QField where
+    showNatural (QField t _) = showNatural t
+instance Ord QField where
+    (QField t _) <= (QField s _) = fromEnum t <= fromEnum s
+
+
+
 
 instance Read QFieldType where
     readsPrec _ str = [(charToFT str, "")] where
@@ -64,4 +72,7 @@ instance Read QFieldType where
         charToFT "/" = QComment -- "Комментарии"
         charToFT "!="= QNotEquiv -- "незачёт"
         charToFT _   = error "illegal question field type identifier"
-        
+
+
+testQuestion :: Question
+testQuestion = Question (Hard 1) [QField QText [Line [RegWord "question"]]]

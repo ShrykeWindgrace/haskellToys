@@ -2,7 +2,7 @@ module Parsers.Header (parseEditor) where
 
 import           Parsers.InlineSpace
 import           Parsers.Lines
-import           Render.StringWorks
+import           Constants.StringWorks
 import           Structures.Header
 import           Text.Parsec
 -- import           Text.Parsec.Perm
