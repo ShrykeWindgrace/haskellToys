@@ -33,4 +33,11 @@ class Element4s a where
     parsingToken :: a -> String -- the corresponding token in *.4s
     showNatural :: a -> String  -- the token shown in rendering
     cssClass :: a -> String --the corresponding css class
-    
+
+
+{-|
+  Regular lines can not begin with these symbols
+-}
+
+tokenList :: String
+tokenList = "@?!-\n№#/=^<>["
