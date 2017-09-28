@@ -7,9 +7,10 @@ import           Structures.QNumber
 import           Test.Hspec
 import           Test.QuickCheck
 import           Text.Parsec
+import Constants.StringWorks
 
 parserHelper :: Integer -> Either ParseError QModifier
-parserHelper n = parseGen qHardReset ("№№ " ++ show n)
+parserHelper n = parseGen qHardReset (parsingToken (Hard n) ++ " " ++ show n)
 
 tester :: Integer -> Bool
 tester x

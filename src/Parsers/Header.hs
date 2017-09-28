@@ -10,8 +10,8 @@ import           Text.Parsec.String
 
 
 parseHeaderGen :: HeaderItemType -> Parser HeaderItem
-parseHeaderGen t = HeaderItem t . showNatural <$> 
-    (string (tokenOf t) >> skipSpaces >> pLine <* choice [eof, () <$ endOfLine])
+parseHeaderGen t = HeaderItem t . show <$> 
+    (string (parsingToken t) >> skipSpaces >> pLine <* choice [eof, () <$ endOfLine])
 
 
 headerParsers :: [Parser HeaderItem]

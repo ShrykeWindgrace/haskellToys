@@ -28,9 +28,9 @@ dateLine = "#DATE"
 titleLine :: String
 titleLine = "###"
 
-class ShowNatural a where
-    showNatural :: a -> String
 
-class HasToken a where
-    tokenOf :: a -> String
-    -- showUnnatural :: a -> String
+class Element4s a where
+    parsingToken :: a -> String -- the corresponding token in *.4s
+    showNatural :: a -> String  -- the token shown in rendering
+    cssClass :: a -> String --the corresponding css class
+    

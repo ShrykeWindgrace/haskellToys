@@ -21,15 +21,18 @@ data Tour = Tour {
 newtype Comment = Comment { unComment :: String } deriving (Eq, Show)
 
 
-instance ShowNatural Comment where
-    showNatural = unComment
+instance Element4s Comment where
+    showNatural = unComment -- the token shown in rendering
+    parsingToken = const "#" -- the corresponding token in *.4s
+    cssClass = const "comment"  --the corresponding css class
+    
 
 
-instance HasToken Question where
-    tokenOf = const "?"
+instance Element4s Question where
+    showNatural = const "" -- the token shown in rendering
+    parsingToken = const (parsingToken QText) -- the corresponding token in *.4s
+    cssClass = const "question"  --the corresponding css class
 
-instance HasToken Comment where
-    tokenOf = const "#"
 
 data QFieldType = QText | QAnswer | QEquiv | QNotEquiv | QComment | QSource | QAuthor deriving (Eq, Enum, Ord)
 
@@ -45,16 +48,21 @@ instance Show QFieldType where
 allQFTs :: [QFieldType]
 allQFTs = [toEnum 0 ..]
 
-instance ShowNatural QFieldType where
-    showNatural = tokenToString . show 
 
-instance HasToken QFieldType where
-    tokenOf = show
+instance Element4s QFieldType where
+    showNatural = tokenToString . show -- the token shown in rendering
+    parsingToken = show -- the corresponding token in *.4s
+    cssClass = undefined  --the corresponding css class
 
 
 data QField = QField QFieldType [Line] deriving (Eq, Show)
-instance ShowNatural QField where
-    showNatural (QField t _) = showNatural t
+
+
+instance Element4s QField where
+    showNatural (QField t s) = showNatural t-- the token shown in rendering
+    parsingToken (QField t s) = parsingToken t -- the corresponding token in *.4s
+    cssClass (QField t s) = cssClass  t ++ "Content"--the corresponding css class
+
 instance Ord QField where
     (QField t _) <= (QField s _) = fromEnum t <= fromEnum s
 

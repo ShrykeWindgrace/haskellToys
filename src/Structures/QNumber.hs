@@ -10,9 +10,15 @@ instance Show QModifier where
   show (Hard int)  = show int
 
 
-instance ShowNatural QModifier where
+instance Element4s QModifier where
     showNatural (Soft line) = "Вопрос " ++ line
     showNatural (Hard int) = "Вопрос " ++ show int
+
+    parsingToken (Soft _) = "№"
+    parsingToken (Hard _) = "№№"
+
+    cssClass = const "qmodifier"
+
 
 type QModifierM = Maybe QModifier
 
