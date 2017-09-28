@@ -83,7 +83,7 @@ htmlListFoldBase fn = foldr1 mappend . map fn
 instance ToHtml HeaderItem where
     toHtml (HeaderItem t str)
         | t == Title = h1_ $ toHtml $ (pack str)
-        | otherwise = div_ [class_ $ pack $ showNatural t] $ toHtml (pack str)
+        | otherwise = div_ [class_ $ pack $ showNatural t] $ toHtml $ pack str
     toHtmlRaw (HeaderItem t str)
         | t == Title = h1_ $ toHtmlRaw $ (pack str)
-        | otherwise = div_ [class_ $ pack $ showNatural t] $ toHtmlRaw (pack str)
+        | otherwise = div_ [class_ $ pack $ showNatural t] $ toHtmlRaw $ pack str
