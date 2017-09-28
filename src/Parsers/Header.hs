@@ -19,4 +19,4 @@ headerParsers = parseHeaderGen <$> allHeaderItemTypes
 
 
 parseEditor :: Parser HeaderItem
-parseEditor = parseHeaderGen Editor
+parseEditor = head headerParsers

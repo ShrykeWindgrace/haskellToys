@@ -4,20 +4,19 @@ module CLIOptionsLayer
   ( main'
   ) where
 
-import           Data.Semigroup      ((<>))
-import           Data.Maybe      (fromJust, isNothing)
-import           Options.Applicative
 import           Control.Applicative (optional)
-import           Control.Monad       (when, unless)
+import           Control.Monad       (unless, when)
+import           Data.Maybe          (fromJust, isNothing)
+import           Data.Semigroup      ((<>))
+import qualified Data.Text.IO        as DIO
+import qualified Data.Text.Lazy      as DL
 import qualified Data.Version        as DV (showVersion)
+import           Lucid
+import           Options.Applicative
 import           Paths_parse4s       (version)
+import           Render.Html.Rend    ()
+import           Structures.Quest
 import           System.FilePath     ((</>))
-
-import Render.Html.Rend
-import Structures.Quest
-import Lucid
-import qualified Data.Text.IO as DIO
-import qualified Data.Text.Lazy as DL
 
 data Options = Options
   { input          :: String

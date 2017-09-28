@@ -59,9 +59,9 @@ data QField = QField QFieldType [Line] deriving (Eq, Show)
 
 
 instance Element4s QField where
-    showNatural (QField t s) = showNatural t-- the token shown in rendering
-    parsingToken (QField t s) = parsingToken t -- the corresponding token in *.4s
-    cssClass (QField t s) = cssClass  t ++ "Content"--the corresponding css class
+    showNatural (QField t _) = showNatural t-- the token shown in rendering
+    parsingToken (QField t _) = parsingToken t -- the corresponding token in *.4s
+    cssClass (QField t _) = cssClass  t ++ "Content"--the corresponding css class
 
 instance Ord QField where
     (QField t _) <= (QField s _) = fromEnum t <= fromEnum s

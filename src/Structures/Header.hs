@@ -24,4 +24,4 @@ instance Element4s HeaderItemType where
 instance Element4s HeaderItem where
     showNatural (HeaderItem _ s) = s
     parsingToken (HeaderItem t _) = parsingToken t
-    cssClass (HeaderItem t s) = (++ "text") (cssClass t)
+    cssClass (HeaderItem t _) = (++ "text") (cssClass t)
