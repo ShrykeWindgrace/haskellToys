@@ -1,16 +1,17 @@
 module Parsers.Header (parseEditor) where
 
-import           Parsers.InlineSpace
-import           Parsers.Lines
-import           Constants.StringWorks
-import           Structures.Header
-import           Text.Parsec
+import           Constants.StringWorks (parsingToken)
+import           Parsers.InlineSpace   (skipSpaces)
+import           Parsers.Lines         (pLine)
+import           Structures.Header     (HeaderItem (..), HeaderItemType (..),
+                                        allHeaderItemTypes)
+import           Text.Parsec           (choice, endOfLine, eof, string)
 -- import           Text.Parsec.Perm
-import           Text.Parsec.String
+import           Text.Parsec.String    (Parser)
 
 
 parseHeaderGen :: HeaderItemType -> Parser HeaderItem
-parseHeaderGen t = HeaderItem t . show <$> 
+parseHeaderGen t = HeaderItem t . show <$>
     (string (parsingToken t) >> skipSpaces >> pLine <* choice [eof, () <$ endOfLine])
 
 

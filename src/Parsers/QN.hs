@@ -1,16 +1,15 @@
 module Parsers.QN where
 
-import           Constants.StringWorks
-import           Parsers.InlineSpace
-import           Parsers.Lines
+import           Constants.StringWorks (parsingToken)
+import           Parsers.InlineSpace   (skipSpaces)
+import           Parsers.Lines         (pLine)
 import           Parsers.Primitives    (decimal)
-import           Parsers.Tech
-import           Structures.QNumber
-import           Text.Parsec
-import           Text.Parsec.String
+import           Structures.QNumber    (QModifier (..), QModifierM)
+import           Text.Parsec           (optionMaybe, string, try, (<|>))
+import           Text.Parsec.String    (Parser)
 
 qHardReset :: Parser QModifier
-qHardReset = Hard <$> (string (parsingToken $ Hard 0) >> lexeme decimal)
+qHardReset = Hard <$> (string (parsingToken $ Hard 0) >> skipSpaces >> decimal)
 
 qSoftReset :: Parser QModifier
 qSoftReset = Soft . show <$> (string (parsingToken $ Soft "") >> skipSpaces >> pLine) -- todo: use human-readable version of Show

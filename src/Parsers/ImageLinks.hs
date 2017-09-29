@@ -6,12 +6,12 @@ module Parsers.ImageLinks
 
 where
 
-import           Parsers.Primitives             (decimal)
-import           Structures.Words
-import           Parsers.Tech               (lexeme, toMaybe)
-import           Text.Parsec
-import           Text.Parsec.Perm
-import           Text.Parsec.String
+import           Parsers.Primitives (decimal)
+import           Parsers.Tech       (lexeme, toMaybe)
+import           Structures.Words   (ILink (..))
+import           Text.Parsec        (between, char, many1, noneOf, string)
+import           Text.Parsec.Perm   (permute, (<$$>), (<|?>))
+import           Text.Parsec.String (Parser)
 
 
 

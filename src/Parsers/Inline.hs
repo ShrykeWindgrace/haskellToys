@@ -1,11 +1,11 @@
 module Parsers.Inline where
 
 
-import           Parsers.ImageLinks
+import           Parsers.ImageLinks (imageLink)
 import           Parsers.Tech       (wordEnd)
-import           Structures.Words
-import           Text.Parsec
-import           Text.Parsec.String
+import           Structures.Words   (OneWord (..))
+import           Text.Parsec        (char, letter, many, noneOf, try, (<|>))
+import           Text.Parsec.String (Parser)
 
 
 stressedWord :: Parser OneWord

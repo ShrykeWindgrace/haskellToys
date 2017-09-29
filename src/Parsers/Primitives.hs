@@ -1,8 +1,8 @@
 module Parsers.Primitives where
 
-import           Parsers.InlineSpace
-import           Text.Parsec
-import           Text.Parsec.String
+import           Parsers.InlineSpace (skipSpaces)
+import           Text.Parsec         (digit, many1, (<?>))
+import           Text.Parsec.String  (Parser)
 
 {-|
     Parse non-negative integer; eats all preceding space

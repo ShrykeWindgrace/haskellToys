@@ -1,15 +1,15 @@
 module Parsers.Tech (lexeme, toMaybe, wordEnd) where
 
-import           Parsers.InlineSpace (spaces')
-import           Text.Parsec
-import           Text.Parsec.String
+import           Parsers.InlineSpace (skipSpaces)
+import           Text.Parsec         (choice, eof, lookAhead, space, try)
+import           Text.Parsec.String  (Parser)
 
 
 {-|
     Make a parser consume all preceding space.
 -}
 lexeme :: Parser a -> Parser a
-lexeme _parser = spaces' >> _parser
+lexeme _parser = skipSpaces >> _parser
 
 
 {-|
