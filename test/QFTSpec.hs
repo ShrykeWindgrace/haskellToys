@@ -23,4 +23,4 @@ tester x = Right x == parserHelper x
 
 spec :: Spec
 spec = describe "question field type parser" $ it "should correctly parse its own strings" $
-    property $ \x -> tester (x :: QFieldType)
+    property tester
