@@ -2,7 +2,7 @@ module Constants.StringWorks
 
 where
 
-import           Data.Text
+import           Data.Text (Text)
 
 showMaybe :: Maybe String -> String
 showMaybe (Just s) = s
