@@ -1,14 +1,13 @@
 {-# LANGUAGE TemplateHaskell #-}
 module QFTSpec (spec) where
 
+import           Constants.StringWorks
 import           Data.DeriveTH
--- import           Data.Either               (isLeft)
-import           Helpers                   (parseGen)
+import           Helpers               (parseGen)
 import           Parsers.Field
 import           Structures.Quest
 import           Test.Hspec
 import           Test.QuickCheck
--- import           Test.QuickCheck.Arbitrary
 import           Text.Parsec
 
 -- I know that this is an "orphan instance" [-Worphans]. But I don't need this instance anywhere else. Yet
@@ -16,7 +15,7 @@ $( derive makeArbitrary ''QFieldType ) -- Arbitrary instance for QFieldType to f
 
 
 parserHelper :: QFieldType -> Either ParseError QFieldType
-parserHelper ft = parseGen (fieldType (show ft)) (show ft)
+parserHelper ft = parseGen (fieldType (parsingToken ft)) (parsingToken ft)
 
 
 tester :: QFieldType -> Bool
