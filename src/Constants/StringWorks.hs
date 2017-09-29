@@ -2,6 +2,8 @@ module Constants.StringWorks
 
 where
 
+import           Data.Text
+
 showMaybe :: Maybe String -> String
 showMaybe (Just s) = s
 showMaybe Nothing  = ""
@@ -32,7 +34,7 @@ titleLine = "###"
 class Element4s a where
     parsingToken :: a -> String -- the corresponding token in *.4s
     showNatural :: a -> String  -- the token shown in rendering
-    cssClass :: a -> String --the corresponding css class
+    cssClass :: a -> Text --the corresponding css class
 
 
 {-|

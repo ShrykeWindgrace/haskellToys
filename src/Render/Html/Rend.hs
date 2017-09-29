@@ -4,32 +4,32 @@
 module Render.Html.Rend where
 
 
-import           Data.List          (sort)
-import           Data.Maybe         (maybeToList)
-import           Data.Text          hiding (foldr1, map)
-import           Lucid
 import           Constants.StringWorks
-import           Structures.Lines
+import           Data.List             (sort)
+import           Data.Maybe            (maybeToList)
+import           Data.Text             hiding (foldr1, map)
+import           Lucid
 import           Structures.Header
+import           Structures.Lines
 import           Structures.QNumber
 import           Structures.Quest
 import           Structures.Words
 
 instance ToHtml QModifier where
-    toHtml (Soft line) = div_ [class_ "qnm"] $ do
-            div_ [class_ "questWord"] "Вопрос "
+    toHtml a@(Soft line) = div_ [class_ $ cssClass a] $ do
+            div_ [class_ "questWord"] $ toHtml $ showNatural a
             div_ [class_ "questNumber"] $ toHtml line -- line is escaped
 
-    toHtml (Hard int) = div_ [class_ "qnm"] $ do
-            div_ [class_ "questWord"] "Вопрос "
+    toHtml a@(Hard int) = div_ [class_ $ cssClass a] $ do
+            div_ [class_ "questWord"] $ toHtml $ showNatural a
             div_ [class_ "questNumber"] $ toHtml $ show int
 
-    toHtmlRaw (Soft line) = div_ [class_ "qnm"] $ do
-            div_ [class_ "questWord"] "Вопрос "
-            div_ [class_ "questNumber"] $ toHtmlRaw line -- line is not escaped
+    toHtmlRaw a@(Soft line) = div_ [class_ $ cssClass a] $ do
+            div_ [class_ "questWord"] $ toHtmlRaw $ showNatural a
+            div_ [class_ "questNumber"] $ toHtmlRaw line -- line is escaped
 
-    toHtmlRaw (Hard int) = div_ [class_ "qnm"] $ do
-            div_ [class_ "questWord"] "Вопрос "
+    toHtmlRaw a@(Hard int) = div_ [class_ $ cssClass a] $ do
+            div_ [class_ "questWord"] $ toHtmlRaw $ showNatural a
             div_ [class_ "questNumber"] $ toHtmlRaw $ show int
 
 
@@ -65,9 +65,9 @@ instance ToHtml Question where
         htmlListFoldRaw sorted_
 
 instance ToHtml QField where
-    toHtml (QField t list) = div_ [class_ $ pack $ showNatural t] $ htmlListFold list
+    toHtml (QField t list) = div_ [class_ $ cssClass t] $ htmlListFold list
 
-    toHtmlRaw (QField t list) = div_ [class_ $ pack $ showNatural t] $ htmlListFoldRaw list
+    toHtmlRaw (QField t list) = div_ [class_ $ cssClass t] $ htmlListFoldRaw list
 
 
 htmlListFold :: (ToHtml a, Monad m) => [a] -> HtmlT m ()
@@ -82,8 +82,8 @@ htmlListFoldBase fn = foldr1 mappend . map fn
 
 instance ToHtml HeaderItem where
     toHtml (HeaderItem t str)
-        | t == Title = h1_ $ toHtml $ (pack str)
-        | otherwise = div_ [class_ $ pack $ showNatural t] $ toHtml $ pack str
+        | t == Title = h1_ $ toHtml $ pack str
+        | otherwise = div_ [class_ $ cssClass t] $ toHtml $ pack str
     toHtmlRaw (HeaderItem t str)
-        | t == Title = h1_ $ toHtmlRaw $ (pack str)
-        | otherwise = div_ [class_ $ pack $ showNatural t] $ toHtmlRaw $ pack str
+        | t == Title = h1_ $ toHtmlRaw $ pack str
+        | otherwise = div_ [class_ $ cssClass t] $ toHtmlRaw $ pack str

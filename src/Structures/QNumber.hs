@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Structures.QNumber where
 
 import Constants.StringWorks
@@ -11,13 +12,12 @@ instance Show QModifier where
 
 
 instance Element4s QModifier where
-    showNatural (Soft line) = "Вопрос " ++ line
-    showNatural (Hard int) = "Вопрос " ++ show int
+    showNatural = const "Вопрос"-- the token shown in rendering
 
-    parsingToken (Soft _) = "№"
-    parsingToken (Hard _) = "№№"
+    parsingToken (Soft _) = "№" -- the corresponding token in *.4s
+    parsingToken (Hard _) = "№№" -- the corresponding token in *.4s
 
-    cssClass = const "qmodifier"
+    cssClass = const "qmodifier"--the corresponding css class
 
 
 type QModifierM = Maybe QModifier

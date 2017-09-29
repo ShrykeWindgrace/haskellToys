@@ -1,8 +1,8 @@
 module Parsers.Debug (seeNext) where
 
+import           Debug.Trace
 import           Text.Parsec
 import           Text.Parsec.String
-import           Debug.Trace
 
 seeNext :: Int -> Parser ()
 seeNext n = do
