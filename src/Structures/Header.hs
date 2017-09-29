@@ -2,8 +2,10 @@
 module Structures.Header where
 
 
-import           Constants.StringWorks
-import           Data.Text
+import           Constants.StringWorks (Element4s, cssClass, dateLine, edLine,
+                                        parsingToken, showNatural, titleLine,
+                                        tokenToString)
+import           Data.Text             (append, pack)
 
 
 data HeaderItemType = Editor | Title | TDate deriving (Eq, Show, Enum)

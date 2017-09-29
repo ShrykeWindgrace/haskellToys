@@ -1,7 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Structures.QNumber where
 
-import Constants.StringWorks
+import           Constants.StringWorks (Element4s, cssClass, parsingToken,
+                                        showNatural)
 
 data QModifier = Soft String | Hard Integer
   deriving (Eq)

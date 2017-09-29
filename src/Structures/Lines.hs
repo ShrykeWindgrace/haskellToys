@@ -1,9 +1,9 @@
 module Structures.Lines where
 
-import           Structures.Words
+import           Structures.Words (OneWord)
 -- import           Constants.StringWorks
 
-data Line = Line [OneWord] deriving (Eq, Show) -- TODO rename to avoid "qualified imports" requirement
+newtype Line = Line [OneWord] deriving (Eq, Show) -- TODO rename to avoid "qualified imports" requirement
 
 -- instance Show Line where
     -- show (Line _words) = unwords (show <$> _words)
@@ -14,4 +14,4 @@ instance Monoid Line where
     -- this instance supposes that these lines are not separated; there are no newlines here
 
 
-data ListLines = ListLines [Line] deriving (Eq, Show)
+newtype ListLines = ListLines [Line] deriving (Eq, Show)

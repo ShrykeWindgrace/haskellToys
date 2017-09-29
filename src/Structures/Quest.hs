@@ -1,10 +1,11 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Structures.Quest where
 
-import           Constants.StringWorks
-import           Data.Text
-import           Structures.Lines
-import           Structures.QNumber
+import           Constants.StringWorks (Element4s, cssClass, parsingToken,
+                                        showNatural, tokenToString)
+import           Data.Text             (Text, append, pack)
+import           Structures.Lines      (Line (..))
+import           Structures.QNumber    (QModifier (..))
 import           Structures.Words
 
 
