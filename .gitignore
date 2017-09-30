@@ -30,3 +30,5 @@ out*.txt
 *.iml
 
 .weeder.yaml
+
+*.html
