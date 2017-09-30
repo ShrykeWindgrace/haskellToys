@@ -17,20 +17,20 @@ import           Structures.Words
 
 instance ToHtml QModifier where
     toHtml a@(Soft line) = div_ [class_ $ cssClass a] $ do
-            div_ [class_ "questWord"] $ toHtml $ showNatural a
-            div_ [class_ "questNumber"] $ toHtml line -- line is escaped
+            span_ [class_ "questWord"] $ toHtml $ showNatural a
+            span_ [class_ "questNumber"] $ toHtml line -- line is escaped
 
     toHtml a@(Hard int) = div_ [class_ $ cssClass a] $ do
-            div_ [class_ "questWord"] $ toHtml $ showNatural a
-            div_ [class_ "questNumber"] $ toHtml $ show int
+            span_ [class_ "questWord"] $ toHtml $ showNatural a
+            span_ [class_ "questNumber"] $ toHtml $ show int
 
     toHtmlRaw a@(Soft line) = div_ [class_ $ cssClass a] $ do
-            div_ [class_ "questWord"] $ toHtmlRaw $ showNatural a
-            div_ [class_ "questNumber"] $ toHtmlRaw line -- line is escaped
+            span_ [class_ "questWord"] $ toHtmlRaw $ showNatural a
+            span_ [class_ "questNumber"] $ toHtmlRaw line -- line is escaped
 
     toHtmlRaw a@(Hard int) = div_ [class_ $ cssClass a] $ do
-            div_ [class_ "questWord"] $ toHtmlRaw $ showNatural a
-            div_ [class_ "questNumber"] $ toHtmlRaw $ show int
+            span_ [class_ "questWord"] $ toHtmlRaw $ showNatural a
+            span_ [class_ "questNumber"] $ toHtmlRaw $ show int
 
 
 instance ToHtml OneWord where
