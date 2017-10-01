@@ -4,6 +4,7 @@ module Structures.Quest where
 import           Constants.StringWorks (Element4s, cssClass, parsingToken,
                                         showNatural, tokenToString)
 import           Data.Text             (append, pack)
+import           Structures.Header
 import           Structures.Lines      (Line (..))
 import           Structures.QNumber    (QModifier (..))
 import           Structures.Words
@@ -21,11 +22,19 @@ data Tour = Tour {
     } deriving (Eq, Show)
 
 
+data Tournament = Tournament  {
+    header     :: [HeaderItem],
+    commentTNT :: Maybe Comment,
+    tours      :: [Tour]
+    } deriving (Eq, Show)
+
+
+
 newtype Comment = Comment { unComment :: String } deriving (Eq, Show)
 
 
 instance Element4s Comment where
-    showNatural = unComment -- the token shown in rendering
+    showNatural = const "" -- the token shown in rendering
     parsingToken = const "#" -- the corresponding token in *.4s
     cssClass = const "comment"  --the corresponding css class
 
@@ -35,6 +44,12 @@ instance Element4s Question where
     showNatural = const "" -- the token shown in rendering
     parsingToken = const (parsingToken QText) -- the corresponding token in *.4s
     cssClass = const "question"  --the corresponding css class
+
+
+instance Element4s Tour where
+    showNatural = const "Тур" -- the token shown in rendering
+    parsingToken = const "===" -- the corresponding token in *.4s
+    cssClass = const "tour"  --the corresponding css class
 
 
 data QFieldType = QText | QAnswer | QEquiv | QNotEquiv | QComment | QSource | QAuthor deriving (Eq, Enum, Ord, Show)
@@ -87,4 +102,4 @@ instance Read QFieldType where
 
 
 testQuestion :: Question
-testQuestion = Question (Hard 1) [QField QText [Line [RegWord "question"]]]
+testQuestion = Question (Hard 1) [QField QText [Line [RegWord "question", ILinkStr $ ILink "local.jpg" (Just 600) Nothing]]]

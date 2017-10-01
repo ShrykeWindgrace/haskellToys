@@ -5,7 +5,7 @@ module Structures.Header where
 import           Constants.StringWorks (Element4s, cssClass, dateLine, edLine,
                                         parsingToken, showNatural, titleLine,
                                         tokenToString)
-import           Data.Text             (append, pack)
+import           Data.Text             (Text, append, pack, unpack)
 
 
 data HeaderItemType = Editor | Title | TDate deriving (Eq, Show, Enum)
@@ -13,7 +13,7 @@ data HeaderItemType = Editor | Title | TDate deriving (Eq, Show, Enum)
 allHeaderItemTypes :: [HeaderItemType]
 allHeaderItemTypes = [toEnum 0 ..]
 
-data HeaderItem = HeaderItem HeaderItemType String deriving (Eq, Show)
+data HeaderItem = HeaderItem HeaderItemType Text deriving (Eq, Show)
 
 instance Element4s HeaderItemType where
     parsingToken Editor = edLine
@@ -26,6 +26,6 @@ instance Element4s HeaderItemType where
 
 
 instance Element4s HeaderItem where
-    showNatural (HeaderItem _ s) = s
+    showNatural (HeaderItem _ s) = unpack s
     parsingToken (HeaderItem t _) = parsingToken t
     cssClass (HeaderItem t _) = cssClass t `append` "text"

@@ -1,13 +1,13 @@
 module QNSpec (spec) where
 
-import           Data.Either        (isLeft)
-import           Helpers            (parseGen)
+import           Constants.StringWorks
+import           Data.Either           (isLeft)
+import           Helpers               (parseGen)
 import           Parsers.QN
 import           Structures.QNumber
 import           Test.Hspec
 import           Test.QuickCheck
 import           Text.Parsec
-import Constants.StringWorks
 
 parserHelper :: Integer -> Either ParseError QModifier
 parserHelper n = parseGen qHardReset (parsingToken (Hard n) ++ " " ++ show n)

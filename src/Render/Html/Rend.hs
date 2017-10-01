@@ -1,14 +1,20 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
+{-# OPTIONS_GHC -Wno-orphans  #-}
 
-module Render.Html.Rend where
+module Render.Html.Rend
+
+
+where
 
 
 import           Constants.StringWorks
+import           Control.Monad         (when)
 import           Data.List             (sort)
-import           Data.Maybe            (maybeToList)
+import           Data.Maybe            (fromJust, isJust, maybeToList)
 import           Data.Text             hiding (foldr1, map)
 import           Lucid
+import           Render.Html.Tech
 import           Structures.Header
 import           Structures.Lines
 import           Structures.QNumber
@@ -49,20 +55,26 @@ instance ToHtml OneWord where
 
 
 instance ToHtml Line where
-    toHtml (Line list) = div_ $ htmlListFold list
+    toHtml (Line list) = htmlListFold list
 
-    toHtmlRaw (Line list) = div_ $ htmlListFoldRaw list
+    toHtmlRaw (Line list) = htmlListFoldRaw list
 
+instance ToHtml ListLines where
+    toHtml (ListLines list) = ol_ $
+        foldr1 mappend $ map (li_ [] . toHtml) list
+
+    toHtmlRaw (ListLines list) = ol_ $
+        foldr1 mappend $ map (li_ [] . toHtmlRaw) list
 
 instance ToHtml Question where
     toHtml Question {..} = div_ [class_ "question"] $ do
         toHtml modifier
-        let sorted_ = sort fields
-        htmlListFold sorted_
+        htmlListFold $ sort fields
+
     toHtmlRaw  Question {..} = div_ [class_ "question"] $ do
         toHtml modifier
-        let sorted_ = sort fields
-        htmlListFoldRaw sorted_
+        htmlListFoldRaw $ sort fields
+
 
 instance ToHtml QField where
     toHtml (QField t list) = div_ [class_ $ cssClass t] $ htmlListFold list
@@ -70,20 +82,28 @@ instance ToHtml QField where
     toHtmlRaw (QField t list) = div_ [class_ $ cssClass t] $ htmlListFoldRaw list
 
 
-htmlListFold :: (ToHtml a, Monad m) => [a] -> HtmlT m ()
-htmlListFold = htmlListFoldBase toHtml
-
-htmlListFoldRaw :: (ToHtml a, Monad m) => [a] -> HtmlT m ()
-htmlListFoldRaw = htmlListFoldBase toHtmlRaw
-
-htmlListFoldBase :: (ToHtml a, Monad m) => (a -> HtmlT m ()) -> [a] -> HtmlT m ()
-htmlListFoldBase fn = foldr1 mappend . map fn
-
 
 instance ToHtml HeaderItem where
-    toHtml (HeaderItem t str)
-        | t == Title = h1_ $ toHtml $ pack str
-        | otherwise = div_ [class_ $ cssClass t] $ toHtml $ pack str
-    toHtmlRaw (HeaderItem t str)
-        | t == Title = h1_ $ toHtmlRaw $ pack str
-        | otherwise = div_ [class_ $ cssClass t] $ toHtmlRaw $ pack str
+    toHtml = toHtmlHeader toHtml
+    toHtmlRaw = toHtmlHeader toHtmlRaw
+
+
+{-|
+    Helper function to avoid code duplication for raw and non-raw html functions
+-}
+toHtmlHeader :: (Monad m) => (Text -> HtmlT m ()) -> HeaderItem ->  HtmlT m ()
+toHtmlHeader fn (HeaderItem t str)
+    | t == Title = h1_ $ fn str
+    | otherwise = div_ [class_ $ cssClass t]  (fn str)
+
+
+instance ToHtml Tour where
+    toHtml t@Tour{..} = div_ [class_ $ cssClass t] $ do
+        when (isJust comment) $
+            div_ [class_ $ cssClass $ Comment ""] $ toHtml $ unComment $ fromJust comment
+        htmlListFold quests
+
+    toHtmlRaw t@Tour{..} = div_ [class_ $ cssClass t] $ do
+        when (isJust comment) $
+            div_ [class_ $ cssClass $ Comment ""] $ toHtmlRaw $ unComment $ fromJust comment
+        htmlListFoldRaw quests

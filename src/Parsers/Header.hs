@@ -7,11 +7,11 @@ import           Structures.Header     (HeaderItem (..), HeaderItemType (..),
                                         allHeaderItemTypes)
 import           Text.Parsec           (choice, endOfLine, eof, string)
 -- import           Text.Parsec.Perm
+import           Data.Text             (pack)
 import           Text.Parsec.String    (Parser)
 
-
 parseHeaderGen :: HeaderItemType -> Parser HeaderItem
-parseHeaderGen t = HeaderItem t . show <$>
+parseHeaderGen t = HeaderItem t . pack . show <$>
     (string (parsingToken t) >> skipSpaces >> pLine <* choice [eof, () <$ endOfLine])
 
 

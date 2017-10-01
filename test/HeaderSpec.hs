@@ -1,9 +1,9 @@
 module HeaderSpec (spec) where
 
-import           Data.Either        (isRight, isLeft)
-import           Helpers            (parseGen)
-import           Parsers.Header
 import           Constants.StringWorks
+import           Data.Either           (isLeft, isRight)
+import           Helpers               (parseGen)
+import           Parsers.Header
 import           Structures.Header
 import           Test.Hspec
 import           Test.QuickCheck
@@ -11,7 +11,7 @@ import           Text.Parsec
 
 
 parserHelper :: String -> Either ParseError HeaderItem
-parserHelper n = parseGen parseEditor (parsingToken Editor ++ " " ++ n ++ "\n")
+parserHelper n = parseGen parseEditor $ unwords [parsingToken Editor, n]
 
 tester :: String -> Bool
 tester x
