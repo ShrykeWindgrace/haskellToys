@@ -1,4 +1,5 @@
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards   #-}
 
 module CLIOptionsLayer
   ( main'
@@ -8,6 +9,7 @@ import           Control.Applicative (optional)
 import           Control.Monad       (unless, when)
 import           Data.Maybe          (fromJust, isNothing)
 import           Data.Semigroup      ((<>))
+import           Data.Text           (pack)
 import qualified Data.Text.IO        as DIO
 import qualified Data.Text.Lazy      as DL
 import qualified Data.Version        as DV (showVersion)
@@ -15,7 +17,7 @@ import           Lucid
 import           Options.Applicative
 import           Paths_parse4s       (version)
 import           Render.Html.Rend    ()
-import           Structures.Quest
+import           Structures.Quest    (testQuestion)
 import           System.FilePath     ((</>))
 
 data Options = Options
@@ -84,9 +86,15 @@ mainParametrised Options{..}
     putStrLn ("Input file: " ++ input) >>
     putStrLn ("Output file: " ++ output) >>
     unless (isNothing customCSS) (putStr "using custom css file: " >> print (fromJust customCSS)) >>
-    DIO.putStrLn (DL.toStrict $ renderText $ toHtml testQuestion) >>
+    DIO.putStrLn (DL.toStrict $ renderText qt) >>
+    renderToFile "tst.html" qt >>
     when printToConsole (putStrLn "TBI")
 
 
 main' :: IO ()
 main' = execParser optionsH >>= mainParametrised
+
+qt :: Html ()
+qt = html_ $
+  head_ (meta_ [charset_ $ pack "utf8"] <> link_ [rel_ "stylesheet", href_ "local.css"]) <>
+  body_ (toHtml testQuestion)
