@@ -6,12 +6,12 @@ module Parsers.ImageLinks
 
 where
 
-import           Parsers.Primitives (decimal)
-import           Parsers.Tech       (lexeme, toMaybe)
-import           Structures.Words   (ILink (..))
-import           Text.Parsec        (between, char, many1, noneOf, string)
-import           Text.Parsec.Perm   (permute, (<$$>), (<|?>))
-import           Text.Parsec.String (Parser)
+import           Parsers.Primitives     (decimal)
+import           Parsers.Tech           (lexeme, toMaybe)
+import           Structures.Words       (ILink (..))
+import           Text.Megaparsec        (between, char, noneOf, some, string)
+import           Text.Megaparsec.Perm   (makePermParser, (<$$>), (<|?>))
+import           Text.Megaparsec.String (Parser)
 
 
 
@@ -31,8 +31,8 @@ heiParse :: Parser Integer
 heiParse = sizeParse 'h'
 
 linkContents :: Parser ILink
-linkContents =  permute (ILink
-    <$$> lexeme ( many1 (noneOf ")\n"))
+linkContents =  makePermParser (ILink
+    <$$>  lexeme (some (noneOf ")\n"))
     <|?> (Nothing,  toMaybe widParse)
     <|?> (Nothing,  toMaybe heiParse))
 

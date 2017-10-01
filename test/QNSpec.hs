@@ -7,9 +7,9 @@ import           Parsers.QN
 import           Structures.QNumber
 import           Test.Hspec
 import           Test.QuickCheck
-import           Text.Parsec
+import           Text.Megaparsec
 
-parserHelper :: Integer -> Either ParseError QModifier
+parserHelper :: Integer -> Either (ParseError (Token String) Dec) QModifier
 parserHelper n = parseGen qHardReset (parsingToken (Hard n) ++ " " ++ show n)
 
 tester :: Integer -> Bool

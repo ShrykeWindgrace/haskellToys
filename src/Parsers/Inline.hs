@@ -1,19 +1,20 @@
 module Parsers.Inline where
 
 
-import           Parsers.ImageLinks (imageLink)
-import           Parsers.Tech       (wordEnd)
-import           Structures.Words   (OneWord (..))
-import           Text.Parsec        (char, letter, many, noneOf, try, (<|>))
-import           Text.Parsec.String (Parser)
+import           Parsers.ImageLinks     (imageLink)
+import           Parsers.Tech
+import           Structures.Words       (OneWord (..))
+import           Text.Megaparsec
+-- import           Text.Megaparsec.Char
+import           Text.Megaparsec.String (Parser)
 
 
 stressedWord :: Parser OneWord
 stressedWord = do
-    pref <- many letter
+    pref <- many letterChar
     _ <- char '`'
-    s <- letter
-    post <- many letter
+    s <- letterChar
+    post <- many letterChar
     wordEnd
     return $ StressedWord pref s post
 

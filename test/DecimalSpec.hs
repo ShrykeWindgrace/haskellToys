@@ -5,9 +5,9 @@ import           Helpers            (parseGen)
 import           Parsers.Primitives (decimal)
 import           Test.Hspec
 import           Test.QuickCheck
-import           Text.Parsec
+import           Text.Megaparsec
 
-parserHelper :: Integer -> Either ParseError Integer
+parserHelper :: Integer -> Either (ParseError (Token String) Dec) Integer
 parserHelper = parseGen decimal . show
 
 

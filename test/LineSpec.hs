@@ -2,13 +2,13 @@ module LineSpec (spec) where
 
 import           Helpers
 import           Parsers.Lines
+import           Structures.Composers
 import           Structures.Lines
 import           Structures.Words
-import           Structures.Composers
 import           Test.Hspec
-import           Text.Parsec      (ParseError)
+import           Text.Megaparsec
 
-parseHelper :: String -> Either ParseError Line
+parseHelper :: String -> Either (ParseError (Token String) Dec) Line
 parseHelper = parseGen pLine
 
 spec :: Spec

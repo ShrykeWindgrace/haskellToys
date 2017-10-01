@@ -6,10 +6,10 @@ import           Helpers          (parseGen)
 import           Parsers.Inline
 import           Structures.Words
 import           Test.Hspec
-import           Text.Parsec      (ParseError)
+import           Text.Megaparsec
 
 
-parseHelper :: String -> Either ParseError OneWord
+parseHelper :: String -> Either (ParseError (Token String) Dec) OneWord
 parseHelper = parseGen oneWord
 
 dataSetStressGood :: [String]

@@ -4,13 +4,13 @@ module Parsers.QN (qSoftReset, qHardReset, questModifier)
 where
 
 
-import           Constants.StringWorks (parsingToken)
-import           Parsers.InlineSpace   (skipSpaces)
-import           Parsers.Lines         (pLine)
-import           Parsers.Primitives    (decimal)
-import           Structures.QNumber    (QModifier (..), QModifierM)
-import           Text.Parsec           (optionMaybe, string, try, (<|>))
-import           Text.Parsec.String    (Parser)
+import           Constants.StringWorks  (parsingToken)
+import           Parsers.InlineSpace    (skipSpaces)
+import           Parsers.Lines          (pLine)
+import           Parsers.Primitives     (decimal)
+import           Structures.QNumber     (QModifier (..), QModifierM)
+import           Text.Megaparsec        (optional, string, try, (<|>))
+import           Text.Megaparsec.String (Parser)
 
 
 qHardReset :: Parser QModifier
@@ -22,4 +22,4 @@ qSoftReset = Soft . show <$> (string (parsingToken $ Soft "") >> skipSpaces >> p
 
 
 questModifier :: Parser QModifierM
-questModifier = optionMaybe $ try qHardReset <|> try qSoftReset
+questModifier = optional $ try qHardReset <|> try qSoftReset

@@ -7,10 +7,10 @@ import           Parsers.Header
 import           Structures.Header
 import           Test.Hspec
 import           Test.QuickCheck
-import           Text.Parsec
+import           Text.Megaparsec
 
 
-parserHelper :: String -> Either ParseError HeaderItem
+parserHelper :: String -> Either (ParseError (Token String) Dec) HeaderItem
 parserHelper n = parseGen parseEditor $ unwords [parsingToken Editor, n]
 
 tester :: String -> Bool
