@@ -34,9 +34,11 @@ library
                       , Structures.Composers
                       , Constants.StringWorks
                       , Render.Html.Rend
+                      , Render.Html.Tech
   other-modules:        Paths_parse4s
   build-depends:       base >= 4.7 && < 5
                       , parsec
+                      , megaparsec
                       , optparse-applicative
                       , filepath
                       , lucid
@@ -67,6 +69,7 @@ test-suite parse4s-test
   build-depends:       base
                       , parse4s
                       , parsec >= 3.1.11
+                      , megaparsec
                       , hspec 
                       , QuickCheck
                       , derive >= 2.6.3
