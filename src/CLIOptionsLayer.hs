@@ -96,5 +96,8 @@ main' = execParser optionsH >>= mainParametrised
 
 qt :: Html ()
 qt = html_ $
-  head_ (meta_ [charset_ $ pack "utf8"] <> link_ [rel_ "stylesheet", href_ "local.css"]) <>
+  head_ (
+    meta_ [charset_ $ pack "utf8"] <>
+    link_ [rel_ "stylesheet", href_ "local.css"]
+  ) <>
   body_ (toHtml testQuestion)
