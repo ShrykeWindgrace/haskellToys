@@ -16,12 +16,29 @@ $( derive makeArbitrary ''QFieldType ) -- Arbitrary instance for QFieldType to f
 
 
 parserHelper :: QFieldType -> Either (ParseError (Token String) Dec) QFieldType
-parserHelper ft = parseGen (fieldType (parsingToken ft)) (parsingToken ft)
+parserHelper ft = parseGen (fieldType tok) tok where
+    tok = parsingToken ft
+
+parserHelper' :: QFieldType -> QFieldType -> Either (ParseError (Token String) Dec) QFieldType
+parserHelper' ft ft' = parseGen (fieldType tok) tok' where
+    tok = parsingToken ft
+    tok' = parsingToken ft'
 
 
 tester :: QFieldType -> Bool
 tester x = Right x == parserHelper x
 
+-- we need an ugly hack here because QNotEquiv has token "!=" and it breaks the test for QAnswer
+-- this test verifies that the corresponding parsers succeed only on their tokens
+tester' :: QFieldType -> Bool
+tester' x
+    | x == QAnswer = [x] == [y | y <- allQFTs, y /= QNotEquiv, Right x == parserHelper' x y]
+    | otherwise = [x] == [y | y<- allQFTs, Right x == parserHelper' x y]
+
+
 spec :: Spec
-spec = describe "question field type parser" $ it "should correctly parse its own strings" $
-    property tester
+spec = do
+    describe "question field type parser" $ it "should correctly parse its own strings" $
+        property tester
+    describe "question field type parser" $ it "should correctly parse only its own strings" $
+        property tester'
