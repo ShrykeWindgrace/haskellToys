@@ -35,21 +35,17 @@ testLine :: String
 testLine = "? вышел ОН из\nтумана\n№ ноль\n! (img w = 20px h =   40px moon.jpg) месяц\n!= moon"
 
 
-pLine' = pLine <* char '\n'
-
-
 testGrammar :: Parser Question
 testGrammar = do
     string (parsingToken QText)
     skipSpaces
-    l1 <- pLine'
-    l2 <- pLine'
+    l1 <- pLine
+    l2 <- pLine
     modifierM <- questModifier
-    char '\n'
     let modifier = fromJust modifierM
     string (parsingToken QAnswer)
     skipSpaces
-    l3 <- pLine'
+    l3 <- pLine
     string (parsingToken QNotEquiv)
     skipSpaces
     l4 <- pLine

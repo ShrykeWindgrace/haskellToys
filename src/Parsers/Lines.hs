@@ -7,9 +7,8 @@ import           Text.Megaparsec
 import           Text.Megaparsec.String (Parser)
 
 pLine :: Parser Line
-pLine = Line <$> oneWord `sepEndBy1` skipSpaces
+pLine = Line <$> (oneWord `sepEndBy1` skipSpaces) <* (eof <|> () <$ eol)
 
 
 pLines :: Parser ListLines
-pLines = ListLines <$> (char '-' >> pLine) `sepEndBy1` (skipSpaces >> char '\n')
- --  separated and optionally ended by
+pLines = ListLines <$> some (char '-' >> skipSpaces >> pLine)
