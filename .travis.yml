@@ -31,7 +31,6 @@ before_install:
 - export PATH=$HOME/.local/bin:$PATH
 - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
 - stack install happy
-- stack install codecov-haskell-0.4.0.2 --resolver=nightly
 
 install:
 # Build dependencies
@@ -40,4 +39,7 @@ install:
 script:
 # Build the package, its tests, and its docs and run the tests, and generate coverage report
 - stack --no-terminal test --haddock --no-haddock-deps --coverage
-- codecov-haskell parse4s-test --exclude-dir=test
+
+after_script:
+- travis_retry curl -L https://github.com/fendor/stack-hpc-coveralls/releases/download/v0.0.4.1/shc-linux-x64-8.0.2.tar.bz2 | tar -xj
+- ./shc parse4s parse4s-test 
