@@ -43,4 +43,4 @@ script:
 
 after_script:
 - travis_retry curl -L https://github.com/rubik/stack-hpc-coveralls/releases/download/v0.0.4.0/shc-linux-x64-7.8.4.tar.bz2 | tar -xj
-- ./shc parse4s parse4s-test 
+- ./shc --partial-coverage parse4s parse4s-test 
