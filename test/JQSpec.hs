@@ -1,17 +1,6 @@
 {-# LANGUAGE RecordWildCards #-}
 module JQSpec (spec) where
 
-
-{-}
-import           Control.Monad      (zipWithM_)
-import           Data.Maybe
-import           Helpers
-import           Parsers.ImageLinks
-import           Structures.Words
-import           Test.Hspec
-
-
--}
 import           Constants.StringWorks
 import           Data.Maybe             (fromJust)
 import           Parsers.InlineSpace
@@ -23,8 +12,7 @@ import           Structures.Quest
 import           Structures.Words
 
 import           Test.Hspec
-import           Test.QuickCheck
-import           Text.Megaparsec
+import           Text.Megaparsec        (Dec, ParseError, Token, parse, string)
 import           Text.Megaparsec.String
 
 
@@ -37,16 +25,16 @@ testLine = "? вышел ОН из\nтумана\n№ ноль\n! (img w = 20px 
 
 testGrammar :: Parser Question
 testGrammar = do
-    string (parsingToken QText)
+    _<-string (parsingToken QText)
     skipSpaces
     l1 <- pLine
     l2 <- pLine
     modifierM <- questModifier
     let modifier = fromJust modifierM
-    string (parsingToken QAnswer)
+    _<-string (parsingToken QAnswer)
     skipSpaces
     l3 <- pLine
-    string (parsingToken QNotEquiv)
+    _<-string (parsingToken QNotEquiv)
     skipSpaces
     l4 <- pLine
     let fields = [QField QText [l1, l2] , QField QAnswer [l3] , QField QNotEquiv [l4]]

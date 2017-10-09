@@ -4,12 +4,13 @@ module ImageLinkSpec
 where
 
 import           Control.Monad      (zipWithM_)
-import           Data.Maybe
-import           Helpers
-import           Parsers.ImageLinks
-import           Structures.Words
-import           Test.Hspec
-import           Text.Megaparsec
+import           Data.Maybe         (isNothing)
+import           Helpers            (parseGen)
+import           Parsers.ImageLinks (imageLink)
+import           Structures.Words   (ILink (..))
+import           Test.Hspec         (Arg, Expectation, Spec, SpecWith, describe,
+                                     it, shouldBe)
+import           Text.Megaparsec    (Dec, ParseError, Token)
 
 parseHelper :: String -> Either (ParseError (Token String) Dec) ILink
 parseHelper = parseGen imageLink

@@ -15,11 +15,11 @@ import           Text.Megaparsec.String (Parser)
 
 
 qHardReset :: Parser QModifier
-qHardReset = Hard <$> (string (parsingToken $ Hard 0) >> skipSpaces >> decimal)
+qHardReset = Hard <$> (string (parsingToken Hard{}) >> skipSpaces >> decimal)
 
 
 qSoftReset :: Parser QModifier
-qSoftReset = Soft . showHumanReadable <$> (string (parsingToken $ Soft "") >> skipSpaces >> pLine) where
+qSoftReset = Soft . showHumanReadable <$> (string (parsingToken Soft{}) >> skipSpaces >> pLine) where
     showHumanReadable :: Line -> String
     showHumanReadable (Line list) = unwords (show <$> list)
 

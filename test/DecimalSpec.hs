@@ -3,9 +3,9 @@ module DecimalSpec (spec) where
 import           Data.Either        (isLeft)
 import           Helpers            (parseGen)
 import           Parsers.Primitives (decimal)
-import           Test.Hspec
-import           Test.QuickCheck
-import           Text.Megaparsec
+import           Test.Hspec         (Spec, describe, it)
+import           Test.QuickCheck    (property)
+import           Text.Megaparsec    (Dec, ParseError, Token)
 
 parserHelper :: Integer -> Either (ParseError (Token String) Dec) Integer
 parserHelper = parseGen decimal . show

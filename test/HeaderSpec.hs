@@ -1,13 +1,13 @@
 module HeaderSpec (spec) where
 
-import           Constants.StringWorks
+import           Constants.StringWorks (parsingToken)
 import           Data.Either           (isLeft, isRight)
 import           Helpers               (parseGen)
-import           Parsers.Header
-import           Structures.Header
-import           Test.Hspec
-import           Test.QuickCheck
-import           Text.Megaparsec
+import           Parsers.Header        (parseEditor)
+import           Structures.Header     (HeaderItem, HeaderItemType (Editor))
+import           Test.Hspec            (Spec, describe, it)
+import           Test.QuickCheck       (property)
+import           Text.Megaparsec       (Dec, ParseError, Token)
 
 
 parserHelper :: String -> Either (ParseError (Token String) Dec) HeaderItem

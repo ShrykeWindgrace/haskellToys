@@ -3,10 +3,11 @@ module InlineStructSpec (spec) where
 import           Control.Monad    (zipWithM_)
 import           Data.Either      (isLeft)
 import           Helpers          (parseGen)
-import           Parsers.Inline
-import           Structures.Words
-import           Test.Hspec
-import           Text.Megaparsec
+import           Parsers.Inline   (oneWord)
+import           Structures.Words (OneWord (..))
+import           Test.Hspec       (Arg, Expectation, Spec, SpecWith, describe,
+                                   it, shouldBe, shouldSatisfy)
+import           Text.Megaparsec  (Dec, ParseError, Token)
 
 
 parseHelper :: String -> Either (ParseError (Token String) Dec) OneWord

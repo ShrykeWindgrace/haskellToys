@@ -21,8 +21,8 @@ instance Show QModifier where
 instance Element4s QModifier where
     showNatural = const "Вопрос"-- the token shown in rendering
 
-    parsingToken (Soft _) = "№" -- the corresponding token in *.4s
-    parsingToken (Hard _) = "№№" -- the corresponding token in *.4s
+    parsingToken Soft{} = "№" -- the corresponding token in *.4s
+    parsingToken Hard{} = "№№" -- the corresponding token in *.4s
 
     cssClass = const "qmodifier"--the corresponding css class
 

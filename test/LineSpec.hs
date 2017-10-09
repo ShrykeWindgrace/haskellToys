@@ -1,12 +1,12 @@
 module LineSpec (spec) where
 
-import           Helpers
-import           Parsers.Lines
-import           Structures.Composers
-import           Structures.Lines
-import           Structures.Words
-import           Test.Hspec
-import           Text.Megaparsec
+import           Helpers              (parseGen)
+import           Parsers.Lines        (pLine, pLines)
+import           Structures.Composers (($+$), ($:$))
+import           Structures.Lines     (Line (..), ListLines (..))
+import           Structures.Words     (OneWord (..))
+import           Test.Hspec           (Spec, describe, it, shouldBe)
+import           Text.Megaparsec      (Dec, ParseError, Token)
 
 parseHelper :: String -> Either (ParseError (Token String) Dec) Line
 parseHelper = parseGen pLine

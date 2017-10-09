@@ -2,14 +2,15 @@
 {-# LANGUAGE TemplateHaskell #-}
 module QFTSpec (spec) where
 
-import           Constants.StringWorks
-import           Data.DeriveTH
+import           Constants.StringWorks (parsingToken)
+import           Data.DeriveTH         (derive, makeArbitrary)
 import           Helpers               (parseGen)
-import           Parsers.Field
-import           Structures.Quest
-import           Test.Hspec
-import           Test.QuickCheck
-import           Text.Megaparsec
+import           Parsers.Field         (fieldType)
+import           Structures.Quest      (QFieldType (..), allQFTs)
+import           Test.Hspec            (Spec, describe, it, shouldBe)
+import           Text.Megaparsec       (Dec, ParseError, Token)
+-- required for TH derivation magic
+import           Test.QuickCheck       (Arbitrary, arbitrary, choose, property)
 
 -- I know that this is an "orphan instance" [-Worphans]. But I don't need this instance anywhere else. Yet
 $( derive makeArbitrary ''QFieldType ) -- Arbitrary instance for QFieldType to facilitate automated checks
