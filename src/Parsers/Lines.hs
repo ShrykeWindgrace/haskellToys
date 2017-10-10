@@ -1,12 +1,12 @@
-module Parsers.Lines (pLine, pLines, pLineExternal, parseQF) where
+module Parsers.Lines (pLine, pLines, pLineExternal, parseQFall) where
 
-import           Constants.StringWorks  (tokenList, parsingToken)
+import           Constants.StringWorks  (parsingToken, tokenList)
 import           Parsers.Inline
 import           Parsers.InlineSpace    (skipSpaces)
 import           Structures.Lines
+import           Structures.Quest
 import           Text.Megaparsec
 import           Text.Megaparsec.String (Parser)
-import Structures.Quest
 
 
 pLine :: Parser Line
@@ -21,9 +21,6 @@ pLines :: Parser ListLines
 pLines = ListLines <$> some (char '-' >> skipSpaces >> pLine)
 
 
--- toks = string <$> parsingToken <$> allQFTs
-
-
 parseQF :: QFieldType -> Parser QField
 parseQF qft = QField qft <$> do
     _ <- string (parsingToken qft)
@@ -31,3 +28,6 @@ parseQF qft = QField qft <$> do
     l <- pLine
     ls <- many pLineExternal
     return (l:ls)
+
+parseQFall :: Parser QField
+parseQFall = choice (parseQF <$> QNotEquiv : allQFTs) -- hack to be fixed

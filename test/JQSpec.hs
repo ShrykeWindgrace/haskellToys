@@ -45,11 +45,11 @@ testGrammar = do
 
 testGrammar2 :: Parser Question
 testGrammar2 = do
-    f1 <- parseQF QText
+    f1 <- parseQFall -- QText
     modifierM <- questModifier
     let modifier = fromJust modifierM
-    f2 <- parseQF QAnswer
-    f3 <- parseQF QNotEquiv
+    f2 <- parseQFall -- QAnswer
+    f3 <- parseQFall -- QNotEquiv
     let fields = [f1, f2, f3]
     return Question{..}
 
