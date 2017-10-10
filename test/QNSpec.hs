@@ -8,7 +8,7 @@ import           Structures.QNumber    (QModifier (..))
 import           Test.Hspec            (Expectation, Spec, describe, it,
                                         shouldBe)
 import           Test.QuickCheck       (property)
-import           Text.Megaparsec       (Dec, ParseError, Token)
+
 
 parserHelperHard :: Integer -> ParseResult QModifier
 parserHelperHard n = parseGen qHardReset (parsingToken Hard{} ++ " " ++ show n)

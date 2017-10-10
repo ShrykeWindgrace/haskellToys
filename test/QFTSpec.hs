@@ -7,8 +7,7 @@ import           Data.DeriveTH         (derive, makeArbitrary)
 import           Helpers               (parseGen, ParseResult)
 import           Parsers.Field         (fieldType)
 import           Structures.Quest      (QFieldType (..), allQFTs)
-import           Test.Hspec            (Spec, describe, it, shouldBe)
-import           Text.Megaparsec       (Dec, ParseError, Token)
+import           Test.Hspec            (Spec, describe, it)
 -- required for TH derivation magic
 import           Test.QuickCheck       (Arbitrary, arbitrary, choose, property)
 

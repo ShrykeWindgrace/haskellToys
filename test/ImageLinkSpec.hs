@@ -10,7 +10,6 @@ import           Parsers.ImageLinks (imageLink)
 import           Structures.Words   (ILink (..))
 import           Test.Hspec         (Arg, Expectation, Spec, SpecWith, describe,
                                      it, shouldBe)
-import           Text.Megaparsec    (Dec, ParseError, Token)
 
 parseHelper :: String -> ParseResult ILink
 parseHelper = parseGen imageLink

@@ -7,7 +7,6 @@ import           Parsers.Inline   (oneWord)
 import           Structures.Words (OneWord (..))
 import           Test.Hspec       (Arg, Expectation, Spec, SpecWith, describe,
                                    it, shouldBe, shouldSatisfy)
-import           Text.Megaparsec  (Dec, ParseError, Token)
 
 
 parseHelper :: String -> ParseResult OneWord

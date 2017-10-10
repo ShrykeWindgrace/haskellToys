@@ -6,7 +6,7 @@ import           Structures.Composers (($+$), ($:$))
 import           Structures.Lines     (Line (..), ListLines (..))
 import           Structures.Words     (OneWord (..))
 import           Test.Hspec           (Spec, describe, it, shouldBe)
-import           Text.Megaparsec      (Dec, ParseError, Token)
+
 
 parseHelper :: String -> ParseResult Line
 parseHelper = parseGen pLine

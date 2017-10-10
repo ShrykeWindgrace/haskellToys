@@ -5,7 +5,7 @@ import           Helpers            (parseGen, ParseResult)
 import           Parsers.Primitives (decimal)
 import           Test.Hspec         (Spec, describe, it)
 import           Test.QuickCheck    (property)
-import           Text.Megaparsec    (Dec, ParseError, Token)
+
 
 parserHelper :: Integer -> ParseResult Integer
 parserHelper = parseGen decimal . show

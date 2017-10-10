@@ -7,7 +7,6 @@ import           Parsers.Header        (parseEditor)
 import           Structures.Header     (HeaderItem, HeaderItemType (Editor))
 import           Test.Hspec            (Spec, describe, it)
 import           Test.QuickCheck       (property)
-import           Text.Megaparsec       (Dec, ParseError, Token)
 
 
 parserHelper :: String -> ParseResult HeaderItem
