@@ -1,56 +1,34 @@
 {-# LANGUAGE RecordWildCards #-}
 module JQSpec (spec) where
 
-import           Constants.StringWorks
 import           Data.Maybe             (fromJust)
-import           Parsers.InlineSpace
-import           Parsers.Lines
-import           Parsers.QN
-import           Structures.Lines
-import           Structures.QNumber
-import           Structures.Quest
-import           Structures.Words
+import           Parsers.Lines          (parseQFall)
+import           Parsers.QN             (questModifier)
+import           Structures.Lines       (Line (Line))
+import           Structures.QNumber     (QModifier (Soft))
+import           Structures.Quest       (QField (..), QFieldType (..), Question(..))
+import           Structures.Words       (OneWord (..), ILink(ILink))
 
-import           Test.Hspec
-import           Text.Megaparsec        (Dec, ParseError, Token, parse, string)
-import           Text.Megaparsec.String
+import           Test.Hspec             (Spec, describe, it, shouldBe)
+import           Text.Megaparsec        (many, parse, some)
+import           Text.Megaparsec.String (Parser)
 
 
 spec :: Spec
-spec = do
-    describe "placeholder" $ it "placeholder" $ parse testGrammar "" testLine `shouldBe` Right expectedResult
-    describe "placeholder" $ it "placeholder" $ parse testGrammar2 "" testLine `shouldBe` Right expectedResult
+spec = describe "placeholder" $ it "placeholder" $ parse testGrammar "" testLine `shouldBe` Right expectedResult
 
 testLine :: String
 testLine = "? вышел ОН из\nтумана\n№ ноль\n! (img w = 20px h =   40px moon.jpg) месяц\n!= moon"
 
 
+
 testGrammar :: Parser Question
 testGrammar = do
-    _<-string (parsingToken QText)
-    skipSpaces
-    l1 <- pLineExternal
-    l2 <- pLineExternal
+    pre <- many parseQFall -- QText
     modifierM <- questModifier
     let modifier = fromJust modifierM
-    _<-string (parsingToken QAnswer)
-    skipSpaces
-    l3 <- pLineExternal
-    _<-string (parsingToken QNotEquiv)
-    skipSpaces
-    l4 <- pLineExternal
-    let fields = [QField QText [l1, l2] , QField QAnswer [l3] , QField QNotEquiv [l4]]
-    return Question{..}
-
-
-testGrammar2 :: Parser Question
-testGrammar2 = do
-    f1 <- parseQFall -- QText
-    modifierM <- questModifier
-    let modifier = fromJust modifierM
-    f2 <- parseQFall -- QAnswer
-    f3 <- parseQFall -- QNotEquiv
-    let fields = [f1, f2, f3]
+    post <- some parseQFall -- answer must be there
+    let fields = pre ++ post
     return Question{..}
 
 
