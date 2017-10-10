@@ -2,7 +2,7 @@ module InlineStructSpec (spec) where
 
 import           Control.Monad    (zipWithM_)
 import           Data.Either      (isLeft)
-import           Helpers          (parseGen)
+import           Helpers          (parseGen, ParseResult)
 import           Parsers.Inline   (oneWord)
 import           Structures.Words (OneWord (..))
 import           Test.Hspec       (Arg, Expectation, Spec, SpecWith, describe,
@@ -10,7 +10,7 @@ import           Test.Hspec       (Arg, Expectation, Spec, SpecWith, describe,
 import           Text.Megaparsec  (Dec, ParseError, Token)
 
 
-parseHelper :: String -> Either (ParseError (Token String) Dec) OneWord
+parseHelper :: String -> ParseResult OneWord
 parseHelper = parseGen oneWord
 
 dataSetStressGood :: [String]

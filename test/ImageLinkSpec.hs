@@ -5,14 +5,14 @@ where
 
 import           Control.Monad      (zipWithM_)
 import           Data.Maybe         (isNothing)
-import           Helpers            (parseGen)
+import           Helpers            (parseGen, ParseResult)
 import           Parsers.ImageLinks (imageLink)
 import           Structures.Words   (ILink (..))
 import           Test.Hspec         (Arg, Expectation, Spec, SpecWith, describe,
                                      it, shouldBe)
 import           Text.Megaparsec    (Dec, ParseError, Token)
 
-parseHelper :: String -> Either (ParseError (Token String) Dec) ILink
+parseHelper :: String -> ParseResult ILink
 parseHelper = parseGen imageLink
 
 linkText :: String

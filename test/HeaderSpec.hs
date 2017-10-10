@@ -2,7 +2,7 @@ module HeaderSpec (spec) where
 
 import           Constants.StringWorks (parsingToken)
 import           Data.Either           (isLeft, isRight)
-import           Helpers               (parseGen)
+import           Helpers               (parseGen, ParseResult)
 import           Parsers.Header        (parseEditor)
 import           Structures.Header     (HeaderItem, HeaderItemType (Editor))
 import           Test.Hspec            (Spec, describe, it)
@@ -10,7 +10,7 @@ import           Test.QuickCheck       (property)
 import           Text.Megaparsec       (Dec, ParseError, Token)
 
 
-parserHelper :: String -> Either (ParseError (Token String) Dec) HeaderItem
+parserHelper :: String -> ParseResult HeaderItem
 parserHelper n = parseGen parseEditor $ unwords [parsingToken Editor, n]
 
 tester :: String -> Bool

@@ -4,7 +4,7 @@ module QFTSpec (spec) where
 
 import           Constants.StringWorks (parsingToken)
 import           Data.DeriveTH         (derive, makeArbitrary)
-import           Helpers               (parseGen)
+import           Helpers               (parseGen, ParseResult)
 import           Parsers.Field         (fieldType)
 import           Structures.Quest      (QFieldType (..), allQFTs)
 import           Test.Hspec            (Spec, describe, it, shouldBe)
@@ -16,11 +16,11 @@ import           Test.QuickCheck       (Arbitrary, arbitrary, choose, property)
 $( derive makeArbitrary ''QFieldType ) -- Arbitrary instance for QFieldType to facilitate automated checks
 
 
-parserHelper :: QFieldType -> Either (ParseError (Token String) Dec) QFieldType
+parserHelper :: QFieldType -> ParseResult QFieldType
 parserHelper ft = parseGen (fieldType tok) tok where
     tok = parsingToken ft
 
-parserHelper' :: QFieldType -> QFieldType -> Either (ParseError (Token String) Dec) QFieldType
+parserHelper' :: QFieldType -> QFieldType -> ParseResult QFieldType
 parserHelper' ft ft' = parseGen (fieldType tok) tok' where
     tok = parsingToken ft
     tok' = parsingToken ft'
