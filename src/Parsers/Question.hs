@@ -2,7 +2,7 @@
 module Parsers.Question (parseQuest, parseTour) where
 
 import           Data.Maybe             (fromJust)
-import           Parsers.InlineSpace
+import           Parsers.InlineSpace    (blankLines)
 import           Parsers.Lines          (parseQFall)
 import           Parsers.QN             (questModifier)
 import           Structures.Quest       (Question (..), Tour (..))
@@ -19,6 +19,7 @@ parseQuest = do
     post <- some parseQFall -- answer must be there
     let fields = pre ++ post
     return Question{..}
+
 
 parseTour :: Parser Tour
 parseTour = do
