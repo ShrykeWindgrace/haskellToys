@@ -27,16 +27,16 @@ testGrammar :: Parser Question
 testGrammar = do
     _<-string (parsingToken QText)
     skipSpaces
-    l1 <- pLine
-    l2 <- pLine
+    l1 <- pLineExternal
+    l2 <- pLineExternal
     modifierM <- questModifier
     let modifier = fromJust modifierM
     _<-string (parsingToken QAnswer)
     skipSpaces
-    l3 <- pLine
+    l3 <- pLineExternal
     _<-string (parsingToken QNotEquiv)
     skipSpaces
-    l4 <- pLine
+    l4 <- pLineExternal
     let fields = [QField QText [l1, l2] , QField QAnswer [l3] , QField QNotEquiv [l4]]
     return Question{..}
 
