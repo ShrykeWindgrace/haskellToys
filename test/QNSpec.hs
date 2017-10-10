@@ -11,10 +11,13 @@ import           Test.QuickCheck       (property)
 
 
 parserHelperHard :: Integer -> ParseResult QModifier
-parserHelperHard n = parseGen qHardReset (parsingToken Hard{} ++ " " ++ show n)
+parserHelperHard n = parseGen qHardReset (parsingToken qm ++ " " ++ show qm) where
+    qm = Hard n
 
 parserHelperSoft :: String -> ParseResult QModifier
-parserHelperSoft str = parseGen qSoftReset (parsingToken Soft{} ++ " " ++ str)
+parserHelperSoft str = parseGen qSoftReset (parsingToken qm ++ " " ++ show qm) where
+    qm = Soft str
+-- todo refactor these two ^^
 
 testerHard :: Integer -> Bool
 testerHard x
