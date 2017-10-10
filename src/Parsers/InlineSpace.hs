@@ -2,15 +2,13 @@ module Parsers.InlineSpace
   (
    -- spaces',
     -- blankLine,
-    -- blankLines,
+    blankLines,
     -- spaceChar,
     skipSpaces,
     -- nonSpaceChar
   ) where
 
--- import           Parsers.Types
 import           Text.Megaparsec
--- import           Text.Megaparsec.Char
 import           Text.Megaparsec.String
 
 -- If we ever want to deal with other whitespace characters, we should implement this parser in the same spirit as "isSpace"
@@ -24,9 +22,9 @@ skipSpaces :: Parser ()
 skipSpaces = skipMany (char ' ')
 
 
--- blankLine :: Parser Char
--- blankLine = try $ skipSpaces >> eol
+blankLine :: Parser ()
+blankLine = () <$ (skipSpaces >> eol) <|> eof
 
 
--- blankLines :: Parser String
--- blankLines = some blankLine
+blankLines :: Parser ()
+blankLines = eof <|> () <$ some blankLine
