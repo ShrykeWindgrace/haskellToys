@@ -27,6 +27,7 @@ library
                       , Parsers.Header
                       , Parsers.Debug
                       , Parsers.Primitives
+                      , Parsers.Question
                       , Structures.Words
                       , Structures.Lines
                       , Structures.Quest
