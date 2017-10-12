@@ -2,7 +2,7 @@ module Parsers.Header (parseEditor) where
 
 import           Constants.StringWorks  (parsingToken)
 import           Parsers.InlineSpace    (skipSpaces)
-import           Parsers.Lines          (pLine)
+import           Parsers.Lines          (pLineInner)
 import           Structures.Header      (HeaderItem (..), HeaderItemType (..),
                                          allHeaderItemTypes)
 import           Text.Megaparsec        (choice, eof, eol, string)
@@ -12,7 +12,7 @@ import           Text.Megaparsec.String (Parser)
 
 parseHeaderGen :: HeaderItemType -> Parser HeaderItem
 parseHeaderGen t = HeaderItem t . pack . show <$>
-    (string (parsingToken t) >> skipSpaces >> pLine <* choice [eof, () <$ eol])
+    (string (parsingToken t) >> skipSpaces >> pLineInner <* choice [eof, () <$ eol])
 
 
 headerParsers :: [Parser HeaderItem]

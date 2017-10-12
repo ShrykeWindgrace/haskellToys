@@ -56,8 +56,11 @@ instance ToHtml OneWord where
 
 instance ToHtml Line where
     toHtml (Line list) = htmlListFold list
+    toHtml (ListLinesStr lls) = toHtml lls
 
     toHtmlRaw (Line list) = htmlListFoldRaw list
+    toHtmlRaw (ListLinesStr lls) = toHtmlRaw lls
+
 
 instance ToHtml ListLines where
     toHtml (ListLines list) = ol_ $

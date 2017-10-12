@@ -1,7 +1,7 @@
 module LineSpec (spec) where
 
 import           Helpers              (parseGen, ParseResult)
-import           Parsers.Lines        (pLine, pLines)
+import           Parsers.Lines        (pLineInner, pLines, pLineExternal)
 import           Structures.Composers (($+$), ($:$))
 import           Structures.Lines     (Line (..), ListLines (..))
 import           Structures.Words     (OneWord (..))
@@ -9,7 +9,7 @@ import           Test.Hspec           (Spec, describe, it, shouldBe)
 
 
 parseHelper :: String -> ParseResult Line
-parseHelper = parseGen pLine
+parseHelper = parseGen pLineInner
 
 spec :: Spec
 spec = do
@@ -22,6 +22,9 @@ spec = do
     describe "\"-раз строчка -два строчка  \"" $
         it ("should be well-parsed to " ++ show expectGood'') $
             parseGen pLines "-one line \n-two line  " `shouldBe` Right expectGood''
+    describe "\"-раз строчка -два строчка  \"" $ -- todo test with listlinesstr
+        it ("should be well-parsed to " ++ show expectGood'') $
+            parseGen pLineExternal "-one line \n-two line  " `shouldBe` Right (ListLinesStr expectGood'')
 
 expectGood :: Line
 expectGood = RegWord "строка" $:$ RegWord "с" $:$ Line [StressedWord "удар" 'е' "нием"]

@@ -15,4 +15,5 @@ infixr 5 $+$
 
 ($:$) :: OneWord -> Line -> Line
 l $:$ Line lst  = Line  $ l:lst
+_ $:$ b  = b -- todo: rewrite the composition
 infixr 5 $:$
