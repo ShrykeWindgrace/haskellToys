@@ -1,13 +1,15 @@
 module JQwLSpec (spec) where
 
-import           Structures.Lines       (Line (..), ListLines(..))
-import           Structures.QNumber     (QModifier (Hard))
-import           Structures.Quest       (QField (..), QFieldType (..), Question(..))
-import           Structures.Words       (OneWord (..))
+import           Structures.Composers (strToLine)
+import           Structures.Lines     (Line (..), ListLines (..))
+import           Structures.QNumber   (QModifier (Hard))
+import           Structures.Quest     (QField (..), QFieldType (..),
+                                       Question (..))
+import           Structures.Words     (OneWord (..))
 
-import           Test.Hspec             (Spec, describe, it, shouldBe)
-import           Text.Megaparsec        (parse)
 import           Parsers.Question
+import           Test.Hspec           (Spec, describe, it, shouldBe)
+import           Text.Megaparsec      (parse)
 
 
 spec :: Spec
@@ -25,11 +27,11 @@ expectedResult = Question {
     fields = [
       QField QText [
                     Line [RegWord "Блиц."],
-                    Line ( RegWord <$> words "По мнению Анатолия Коломейского, если бы персонажи его миниатюр могли говорить, они сказали бы следующее:"),
+                    strToLine "По мнению Анатолия Коломейского, если бы персонажи его миниатюр могли говорить, они сказали бы следующее:",
                     ListLinesStr $ ListLines [
-                        Line ( RegWord <$> words "«Мне все говорят: „Дура, дура!..“. А я не обижаюсь. Потому что я — ОНА». Назовите ЕЁ."),
-                        Line ( RegWord <$> words "«Мне завидуют, мол, медовый месяц — круглый год. Но это нормально, потому что я — ОНА». Назовите ЕЁ."),
-                        Line ( RegWord <$> words "«Популярность утомляет. Открытие кинофестиваля в Каннах — я в кадре! Приём у президента — я в зале! Встреча делегации — без меня ни шагу. Потому что я — ОНА». Назовите ЕЁ двумя словами.")
+                        strToLine "«Мне все говорят: „Дура, дура!..“. А я не обижаюсь. Потому что я — ОНА». Назовите ЕЁ.",
+                        strToLine "«Мне завидуют, мол, медовый месяц — круглый год. Но это нормально, потому что я — ОНА». Назовите ЕЁ.",
+                        strToLine "«Популярность утомляет. Открытие кинофестиваля в Каннах — я в кадре! Приём у президента — я в зале! Встреча делегации — без меня ни шагу. Потому что я — ОНА». Назовите ЕЁ двумя словами."
                       ]
                     ],
               QField QAnswer [
@@ -37,7 +39,7 @@ expectedResult = Question {
               ],
 
               QField QEquiv [Line [RegWord "3.", RegWord "красная", RegWord "дорожка." ]],
-              QField QSource [Line $ RegWord <$> words "«Вокруг смеха», 2010, N 3."],
-              QField QAuthor [Line $ RegWord <$> words "Ольга Неумывакина (Харьков)"]
+              QField QSource [strToLine "«Вокруг смеха», 2010, N 3."],
+              QField QAuthor [strToLine "Ольга Неумывакина (Харьков)"]
               ]
     }

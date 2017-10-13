@@ -2,7 +2,7 @@ module LineSpec (spec) where
 
 import           Helpers              (parseGen, ParseResult)
 import           Parsers.Lines        (pLineInner, pLines, pLineExternal)
-import           Structures.Composers (($+$), ($:$))
+import           Structures.Composers (strToLine)
 import           Structures.Lines     (Line (..), ListLines (..))
 import           Structures.Words     (OneWord (..))
 import           Test.Hspec           (Spec, describe, it, shouldBe)
@@ -27,11 +27,11 @@ spec = do
             parseGen pLineExternal "-one line \n-two line  " `shouldBe` Right (ListLinesStr expectGood'')
 
 expectGood :: Line
-expectGood = RegWord "строка" $:$ RegWord "с" $:$ Line [StressedWord "удар" 'е' "нием"]
+expectGood = Line [RegWord "строка", RegWord "с", StressedWord "удар" 'е' "нием"]
 
 
 expectGood' :: Line
-expectGood' = Line $ RegWord <$> words "строка без ударения  "
+expectGood' = strToLine "строка без ударения  "
 
 expectGood'' :: ListLines
-expectGood'' = ListLines [RegWord "one" $+$ RegWord "line", RegWord "two" $+$ RegWord "line"]
+expectGood'' = ListLines [strToLine "one line",  strToLine "two line"]
