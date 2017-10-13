@@ -64,6 +64,7 @@ test-suite parse4s-test
                      , HeaderSpec
                      , QNSpec
                      , JQSpec
+                     , JQwLSpec
                      , LineSpec
                      , Helpers
                      , Spec

@@ -28,9 +28,11 @@ parseQF :: QFieldType -> Parser QField
 parseQF qft = QField qft <$> do
     _ <- string (parsingToken qft)
     skipSpaces
-    l <- pLineInner
-    ls <- many pLineExternal
-    return (l:ls)
+    _ <- optional newline
+    -- l <- pLineInner
+    -- ls <- many pLineExternal
+    -- return (l:ls)
+    some pLineExternal
 
 parseQFall :: Parser QField
 parseQFall = choice (parseQF <$> QNotEquiv : allQFTs) -- hack to be fixed
