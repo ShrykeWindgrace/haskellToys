@@ -1,7 +1,7 @@
-module Parsers.Primitives where
+module Parsers.Primitives (decimal) where
 
 import           Parsers.InlineSpace    (skipSpaces)
-import           Text.Megaparsec
+import           Text.Megaparsec ((<?>), some, digitChar)
 import           Text.Megaparsec.String (Parser)
 
 {-|

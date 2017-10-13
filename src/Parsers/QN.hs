@@ -8,7 +8,7 @@ import           Constants.StringWorks  (parsingToken)
 import           Parsers.InlineSpace    (skipSpaces)
 import           Parsers.Lines          (pLineInner)
 import           Parsers.Primitives     (decimal)
-import           Structures.Lines
+import           Structures.Lines       (Line (..), ListLines (..))
 import           Structures.QNumber     (QModifier (..), QModifierM)
 import           Text.Megaparsec        (optional, string, try, (<|>))
 import           Text.Megaparsec.String (Parser)
@@ -22,7 +22,7 @@ qSoftReset :: Parser QModifier
 qSoftReset = Soft . showHumanReadable <$> (string (parsingToken Soft{}) >> skipSpaces >> pLineInner) where
     showHumanReadable :: Line -> String
     showHumanReadable (Line list) = unwords (show <$> list)
-    showHumanReadable _ = error "lists are not allowed in question numbers"
+    showHumanReadable (ListLinesStr (ListLines list)) = list >>= showHumanReadable -- todo: test
 
 questModifier :: Parser QModifierM
 questModifier = optional $ try qHardReset <|> try qSoftReset
