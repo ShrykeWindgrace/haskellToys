@@ -102,4 +102,7 @@ instance Read QFieldType where
 
 
 testQuestion :: Question
-testQuestion = Question (Hard 1) [QField QText [Line [RegWord "question", ILinkStr $ ILink "local.jpg" (Just 600) Nothing]]]
+testQuestion = Question (Hard 1) [
+    QField QText [Line [RegWord "question", ILinkStr $ ILink "local.jpg" (Just 600) Nothing]],
+    QField QAnswer [Line [StressedWord "ур" 'а' ""]]
+    ]

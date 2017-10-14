@@ -2,7 +2,7 @@
 {-# LANGUAGE RecordWildCards   #-}
 {-# OPTIONS_GHC -Wno-orphans  #-}
 
-module Render.Html.Rend
+module Render.Html.Rend ()
 
 
 where
@@ -14,7 +14,7 @@ import           Data.List             (sort)
 import           Data.Maybe            (fromJust, isJust, maybeToList)
 import           Data.Text             hiding (foldr1, map)
 import           Lucid
-import           Render.Html.Tech
+import           Render.Html.Tech      (htmlListFold, htmlListFoldRaw)
 import           Structures.Header
 import           Structures.Lines
 import           Structures.QNumber
@@ -55,10 +55,10 @@ instance ToHtml OneWord where
 
 
 instance ToHtml Line where
-    toHtml (Line list) = htmlListFold list
+    toHtml (Line list)        = htmlListFold list
     toHtml (ListLinesStr lls) = toHtml lls
 
-    toHtmlRaw (Line list) = htmlListFoldRaw list
+    toHtmlRaw (Line list)        = htmlListFoldRaw list
     toHtmlRaw (ListLinesStr lls) = toHtmlRaw lls
 
 
