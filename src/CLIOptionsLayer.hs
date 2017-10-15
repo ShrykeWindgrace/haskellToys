@@ -82,13 +82,13 @@ mainParametrised :: Options -> IO ()
 mainParametrised Options{..}
   | showVersion = putStrLn $ "Current version is " ++ DV.showVersion version
   | dryRun = putStrLn "Dry Run"
-  | otherwise =
-    putStrLn ("Input file: " ++ input) >>
-    putStrLn ("Output file: " ++ output) >>
-    unless (isNothing customCSS) (putStr "using custom css file: " >> print (fromJust customCSS)) >>
-    DIO.putStrLn (DL.toStrict $ renderText qt) >>
-    renderToFile "tst.html" qt >>
-    when printToConsole (putStrLn "TBI")
+  | otherwise = do 
+      when printToConsole  $ do 
+        putStrLn ("Input file: " ++ input)
+        putStrLn ("Output file: " ++ output)
+        unless (isNothing customCSS) (putStr "using custom css file: " >> print (fromJust customCSS))
+        DIO.putStrLn (DL.toStrict $ renderText qt)
+      renderToFile output qt
 
 
 main' :: IO ()

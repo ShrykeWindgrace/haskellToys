@@ -1,4 +1,4 @@
-module Parsers.Header (parseEditor) where
+module Parsers.Header (parseEditor, headerParsers) where
 
 import           Constants.StringWorks  (parsingToken)
 import           Parsers.InlineSpace    (skipSpaces)
