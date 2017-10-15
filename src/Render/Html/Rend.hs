@@ -41,7 +41,10 @@ instance ToHtml QModifier where
 
 instance ToHtml OneWord where
     toHtml (RegWord str) = toHtml str
-    toHtml a@StressedWord{} = toHtml (show a)
+    toHtml (StressedWord pre c post) = do
+        toHtml (pre ++ [c])
+        toHtmlRaw ("&#x301;" :: String) -- need Raw, otherwise '&' is escaped
+        toHtml post
     toHtml (ILinkStr iLink) = img_ $ [src_ $ pack $ link iLink] ++
         ( width_ . pack . show <$> maybeToList (width iLink) ) ++
         ( width_ . pack . show <$> maybeToList (height iLink) )
