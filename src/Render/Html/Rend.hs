@@ -83,7 +83,9 @@ instance ToHtml Question where
 
 
 instance ToHtml QField where
-    toHtml (QField t list) = div_ [class_ $ cssClass t] $ htmlListFold list
+    toHtml (QField t list) = div_ [class_ $ cssClass t] $ do
+        span_ [class_ $ cssClass t] $ toHtml (showNatural t ++ ": ") -- should we put spaces as a part of css?
+        htmlListFold list
 
     toHtmlRaw (QField t list) = div_ [class_ $ cssClass t] $ htmlListFoldRaw list
 
