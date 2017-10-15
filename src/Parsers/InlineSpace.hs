@@ -1,7 +1,7 @@
 module Parsers.InlineSpace
   (
    -- spaces',
-    -- blankLine,
+    blankLine,
     blankLines,
     -- spaceChar,
     skipSpaces,

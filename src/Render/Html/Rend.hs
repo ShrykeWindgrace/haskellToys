@@ -113,3 +113,11 @@ instance ToHtml Tour where
         when (isJust comment) $
             div_ [class_ $ cssClass $ Comment ""] $ toHtmlRaw $ unComment $ fromJust comment
         htmlListFoldRaw quests
+
+instance ToHtml Tournament where
+    toHtml t@Tournament{..} = div_ [class_ $ cssClass t] $ do
+        htmlListFold header
+        htmlListFold tours
+        -- todo comments
+        -- todo numbering in questions and tours
+    toHtmlRaw = toHtml 

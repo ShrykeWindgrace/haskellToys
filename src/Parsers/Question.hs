@@ -1,17 +1,16 @@
 {-# LANGUAGE RecordWildCards #-}
-module Parsers.Question (parseQuest, parseTour) where
+module Parsers.Question (parseQuest, parseTour, parseTournament) where
 
 import           Constants.StringWorks  (parsingToken)
 import           Data.Maybe             (fromMaybe)
-import           Parsers.InlineSpace    (blankLines)
+import           Parsers.InlineSpace    (blankLine, blankLines)
 import           Parsers.Lines          (parseQFall)
 import           Parsers.QN             (questModifier)
-import           Structures.Header
 import           Parsers.Header
 import           Structures.QNumber     (QModifier (Hard))
 import           Structures.Quest       (Question (..), Tour (..), Tournament(..))
 import           Text.Megaparsec        (lookAhead, many, sepEndBy1, some,
-                                         string, try, choice)
+                                         string, try, choice, dbg, many)
 import           Text.Megaparsec.String (Parser)
 
 
@@ -29,15 +28,21 @@ parseQuest = do
 
 parseTour :: Parser Tour
 parseTour = do
-    _ <- blankLines
     _ <- string $ parsingToken (undefined::Tour) -- a hack, I know
+    _ <- many blankLine
     quests <- parseQuest `sepEndBy1` blankLines
     let comment = Nothing -- todo fixme
     return Tour{..}
 
+
 parseTournament :: Parser Tournament
 parseTournament = do
+    _ <- many blankLine
+    h1 <- choice headerParsers
+    _ <- many blankLine
+    h2 <- choice headerParsers
+    _ <- many blankLine
+    tours <- some $ dbg "tour" parseTour
+    let header = [h1, h2]
     let commentTNT = Nothing -- todo implement
-    header <- choice headerParsers `sepEndBy1` blankLines -- maybe not that restrictive on blankLines?
-    tours <- some parseTour    
     return Tournament{..}

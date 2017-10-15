@@ -51,6 +51,12 @@ instance Element4s Tour where
     parsingToken = const "===" -- the corresponding token in *.4s
     cssClass = const "tour"  --the corresponding css class
 
+instance Element4s Tournament where
+    showNatural = const "" -- the token shown in rendering
+    parsingToken = const "" -- the corresponding token in *.4s
+    cssClass = const "tournament"  --the corresponding css class
+
+
 
 data QFieldType = QText | QAnswer | QEquiv | QNotEquiv | QComment | QSource | QAuthor deriving (Eq, Enum, Ord, Show)
 

@@ -8,6 +8,7 @@ module CLIOptionsLayer
 import           Control.Applicative (optional)
 import           Control.Monad       (unless, when)
 import           Data.Maybe          (fromJust, isNothing)
+import           Data.Either          (fromRight, isRight)
 import           Data.Semigroup      ((<>))
 import           Data.Text           (pack)
 import qualified Data.Text.IO        as DIO
@@ -19,6 +20,9 @@ import           Paths_parse4s       (version)
 import           Render.Html.Rend    ()
 import           Structures.Quest    (testQuestion)
 import           System.FilePath     ((</>))
+import Parsers.Question
+import qualified Parsers.Tech as PT
+import qualified Text.Megaparsec as TM
 
 data Options = Options
   { input          :: String
@@ -33,6 +37,11 @@ data Options = Options
 defaultInputFile :: FilePath
 defaultInputFile  = "test" </> "inputs" </> "input.txt"
 
+
+localInputFile :: FilePath
+localInputFile  = -- "C:\\users\\tz\\projects\\haskelltoys" </>  "test" </> "inputs" </> "input2.txt"
+  "C:\\Users\\Timofey\\Projects\\haskellToys\\test\\inputs\\input2.txt"
+
 options :: Parser Options
 options =
   Options <$>
@@ -41,14 +50,15 @@ options =
      short 'i' <>
      metavar "INPUT_FILE" <>
      help "path to input file" <>
-     value defaultInputFile <>
+     value localInputFile <>
+     -- value defaultInputFile <>
      showDefault) <*>
   strOption
     (long "input" <>
      short 'o' <>
      metavar "OUTPUT_FILE" <>
      help "path to output file" <>
-     value "out.txt" <>
+     value "out.html" <>
      showDefault) <*>
   switch
     (long "printToConsole" <>
@@ -87,17 +97,27 @@ mainParametrised Options{..}
         putStrLn ("Input file: " ++ input)
         putStrLn ("Output file: " ++ output)
         unless (isNothing customCSS) (putStr "using custom css file: " >> print (fromJust customCSS))
-        DIO.putStrLn (DL.toStrict $ renderText qt)
-      renderToFile output qt
+        cont <- readFile input
+        let pd = TM.parse parseTournament "" cont
+        -- print pd
+        when (isRight pd) $ do 
+          print (fromRight undefined pd)
+          renderToFile output $ qtHelper $ fromRight undefined pd
+        -- DIO.putStrLn (DL.toStrict $ renderText qt)
+      -- renderToFile output qt
 
 
 main' :: IO ()
 main' = execParser optionsH >>= mainParametrised
 
-qt :: Html ()
-qt = html_ $
+
+qtHelper :: ToHtml a => a -> Html ()
+qtHelper a = html_ $
   head_ (
     meta_ [charset_ $ pack "utf8"] <>
     link_ [rel_ "stylesheet", href_ "local.css"]
   ) <>
-  body_ (toHtml testQuestion)
+  body_ (toHtml a)
+
+qt :: Html ()
+qt = qtHelper testQuestion

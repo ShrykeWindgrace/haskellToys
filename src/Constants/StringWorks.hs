@@ -42,4 +42,4 @@ class Element4s a where
 -}
 
 tokenList :: String
-tokenList = "@?!-\n№#/=^<>["
+tokenList = "@?!-\n№#/=^<>"
