@@ -1,0 +1,8 @@
+.Editor {font-weight: bold;
+padding-bottom: 2em;
+padding-left: 2em;
+}
+span[class^="Q"] {
+    font-weight: bold;
+    margin: 1em;
+}
