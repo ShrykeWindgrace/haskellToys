@@ -3,10 +3,11 @@ module Structures.Lines where
 import           Structures.Words (OneWord)
 -- import           Constants.StringWorks
 
-data Line = Line [OneWord] | ListLinesStr ListLines deriving (Eq, Show)
+data Line = Line [OneWord] | ListLinesStr ListLines deriving (Eq)
 
--- instance Show Line where
-    -- show (Line _words) = unwords (show <$> _words)
+instance Show Line where
+    show (Line _words) = unwords (show <$> _words)
+    show (ListLinesStr lns) = show lns
 
 -- instance Monoid Line where
 --     mempty = Line []

@@ -99,7 +99,7 @@ instance ToHtml HeaderItem where
 {-|
     Helper function to avoid code duplication for raw and non-raw html functions
 -}
-toHtmlHeader :: (Monad m) => (Text -> HtmlT m ()) -> HeaderItem ->  HtmlT m ()
+toHtmlHeader :: (Monad m) => (Line -> HtmlT m ()) -> HeaderItem ->  HtmlT m ()
 toHtmlHeader fn (HeaderItem t str)
     | t == Title = h1_ $ fn str
     | otherwise = div_ [class_ $ cssClass t]  (fn str)
