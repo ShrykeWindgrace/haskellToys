@@ -9,7 +9,7 @@ where
 
 
 import           Constants.StringWorks
-import           Control.Monad         (when)
+import           Control.Monad         (when, unless)
 import           Data.List             (sort)
 import           Data.Maybe            (fromJust, isJust, maybeToList)
 import           Data.Text             hiding (foldr1, map)
@@ -84,7 +84,7 @@ instance ToHtml Question where
 
 instance ToHtml QField where
     toHtml (QField t list) = div_ [class_ $ cssClass t] $ do
-        span_ [class_ $ cssClass t] $ toHtml (showNatural t ++ ": ") -- should we put spaces as a part of css?
+        unless (t==QText) (span_ [class_ $ cssClass t] $ toHtml (showNatural t ++ ": ")) -- should we put spaces as a part of css?
         htmlListFold list
 
     toHtmlRaw (QField t list) = div_ [class_ $ cssClass t] $ htmlListFoldRaw list
@@ -108,12 +108,12 @@ toHtmlHeader fn (HeaderItem t str)
 instance ToHtml Tour where
     toHtml t@Tour{..} = div_ [class_ $ cssClass t] $ do
         when (isJust comment) $
-            div_ [class_ $ cssClass $ (undefined::Comment) ] $ toHtml $ unComment $ fromJust comment
+            div_ [class_ $ cssClass (undefined::Comment) ] $ toHtml $ unComment $ fromJust comment
         htmlListFold quests
 
     toHtmlRaw t@Tour{..} = div_ [class_ $ cssClass t] $ do
         when (isJust comment) $
-            div_ [class_ $ cssClass $ (undefined::Comment)  ] $ toHtmlRaw $ unComment $ fromJust comment
+            div_ [class_ $ cssClass (undefined::Comment)  ] $ toHtmlRaw $ unComment $ fromJust comment
         htmlListFoldRaw quests
 
 instance ToHtml Tournament where
