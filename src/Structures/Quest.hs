@@ -30,7 +30,7 @@ data Tournament = Tournament  {
 
 
 
-newtype Comment = Comment { unComment :: String } deriving (Eq, Show)
+newtype Comment = Comment { unComment :: Line } deriving (Eq, Show)
 
 
 instance Element4s Comment where

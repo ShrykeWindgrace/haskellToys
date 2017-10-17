@@ -108,12 +108,12 @@ toHtmlHeader fn (HeaderItem t str)
 instance ToHtml Tour where
     toHtml t@Tour{..} = div_ [class_ $ cssClass t] $ do
         when (isJust comment) $
-            div_ [class_ $ cssClass $ Comment ""] $ toHtml $ unComment $ fromJust comment
+            div_ [class_ $ cssClass $ (undefined::Comment) ] $ toHtml $ unComment $ fromJust comment
         htmlListFold quests
 
     toHtmlRaw t@Tour{..} = div_ [class_ $ cssClass t] $ do
         when (isJust comment) $
-            div_ [class_ $ cssClass $ Comment ""] $ toHtmlRaw $ unComment $ fromJust comment
+            div_ [class_ $ cssClass $ (undefined::Comment)  ] $ toHtmlRaw $ unComment $ fromJust comment
         htmlListFoldRaw quests
 
 instance ToHtml Tournament where
