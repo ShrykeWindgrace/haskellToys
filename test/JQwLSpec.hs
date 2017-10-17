@@ -3,7 +3,7 @@ module JQwLSpec (spec) where
 import           Constants.StringWorks (parsingToken)
 import           Structures.Composers  (strToLine)
 import           Structures.Lines      (Line (..), ListLines (..))
-import           Structures.QNumber    (QModifier (Hard))
+import           Structures.QNumber    (QModifier (Soft))
 import           Structures.Quest      (QField (..), QFieldType (..),
                                         Question (..), Tour (..))
 import           Structures.Words      (OneWord (..))
@@ -28,7 +28,7 @@ tourPrefix = parsingToken expectedTourResult ++ "\n"
 
 expectedResult :: Question
 expectedResult = Question {
-    modifier = Hard 0,
+    modifier = Soft "без номера",
     fields = [
       QField QText [
                     Line [RegWord "Блиц."],
@@ -51,4 +51,4 @@ expectedResult = Question {
 
 
 expectedTourResult :: Tour
-expectedTourResult = Tour [expectedResult] Nothing
+expectedTourResult = Tour [expectedResult] Nothing Nothing
