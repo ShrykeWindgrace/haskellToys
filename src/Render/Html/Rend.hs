@@ -11,7 +11,7 @@ where
 import           Constants.StringWorks
 import           Control.Monad         (when, unless)
 import           Data.List             (sort)
-import           Data.Maybe            (fromJust, isJust, maybeToList)
+import           Data.Maybe            (fromJust, isJust, maybeToList, maybe)
 import           Data.Text             hiding (foldr1, map)
 import           Lucid
 import           Render.Html.Tech      (htmlListFold, htmlListFoldRaw)
@@ -107,6 +107,7 @@ toHtmlHeader fn (HeaderItem t str)
 
 instance ToHtml Tour where
     toHtml t@Tour{..} = div_ [class_ $ cssClass t] $ do
+        h2_ $ toHtml $ "Тур " ++ maybe "без номера" show tModifier
         when (isJust comment) $
             div_ [class_ $ cssClass (undefined::Comment) ] $ toHtml $ unComment $ fromJust comment
         htmlListFold quests

@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module Structures.QNumber ( QModifier(..), QModifierM)
+module Structures.QNumber ( QModifier(..), QModifierM, isSoft)
 
 
 where
@@ -29,6 +29,9 @@ instance Element4s QModifier where
 
 type QModifierM = Maybe QModifier
 
+isSoft :: QModifier -> Bool
+isSoft (Soft _) = True
+isSoft _        = False
 
 -- showQ :: QModifierM -> String
 -- showQ Nothing   = ""

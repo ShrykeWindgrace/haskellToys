@@ -6,7 +6,7 @@ import           Constants.StringWorks (Element4s, cssClass, parsingToken,
 import           Data.Text             (append, pack)
 import           Structures.Header     (HeaderItem)
 import           Structures.Lines      (Line (..))
-import           Structures.QNumber    (QModifier (..))
+import           Structures.QNumber    (QModifier (..), QModifierM)
 import           Structures.Words
 
 
@@ -18,7 +18,8 @@ data Question = Question {
 
 data Tour = Tour {
     quests  :: [Question],
-    comment :: Maybe Comment
+    comment :: Maybe Comment,
+    tModifier :: QModifierM
     } deriving (Eq, Show)
 
 

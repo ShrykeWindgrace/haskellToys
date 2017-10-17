@@ -7,7 +7,7 @@ module CLIOptionsLayer
 
 import           Control.Applicative (optional)
 import           Control.Monad       (unless, when)
-import           Data.Maybe          (fromJust, isNothing)
+import           Data.Maybe          (fromJust, isNothing, isJust)
 import           Data.Either          (fromRight, isRight)
 import           Data.Semigroup      ((<>))
 import           Data.Text           (pack)
@@ -18,7 +18,8 @@ import           Lucid
 import           Options.Applicative
 import           Paths_parse4s       (version)
 import           Render.Html.Rend    ()
-import           Structures.Quest    (testQuestion)
+import qualified Structures.Quest as SQ   (testQuestion, Tournament(..), Tour(..))
+import Structures.QNumber
 import           System.FilePath     ((</>))
 import Parsers.Question
 import qualified Parsers.Tech as PT
@@ -102,7 +103,7 @@ mainParametrised Options{..}
         -- print pd
         when (isRight pd) $ do 
           print (fromRight undefined pd)
-          renderToFile output $ qtHelper $ fromRight undefined pd
+          renderToFile output $ qtHelper $ enumerateTours $ fromRight undefined pd
         -- DIO.putStrLn (DL.toStrict $ renderText qt)
       -- renderToFile output qt
 
@@ -120,4 +121,11 @@ qtHelper a = html_ $
   body_ (toHtml a)
 
 qt :: Html ()
-qt = qtHelper testQuestion
+qt = qtHelper SQ.testQuestion
+
+
+enumerateTours :: SQ.Tournament -> SQ.Tournament
+enumerateTours a@(SQ.Tournament _header _commentTNT _tours) = 
+  a {SQ.tours = newTours} where 
+    newTours =  zipWith update [1..] _tours where
+      update n t = if isJust (SQ.tModifier t) then t else t {SQ.tModifier = Just (Hard n)}
