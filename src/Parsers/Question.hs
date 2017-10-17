@@ -37,12 +37,9 @@ parseTour = do
 
 parseTournament :: Parser Tournament
 parseTournament = do
-    _ <- many blankLine
-    h1 <- choice headerParsers
-    _ <- many blankLine
-    h2 <- choice headerParsers
+    header <- some $ try $ many blankLine >> choice headerParsers
     _ <- many blankLine
     tours <- some $ dbg "tour" parseTour
-    let header = [h1, h2]
+
     let commentTNT = Nothing -- todo implement
     return Tournament{..}
