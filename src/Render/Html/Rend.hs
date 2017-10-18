@@ -14,7 +14,7 @@ import           Data.List             (sort)
 import           Data.Maybe            (fromJust, isJust, maybeToList, maybe)
 import           Data.Text             hiding (foldr1, map)
 import           Lucid
-import           Render.Html.Tech      (htmlListFold, htmlListFoldRaw)
+import           Render.Html.Tech      (htmlListFold, htmlListFoldRaw, htmlListFoldBr)
 import           Structures.Header
 import           Structures.Lines
 import           Structures.QNumber
@@ -85,9 +85,11 @@ instance ToHtml Question where
 instance ToHtml QField where
     toHtml (QField t list) = div_ [class_ $ cssClass t] $ do
         unless (t==QText) (span_ [class_ $ cssClass t] $ toHtml (showNatural t ++ ": ")) -- should we put spaces as a part of css?
-        htmlListFold list
+        htmlListFoldBr toHtml list
 
-    toHtmlRaw (QField t list) = div_ [class_ $ cssClass t] $ htmlListFoldRaw list
+    toHtmlRaw (QField t list) = div_ [class_ $ cssClass t] $ do
+        unless (t==QText) (span_ [class_ $ cssClass t] $ toHtml (showNatural t ++ ": ")) -- should we put spaces as a part of css?
+        htmlListFoldBr toHtmlRaw list
 
 
 
