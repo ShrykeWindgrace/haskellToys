@@ -3,22 +3,23 @@ module Structures.Quest where
 
 import           Constants.StringWorks (Element4s, cssClass, parsingToken,
                                         showNatural, tokenToString)
+import           Data.Maybe            (fromJust, isJust, isNothing)
 import           Data.Text             (append, pack)
 import           Structures.Header     (HeaderItem)
 import           Structures.Lines      (Line (..))
-import           Structures.QNumber    (QModifier (..), QModifierM)
+import           Structures.QNumber    (QModifier (..), QModifierM, isSoft)
 import           Structures.Words
 
 
 data Question = Question {
-    modifier :: QModifier,
+    modifier :: QModifierM,
     fields   :: [QField]
 } deriving (Eq, Show)
 
 
 data Tour = Tour {
-    quests  :: [Question],
-    comment :: Maybe Comment,
+    quests    :: [Question],
+    comment   :: Maybe Comment,
     tModifier :: QModifierM
     } deriving (Eq, Show)
 
@@ -109,7 +110,23 @@ instance Read QFieldType where
 
 
 testQuestion :: Question
-testQuestion = Question (Hard 1) [
+testQuestion = Question (Just $ Hard 1) [
     QField QText [Line [RegWord "question", ILinkStr $ ILink "local.jpg" (Just 600) Nothing]],
     QField QAnswer [Line [StressedWord "ур" 'а' ""]]
     ]
+
+
+enumerateQuestions :: Integer -> [Question] -> [Question]
+enumerateQuestions _ [] = []
+enumerateQuestions n (q:qs)
+    | isNothing (modifier q) = q {modifier = Just $ Hard n} : enumerateQuestions (n+1) qs
+    | isSoft (fromJust (modifier q)) = q : enumerateQuestions (n+1) qs
+    | otherwise = let (Hard newN) = fromJust (modifier q) in q : enumerateQuestions (newN+1) qs
+
+
+enumerateTours :: Tournament -> Tournament
+enumerateTours a@(Tournament _ _ _tours) =
+  a {tours = newTours} where
+    newTours =  zipWith update [1..] _tours where
+      update n _tour' = if isJust (tModifier _tour) then _tour else _tour {tModifier = Just (Hard n)} where
+        _tour = _tour' {quests = enumerateQuestions 1 (quests _tour')}

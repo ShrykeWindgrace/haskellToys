@@ -74,11 +74,11 @@ instance ToHtml ListLines where
 
 instance ToHtml Question where
     toHtml Question {..} = div_ [class_ "question"] $ do
-        toHtml modifier
+        maybe (toHtml $ Soft "без номера") toHtml modifier
         htmlListFold $ sort fields
 
     toHtmlRaw  Question {..} = div_ [class_ "question"] $ do
-        toHtml modifier
+        maybe (toHtml $ Soft "без номера") toHtmlRaw modifier
         htmlListFoldRaw $ sort fields
 
 

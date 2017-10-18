@@ -7,7 +7,7 @@ import           Structures.Quest     (QField (..), QFieldType (..),
                                        Question (..))
 import           Structures.Words     (ILink (ILink), OneWord (..))
 
-import           Parsers.Question
+import           Parsers.Question     (parseQuest)
 import           Test.Hspec           (Spec, describe, it, shouldBe)
 import           Text.Megaparsec      (parse)
 
@@ -23,7 +23,7 @@ testLine = "? вышел ОН из\nтумана\n№ ноль\n! (img w = 20px 
 
 expectedResult :: Question
 expectedResult = Question {
-    modifier = Soft "ноль",
+    modifier = Just $ Soft "ноль",
     fields = [QField QText [ strToLine "вышел ОН из", Line [RegWord "тумана"] ],
               QField QAnswer [
                     Line[ILinkStr $ ILink "moon.jpg" (Just 20) (Just 40), RegWord "месяц"]],

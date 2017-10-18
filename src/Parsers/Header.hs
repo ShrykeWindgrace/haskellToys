@@ -5,13 +5,13 @@ import           Parsers.InlineSpace    (skipSpaces)
 import           Parsers.Lines          (pLineInner)
 import           Structures.Header      (HeaderItem (..), HeaderItemType (..),
                                          allHeaderItemTypes)
-import           Text.Megaparsec        (choice, eof, eol, string, dbg)
+import           Text.Megaparsec        (dbg, string)
 -- import           Data.Text              (pack)
 import           Text.Megaparsec.String (Parser)
 
 parseHeaderGen :: HeaderItemType -> Parser HeaderItem
 parseHeaderGen t = HeaderItem t <$>
-    (string (parsingToken t) >> skipSpaces >> pLineInner <* choice [eof, () <$ eol])
+    (string (parsingToken t) >> skipSpaces >> pLineInner)
 
 
 headerParsers :: [Parser HeaderItem]

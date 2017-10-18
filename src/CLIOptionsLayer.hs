@@ -7,23 +7,21 @@ module CLIOptionsLayer
 
 import           Control.Applicative (optional)
 import           Control.Monad       (unless, when)
-import           Data.Maybe          (fromJust, isNothing, isJust)
-import           Data.Either          (fromRight, isRight)
+import           Data.Either         (fromRight, isRight)
+import           Data.Maybe          (fromJust, isNothing)
 import           Data.Semigroup      ((<>))
 import           Data.Text           (pack)
-import qualified Data.Text.IO        as DIO
-import qualified Data.Text.Lazy      as DL
+-- import qualified Data.Text.IO        as DIO
+-- import qualified Data.Text.Lazy      as DL
 import qualified Data.Version        as DV (showVersion)
 import           Lucid
 import           Options.Applicative
+import           Parsers.Question
 import           Paths_parse4s       (version)
 import           Render.Html.Rend    ()
-import qualified Structures.Quest as SQ   (testQuestion, Tournament(..), Tour(..))
-import Structures.QNumber
+import qualified Structures.Quest    as SQ (enumerateTours)
 import           System.FilePath     ((</>))
-import Parsers.Question
-import qualified Parsers.Tech as PT
-import qualified Text.Megaparsec as TM
+import qualified Text.Megaparsec     as TM
 
 data Options = Options
   { input          :: String
@@ -39,10 +37,6 @@ defaultInputFile :: FilePath
 defaultInputFile  = "test" </> "inputs" </> "input.txt"
 
 
-localInputFile :: FilePath
-localInputFile  = -- "C:\\users\\tz\\projects\\haskelltoys" </>  "test" </> "inputs" </> "input2.txt"
-  "C:\\Users\\Timofey\\Projects\\haskellToys\\test\\inputs\\input2.txt"
-
 options :: Parser Options
 options =
   Options <$>
@@ -51,8 +45,7 @@ options =
      short 'i' <>
      metavar "INPUT_FILE" <>
      help "path to input file" <>
-     value localInputFile <>
-     -- value defaultInputFile <>
+     value defaultInputFile <>
      showDefault) <*>
   strOption
     (long "input" <>
@@ -93,17 +86,17 @@ mainParametrised :: Options -> IO ()
 mainParametrised Options{..}
   | showVersion = putStrLn $ "Current version is " ++ DV.showVersion version
   | dryRun = putStrLn "Dry Run"
-  | otherwise = do 
-      when printToConsole  $ do 
+  | otherwise = 
+      when printToConsole  $ do
         putStrLn ("Input file: " ++ input)
         putStrLn ("Output file: " ++ output)
         unless (isNothing customCSS) (putStr "using custom css file: " >> print (fromJust customCSS))
         cont <- readFile input
         let pd = TM.parse parseTournament "" cont
         -- print pd
-        when (isRight pd) $ do 
+        when (isRight pd) $ do
           print (fromRight undefined pd)
-          renderToFile output $ qtHelper $ enumerateTours $ fromRight undefined pd
+          renderToFile output $ qtHelper $ SQ.enumerateTours $ fromRight undefined pd
         -- DIO.putStrLn (DL.toStrict $ renderText qt)
       -- renderToFile output qt
 
@@ -119,13 +112,3 @@ qtHelper a = html_ $
     link_ [rel_ "stylesheet", href_ "local.css"]
   ) <>
   body_ (toHtml a)
-
-qt :: Html ()
-qt = qtHelper SQ.testQuestion
-
-
-enumerateTours :: SQ.Tournament -> SQ.Tournament
-enumerateTours a@(SQ.Tournament _header _commentTNT _tours) = 
-  a {SQ.tours = newTours} where 
-    newTours =  zipWith update [1..] _tours where
-      update n t = if isJust (SQ.tModifier t) then t else t {SQ.tModifier = Just (Hard n)}
