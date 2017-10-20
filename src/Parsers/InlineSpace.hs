@@ -4,12 +4,14 @@ module Parsers.InlineSpace
     blankLine,
     blankLines,
     -- spaceChar,
+    wordEnd,
     skipSpaces,
     -- nonSpaceChar
   ) where
 
 import           Text.Megaparsec
-import           Text.Megaparsec.String
+import           Text.Megaparsec.Char
+import           Parsers.Tech
 
 -- If we ever want to deal with other whitespace characters, we should implement this parser in the same spirit as "isSpace"
 -- method in Parsec
@@ -28,3 +30,12 @@ blankLine = () <$ (skipSpaces >> eol) <|> eof
 
 blankLines :: Parser ()
 blankLines = eof <|> () <$ some blankLine
+
+
+{-
+    Parser for "this is the end of the current word, but we do not consume that end"
+-}
+wordEnd :: Parser ()
+wordEnd = try $ lookAhead $ choice [eof, () <$ spaceChar]
+
+

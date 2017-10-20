@@ -1,12 +1,14 @@
 module Parsers.Lines (pLineInner, pLines, pLineExternal, parseQFall) where
 
-import           Constants.StringWorks  (parsingToken, tokenList)
+import           Constants.StringWorks (parsingToken, tokenList)
 import           Parsers.Inline
-import           Parsers.InlineSpace    (skipSpaces)
+import           Parsers.InlineSpace   (skipSpaces)
+import           Parsers.Tech          (Parser)
 import           Structures.Lines
 import           Structures.Quest
-import           Text.Megaparsec
-import           Text.Megaparsec.String (Parser)
+import           Text.Megaparsec       (choice, eof, lookAhead, optional,
+                                        sepEndBy1, some, try, (<|>))
+import           Text.Megaparsec.Char  (char, eol, newline, satisfy, string)
 
 
 pLineInner :: Parser Line

@@ -4,14 +4,15 @@ module Parsers.QN (qSoftReset, qHardReset, questModifier)
 where
 
 
-import           Constants.StringWorks  (parsingToken)
-import           Parsers.InlineSpace    (skipSpaces)
-import           Parsers.Lines          (pLineInner)
-import           Parsers.Primitives     (decimal)
-import           Structures.Lines       (Line (..), ListLines (..))
-import           Structures.QNumber     (QModifier (..), QModifierM)
-import           Text.Megaparsec        (optional, string, try, (<|>))
-import           Text.Megaparsec.String (Parser)
+import           Constants.StringWorks (parsingToken)
+import           Parsers.InlineSpace   (skipSpaces)
+import           Parsers.Lines         (pLineInner)
+import           Parsers.Primitives    (decimal)
+import           Parsers.Tech          (Parser)
+import           Structures.Lines      (Line (..), ListLines (..))
+import           Structures.QNumber    (QModifier (..), QModifierM)
+import           Text.Megaparsec       (optional, try, (<|>))
+import           Text.Megaparsec.Char  (string)
 
 
 qHardReset :: Parser QModifier

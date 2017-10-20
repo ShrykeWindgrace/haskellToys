@@ -2,7 +2,7 @@ module Parsers.Debug (seeNext) where
 
 import           Debug.Trace
 import           Text.Megaparsec
-import           Text.Megaparsec.String
+import           Parsers.Tech
 
 seeNext :: Int -> Parser ()
 seeNext n = do

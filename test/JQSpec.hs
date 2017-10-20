@@ -13,12 +13,11 @@ import           Text.Megaparsec      (parse)
 
 
 spec :: Spec
-spec = describe "placeholder" $ it "placeholder" $ parse parseQuest "" testLine `shouldBe` Right expectedResult
+spec = describe "question parser" $ it "should parse this quation" $ parse parseQuest "" testLine `shouldBe` Right expectedResult
+
 
 testLine :: String
 testLine = "? вышел ОН из\nтумана\n№ ноль\n! (img w = 20px h =   40px moon.jpg) месяц\n!= moon"
-
-
 
 
 expectedResult :: Question

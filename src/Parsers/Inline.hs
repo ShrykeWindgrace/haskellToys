@@ -1,12 +1,12 @@
-module Parsers.Inline where
+module Parsers.Inline (stressedWord, regularWord, oneWord) where
 
 
-import           Parsers.ImageLinks     (imageLink)
-import           Parsers.Tech
-import           Structures.Words       (OneWord (..))
-import           Text.Megaparsec
--- import           Text.Megaparsec.Char
-import           Text.Megaparsec.String (Parser)
+import           Parsers.ImageLinks   (imageLink)
+import           Parsers.InlineSpace  (wordEnd)
+import           Parsers.Tech         (Parser)
+import           Structures.Words     (OneWord (..))
+import           Text.Megaparsec      (try, many, (<|>))
+import           Text.Megaparsec.Char (char, letterChar, noneOf)
 
 
 stressedWord :: Parser OneWord

@@ -22,13 +22,12 @@ extra-deps:
 - hspec-expectations-0.8.2
 - integer-logarithms-1.0.2
 - lucid-2.9.8.1
-- megaparsec-5.3.1
+- megaparsec-6.2.0
 - mmorph-1.1.0
 - mtl-2.2.1
 - old-locale-1.0.0.7
 - old-time-1.1.0.3
 - optparse-applicative-0.14.0.0
-- parsec-3.1.11
 - polyparse-1.12
 - primitive-0.6.2.0
 - quickcheck-io-0.2.0
@@ -42,4 +41,6 @@ extra-deps:
 - transformers-compat-0.5.1.4
 - uniplate-1.6.12
 - unordered-containers-0.2.8.0
+- case-insensitive-1.2.0.10
+- parser-combinators-0.2.0
 resolver: ghc-8.2.1

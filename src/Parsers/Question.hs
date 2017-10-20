@@ -1,16 +1,21 @@
-{-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards   #-}
+
+
 module Parsers.Question (parseQuest, parseTour, parseTournament) where
 
-import           Constants.StringWorks  (parsingToken)
-import           Parsers.InlineSpace    (blankLine, blankLines)
-import           Parsers.Lines          (parseQFall)
-import           Parsers.QN             (questModifier)
+
+import           Constants.StringWorks (parsingToken)
 import           Parsers.Header
-import           Structures.Quest       (Question (..), Tour (..), Tournament(..))
-import           Text.Megaparsec        (lookAhead, many, sepEndBy1, some,
-                                         string, try, choice, dbg, many)
-import           Text.Megaparsec.String (Parser)
+import           Parsers.InlineSpace   (blankLine, blankLines)
+import           Parsers.Lines         (parseQFall)
+import           Parsers.QN            (questModifier)
+import           Parsers.Tech          (Parser)
+import           Structures.Quest      (Question (..), Tour (..),
+                                        Tournament (..))
+import           Text.Megaparsec       (choice, dbg, lookAhead, many, many,
+                                        sepEndBy1, some, try)
+import           Text.Megaparsec.Char  (string)
 
 
 
@@ -30,7 +35,7 @@ parseTour = do
     _ <- many blankLine
     quests <- parseQuest `sepEndBy1` blankLines
     let comment = Nothing -- todo fixme
-    let tModifier = Nothing -- todo implement parsing and modify 4s format 
+    let tModifier = Nothing -- todo implement parsing and modify 4s format
     return Tour{..}
 
 

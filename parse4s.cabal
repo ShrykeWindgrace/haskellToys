@@ -38,7 +38,7 @@ library
                       , Render.Html.Tech
   other-modules:        Paths_parse4s
   build-depends:       base >= 4.7 && < 5
-                      , megaparsec == 5.3.1
+                      , megaparsec == 6.2.0
                       , optparse-applicative
                       , lucid
                       , text
@@ -69,7 +69,7 @@ test-suite parse4s-test
                      , Spec
   build-depends:       base
                       , parse4s
-                      , megaparsec == 5.3.1
+                      , megaparsec == 6.2.0
                       , hspec 
                       , QuickCheck
                       , derive >= 2.6.3

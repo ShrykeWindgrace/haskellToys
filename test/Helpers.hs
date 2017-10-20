@@ -1,11 +1,13 @@
 module Helpers (parseGen, ParseResult) where
 
-import           Text.Megaparsec        (Dec, ParseError, Token, parse)
-import           Text.Megaparsec.String (Parser)
+
+import           Data.Void       (Void)
+import           Parsers.Tech    (Parser)
+import           Text.Megaparsec (ParseError, parse)
 
 
 parseGen :: Parser a -> String -> ParseResult a
 parseGen _parser = parse _parser ""
 
 
-type ParseResult a = Either (ParseError (Token String) Dec) a
+type ParseResult a = Either (ParseError Char Void) a

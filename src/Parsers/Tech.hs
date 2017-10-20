@@ -1,19 +1,20 @@
 module Parsers.Tech where
 
-import           Parsers.InlineSpace    (skipSpaces)
+{-import           Parsers.InlineSpace    (skipSpaces)-}
 -- import           Parsers.Types
 -- import           Text.Parsec         (choice, eof, lookAhead, space, try)
 -- import           Text.Parsec.String  (Parser)
 import           Text.Megaparsec
-import           Text.Megaparsec.String (Parser)
+-- import           Text.Megaparsec.String (Parser)
+import Data.Void (Void)
 
 
 
 {-|
     Make a parser consume all preceding space.
 -}
-lexeme :: Parser a -> Parser a
-lexeme _parser = skipSpaces >> _parser
+{-lexeme :: Parser a -> Parser a-}
+{-lexeme _parser = skipSpaces >> _parser-}
 
 
 {-|
@@ -25,8 +26,4 @@ toMaybe :: Parser a -> Parser (Maybe a)
 toMaybe = fmap Just . try
 
 
-{-
-    Parser for "this is the end of the current word, but we do not consume that end"
--}
-wordEnd :: Parser ()
-wordEnd = try $ lookAhead $ choice [eof,() <$ spaceChar]
+type Parser = Parsec Void String

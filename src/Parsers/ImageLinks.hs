@@ -6,22 +6,22 @@ module Parsers.ImageLinks
 
 where
 
-import           Parsers.Primitives     (decimal)
-import           Parsers.Tech           (lexeme, toMaybe)
-import           Structures.Words       (ILink (..))
-import           Text.Megaparsec        (between, char, noneOf, some, string)
-import           Text.Megaparsec.Perm   (makePermParser, (<$$>), (<|?>))
-import           Text.Megaparsec.String (Parser)
+import           Parsers.InlineSpace  (skipSpaces)
+import           Parsers.Primitives   (decimal)
+import           Parsers.Tech         (toMaybe, Parser)
+import           Structures.Words     (ILink (..))
+import           Text.Megaparsec      (between, some)
+import           Text.Megaparsec.Char (char, noneOf, string)
+import           Text.Megaparsec.Perm (makePermParser, (<$$>), (<|?>))
 
 
 
 sizeParse :: Char -> Parser Integer
-sizeParse c = do
-    _ <- lexeme $ char c
-    _ <- lexeme $ char '='
-    s <- lexeme decimal
-    _ <- lexeme $ string "px"
-    return s
+sizeParse c = skipSpaces >> char c >>
+              skipSpaces >> char '=' >> do
+                    s <- skipSpaces >> decimal
+                    _ <- skipSpaces >> string "px"
+                    return s
 
 
 widParse :: Parser Integer
@@ -31,10 +31,10 @@ heiParse :: Parser Integer
 heiParse = sizeParse 'h'
 
 linkContents :: Parser ILink
-linkContents =  makePermParser (ILink
-    <$$>  lexeme (some (noneOf ")\n"))
+linkContents =  makePermParser $ ILink <$$>
+    (skipSpaces >>  some (noneOf ")\n") :: Parser String)
     <|?> (Nothing,  toMaybe widParse)
-    <|?> (Nothing,  toMaybe heiParse))
+    <|?> (Nothing,  toMaybe heiParse)
 
 
 -- (img w=20px h=40px kotik.jpg)
