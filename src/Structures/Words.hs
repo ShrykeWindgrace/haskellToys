@@ -1,4 +1,4 @@
-module Structures.Words where
+module Structures.Words (OneWord (..), ILink(..)) where
 
 
 data OneWord = StressedWord String Char String | RegWord String | ILinkStr ILink
