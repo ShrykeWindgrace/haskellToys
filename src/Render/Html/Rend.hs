@@ -24,10 +24,12 @@ import           Structures.Words
 instance ToHtml QModifier where
     toHtml a@(Soft line) = div_ [class_ $ cssClass a] $ do
             span_ [class_ "questWord"] $ toHtml $ showNatural a
+            toHtml (" " :: String)
             span_ [class_ "questNumber"] $ toHtml line -- line is escaped
 
     toHtml a@(Hard int) = div_ [class_ $ cssClass a] $ do
             span_ [class_ "questWord"] $ toHtml $ showNatural a
+            toHtml (" " :: String)
             span_ [class_ "questNumber"] $ toHtml $ show int
 
     toHtmlRaw a@(Soft line) = div_ [class_ $ cssClass a] $ do
