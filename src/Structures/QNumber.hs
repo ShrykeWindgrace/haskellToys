@@ -32,12 +32,3 @@ type QModifierM = Maybe QModifier
 isSoft :: QModifier -> Bool
 isSoft (Soft _) = True
 isSoft _        = False
-
--- showQ :: QModifierM -> String
--- showQ Nothing   = ""
--- showQ (Just qm) = "(Номер вопроса)" ++ show qm ++ "\n"
-
-
--- nextNumber :: Integer -> QModifierM -> Integer
--- nextNumber _ (Just (Hard newInt)) = newInt
--- nextNumber n _                    = n + 1
