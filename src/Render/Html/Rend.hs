@@ -15,11 +15,11 @@ import           Data.Maybe            (fromJust, isJust, maybeToList, maybe)
 import           Data.Text             hiding (foldr1, map)
 import           Lucid
 import           Render.Html.Tech      (htmlListFold, htmlListFoldRaw, htmlListFoldBr)
-import           Structures.Header
-import           Structures.Lines
-import           Structures.QNumber
-import           Structures.Quest
-import           Structures.Words
+import           Structures.Header (HeaderItem(..), HeaderItemType(Title))
+import           Structures.Lines (Line(Line, ListLinesStr), ListLines(ListLines))
+import           Structures.QNumber (QModifier(Soft, Hard))
+import           Structures.Quest (Question(..), QField(..), QFieldType(QText), Tour(..), Tournament(..), Comment(..))
+import           Structures.Words (OneWord(RegWord, StressedWord, ILinkStr), ILink(..))
 
 instance ToHtml QModifier where
     toHtml a@(Soft line) = div_ [class_ $ cssClass a] $ do
@@ -34,11 +34,11 @@ instance ToHtml QModifier where
 
     toHtmlRaw a@(Soft line) = div_ [class_ $ cssClass a] $ do
             span_ [class_ "questWord"] $ toHtmlRaw $ showNatural a
-            span_ [class_ "questNumber"] $ toHtmlRaw line -- line is escaped
+            span_ [class_ "questNumber"] $ toHtmlRaw (line ++ ":") -- line is escaped
 
     toHtmlRaw a@(Hard int) = div_ [class_ $ cssClass a] $ do
             span_ [class_ "questWord"] $ toHtmlRaw $ showNatural a
-            span_ [class_ "questNumber"] $ toHtmlRaw $ show int
+            span_ [class_ "questNumber"] $ toHtmlRaw $ show int ++ ":"
 
 
 instance ToHtml OneWord where
@@ -75,14 +75,15 @@ instance ToHtml ListLines where
         foldr1 mappend $ map (li_ [] . toHtmlRaw) list
 
 instance ToHtml Question where
-    toHtml Question {..} = div_ [class_ "question"] $ do
+    toHtml Question {..} = div_ [class_ $ cssClass (undefined :: Question)] $ do
         maybe (toHtml $ Soft "без номера") toHtml modifier
         htmlListFold $ sort fields
         hr_[]
 
-    toHtmlRaw  Question {..} = div_ [class_ "question"] $ do
+    toHtmlRaw  Question {..} = div_ [class_ $ cssClass (undefined :: Question)] $ do
         maybe (toHtml $ Soft "без номера") toHtmlRaw modifier
         htmlListFoldRaw $ sort fields
+        hr_[]
 
 
 instance ToHtml QField where
