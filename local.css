@@ -2,7 +2,34 @@
 padding-bottom: 2em;
 padding-left: 2em;
 }
+
 span[class^="Q"] {
     font-weight: bold;
-    margin: 1em;
+    /*margin: 1em;*/
+}
+
+div[class^="Q"]{
+    margin: 12px 0;
+}
+
+ol {
+    margin: 0;
+}
+
+.question {
+    margin: 2em;
+}
+
+.qmodifier {
+    font-weight: bold;
+    display: inline;
+}
+
+.QText {
+    display: inline;
+    padding-left: 12px;
+}
+
+hr {
+    margin-top: 2em;
 }
