@@ -9,9 +9,9 @@ module Parsers.InlineSpace
     -- nonSpaceChar
   ) where
 
-import           Text.Megaparsec
-import           Text.Megaparsec.Char
-import           Parsers.Tech
+import           Text.Megaparsec (eof, (<|>), skipMany, some, choice, try, lookAhead)
+import           Text.Megaparsec.Char (char, eol, spaceChar)
+import           Parsers.Tech (Parser)
 
 -- If we ever want to deal with other whitespace characters, we should implement this parser in the same spirit as "isSpace"
 -- method in Parsec

@@ -5,7 +5,7 @@ module Structures.Header where
 import           Constants.StringWorks (Element4s, cssClass, dateLine, edLine,
                                         parsingToken, showNatural, titleLine,
                                         tokenToString)
-import Structures.Lines
+import Structures.Lines (Line)
 import           Data.Text             (append, pack)
 
 

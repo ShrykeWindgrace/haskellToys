@@ -6,7 +6,7 @@ module Parsers.Question (parseQuest, parseTour, parseTournament) where
 
 
 import           Constants.StringWorks (parsingToken)
-import           Parsers.Header
+import           Parsers.Header (headerParsers)
 import           Parsers.InlineSpace   (blankLine, blankLines)
 import           Parsers.Lines         (parseQFall)
 import           Parsers.QN            (questModifier)

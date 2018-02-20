@@ -8,12 +8,12 @@ module Render.Html.Rend ()
 where
 
 
-import           Constants.StringWorks
+import           Constants.StringWorks (cssClass, showNatural)
 import           Control.Monad         (when, unless)
 import           Data.List             (sort)
 import           Data.Maybe            (fromJust, isJust, maybeToList, maybe)
 import           Data.Text             hiding (foldr1, map)
-import           Lucid
+import           Lucid                 (ToHtml, toHtml, toHtmlRaw, HtmlT, div_, class_, span_, img_, src_, width_, ol_, li_, hr_, h1_, h2_)
 import           Render.Html.Tech      (htmlListFold, htmlListFoldRaw, htmlListFoldBr)
 import           Structures.Header (HeaderItem(..), HeaderItemType(Title))
 import           Structures.Lines (Line(Line, ListLinesStr), ListLines(ListLines))

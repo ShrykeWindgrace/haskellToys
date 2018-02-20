@@ -8,7 +8,7 @@ import           Data.Text             (append, pack)
 import           Structures.Header     (HeaderItem)
 import           Structures.Lines      (Line (..))
 import           Structures.QNumber    (QModifier (..), QModifierM, isSoft)
-import           Structures.Words
+import           Structures.Words (OneWord(..), ILink(..))
 
 
 data Question = Question {

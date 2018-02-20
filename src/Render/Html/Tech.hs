@@ -5,7 +5,7 @@ where
 
 
 import           Lucid (HtmlT, ToHtml, toHtml, toHtmlRaw, br_)
-import           Data.List
+import           Data.List (intersperse)
 
 
 htmlListFold :: (ToHtml a, Monad m) => [a] -> HtmlT m ()

@@ -12,9 +12,9 @@ import           Data.Maybe          (fromJust, isNothing)
 import           Data.Semigroup      ((<>))
 import           Data.Text           (pack)
 import qualified Data.Version        as DV (showVersion)
-import           Lucid
-import           Options.Applicative
-import           Parsers.Question
+import           Lucid               (Html, ToHtml, renderToFile, html_, head_, meta_, link_, charset_,rel_, href_, body_, toHtml)
+import           Options.Applicative (Parser, ParserInfo, help, long, metavar, short, showDefault,strOption,switch,info, value,helper, header, fullDesc, progDesc, execParser)
+import           Parsers.Question    (parseTournament)
 import           Paths_parse4s       (version)
 import           Render.Html.Rend    ()
 import qualified Structures.Quest    as SQ (enumerateTours)
