@@ -1,8 +1,8 @@
 module Main where
 
 import qualified Spec
-import           Test.Hspec.Formatters
-import           Test.Hspec.Runner
+import           Test.Hspec.Formatters (progress)
+import           Test.Hspec.Runner (configFormatter, hspecWith, defaultConfig)
 
 import qualified HogDecimalTest as HDT
 import qualified HogHeaderTest  as HHT
