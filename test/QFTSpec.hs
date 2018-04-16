@@ -1,9 +1,9 @@
 {-# OPTIONS_GHC -Wno-orphans  #-}
-{-# LANGUAGE TemplateHaskell #-}
+-- {-# LANGUAGE TemplateHaskell #-}
 module QFTSpec (spec) where
 
 import           Constants.StringWorks (parsingToken)
-import           Data.DeriveTH         (derive, makeArbitrary)
+-- import           Data.DeriveTH         (derive, makeArbitrary)
 import           Helpers               (parseGen, ParseResult)
 import           Parsers.Field         (fieldType)
 import           Structures.Quest      (QFieldType (..), allQFTs)
@@ -12,8 +12,10 @@ import           Test.Hspec            (Spec, describe, it)
 import           Test.QuickCheck       (Arbitrary, arbitrary, choose, property)
 
 -- I know that this is an "orphan instance" [-Worphans]. But I don't need this instance anywhere else. Yet
-$( derive makeArbitrary ''QFieldType ) -- Arbitrary instance for QFieldType to facilitate automated checks
 
+instance Arbitrary QFieldType where
+    arbitrary = toEnum <$> choose (0, fromEnum (maxBound::QFieldType))
+        
 
 parserHelper :: QFieldType -> ParseResult QFieldType
 parserHelper ft = parseGen (fieldType tok) tok where

@@ -60,7 +60,7 @@ instance Element4s Tournament where
 
 
 
-data QFieldType = QText | QAnswer | QEquiv | QNotEquiv | QComment | QSource | QAuthor deriving (Eq, Enum, Ord, Show)
+data QFieldType = QText | QAnswer | QEquiv | QNotEquiv | QComment | QSource | QAuthor deriving (Eq, Enum, Ord, Show, Bounded)
 
 
 

@@ -1,12 +1,12 @@
 module Parsers.Debug (seeNext) where
 
-import           Debug.Trace
-import           Text.Megaparsec
-import           Parsers.Tech
+import           Debug.Trace (traceShowM)
+import           Text.Megaparsec (getParserState, stateInput)
+import           Parsers.Tech (Parser)
 
 seeNext :: Int -> Parser ()
 seeNext n = do
   s <- getParserState
   let out = take n (stateInput s)
   traceShowM out
-  return ()
+  -- return ()
