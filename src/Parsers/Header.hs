@@ -6,7 +6,7 @@ import           Parsers.InlineSpace   (skipSpaces)
 import           Parsers.Lines         (pLineInner)
 import           Structures.Header     (HeaderItem (..), HeaderItemType (..),
                                         allHeaderItemTypes)
-import           Text.Megaparsec       (dbg)
+-- import           Text.Megaparsec       (dbg)
 import           Text.Megaparsec.Char  (string)
 import           Parsers.Tech          (Parser)
 
@@ -17,7 +17,7 @@ parseHeaderGen t = HeaderItem t <$>
 
 
 headerParsers :: [Parser HeaderItem]
-headerParsers = map (dbg "header") (parseHeaderGen <$> allHeaderItemTypes)
+headerParsers = {-map (dbg "header") -} parseHeaderGen <$> allHeaderItemTypes
 
 
 parseEditor :: Parser HeaderItem
