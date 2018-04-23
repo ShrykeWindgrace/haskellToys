@@ -1,81 +1,94 @@
-name:                parse4s
-version:             0.1.0.0
--- synopsis:
--- description:
-homepage:            https://github.com/ShrykeWindgrace/haskellToys#readme
-license:             BSD3
-license-file:        LICENSE
-author:              TZ
-maintainer:          tz@academ.email
-copyright:           2018
-category:            parsing
-build-type:          Simple
-extra-source-files:  README.md
-cabal-version:       >=1.10
+-- This file has been generated from package.yaml by hpack version 0.20.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: c7a05e4d8bb4cb310e98e6c854bc172435d462b7dfb8df6507a4600f28b0df50
+
+name:           parse4s
+version:        0.1.0.0
+category:       parsing
+author:         TZ
+maintainer:     tz@academ.email
+copyright:      2018
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+
+extra-source-files:
+    README.md
 
 library
-  hs-source-dirs:      src
-  exposed-modules:      Parsers.ImageLinks
-                      , Parsers.Inline
-                      , Structures.QNumber
-                      , CLIOptionsLayer
-                      , Parsers.InlineSpace
-                      , Parsers.Tech
-                      , Parsers.QN
-                      , Parsers.Field
-                      , Parsers.Lines
-                      , Parsers.Header
-                      , Parsers.Debug
-                      , Parsers.Primitives
-                      , Parsers.Question
-                      , Structures.Words
-                      , Structures.Lines
-                      , Structures.Quest
-                      , Structures.Header
-                      , Structures.Composers
-                      , Constants.StringWorks
-                      , Render.Html.Rend
-                      , Render.Html.Tech
-  other-modules:        Paths_parse4s
-  build-depends:       base >= 4.7 && < 5
-                      , megaparsec >= 6.2.0
-                      , optparse-applicative
-                      , lucid
-                      , text
-  default-language:    Haskell2010
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+    , lucid
+    , megaparsec
+    , optparse-applicative
+    , text
+  exposed-modules:
+      CLIOptionsLayer
+      Constants.StringWorks
+      Parsers.Debug
+      Parsers.Field
+      Parsers.Header
+      Parsers.ImageLinks
+      Parsers.Inline
+      Parsers.InlineSpace
+      Parsers.Lines
+      Parsers.Primitives
+      Parsers.QN
+      Parsers.Question
+      Parsers.Tech
+      Render.Html.Rend
+      Render.Html.Tech
+      Structures.Composers
+      Structures.Header
+      Structures.Lines
+      Structures.QNumber
+      Structures.Quest
+      Structures.Words
+  other-modules:
+      Paths_parse4s
+  default-language: Haskell2010
 
 executable parse4s-exe
-  hs-source-dirs:      app
-  main-is:             Main.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
-  build-depends:       base
-                     , parse4s
-  default-language:    Haskell2010
+  main-is: Main.hs
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall -Werror -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
+  build-depends:
+      base >=4.7 && <5
+    , parse4s
+  other-modules:
+      Paths_parse4s
+  default-language: Haskell2010
 
 test-suite parse4s-test
-  type:                exitcode-stdio-1.0
-  hs-source-dirs:      test
-  main-is:             Main.hs
-  other-modules:       ImageLinkSpec
-                     , InlineStructSpec
-                     , DecimalSpec
-                     , QFTSpec
-                     , HeaderSpec
-                     , QNSpec
-                     , JQSpec
-                     , JQwLSpec
-                     , LineSpec
-                     , Helpers
-                     , Spec
-  build-depends:       base
-                      , parse4s
-                      , megaparsec >= 6.2.0
-                      , hspec 
-                      , QuickCheck
-                      , filepath
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
-  default-language:    Haskell2010
-
-source-repository head
-  type:     git
-  location: https://github.com/ShrykeWindgrace/haskellToys
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall -Werror -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
+  build-depends:
+      QuickCheck
+    , base >=4.7 && <5
+    , hedgehog
+    , hspec
+    , megaparsec
+    , parse4s
+  other-modules:
+      DecimalSpec
+      HeaderSpec
+      Helpers
+      HogDecimalTest
+      ImageLinkSpec
+      InlineStructSpec
+      JQSpec
+      JQwLSpec
+      LineSpec
+      QFTSpec
+      QNSpec
+      Spec
+      Paths_parse4s
+  default-language: Haskell2010
