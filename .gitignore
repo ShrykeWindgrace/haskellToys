@@ -33,3 +33,6 @@ out*.txt
 
 *.html
 .importify
+
+*.log
+*.bk
