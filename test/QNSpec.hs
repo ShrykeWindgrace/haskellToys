@@ -1,7 +1,7 @@
 module QNSpec (spec) where
 
 import           Constants.StringWorks (parsingToken)
-import           Data.Either           (isLeft, isRight, fromRight)
+import           Data.Either           (isLeft, rights)
 import           Helpers               (parseGen, ParseResult)
 import           Parsers.QN            (qHardReset, qSoftReset)
 import           Structures.QNumber    (QModifier (..))
@@ -11,23 +11,25 @@ import           Test.QuickCheck       (property)
 
 
 parserHelperHard :: Integer -> ParseResult QModifier
-parserHelperHard n = parseGen qHardReset (parsingToken qm ++ " " ++ show qm) where
+parserHelperHard n = parseGen qHardReset (forParse qm) where
     qm = Hard n
 
 parserHelperSoft :: String -> ParseResult QModifier
-parserHelperSoft str = parseGen qSoftReset (parsingToken qm ++ " " ++ show qm) where
+parserHelperSoft str = parseGen qSoftReset (forParse qm) where
     qm = Soft str
--- todo refactor these two ^^
+
+forParse :: QModifier -> String
+forParse qm = unwords $ ($qm) <$> [parsingToken, show] 
+
 
 testerHard :: Integer -> Bool
 testerHard x
     | x < 0 = isLeft $ parserHelperHard x
-    | otherwise = isRight result && Hard x == fromRight' result where
-        result = parserHelperHard x
+    | otherwise = [Hard x] == rights [parserHelperHard x]
 
 
 testerSoft :: String -> Expectation -- for now test strings with one word
-testerSoft str = Soft str `shouldBe` fromRight' (parserHelperSoft str)
+testerSoft str = Right (Soft str) `shouldBe` parserHelperSoft str
 
 spec :: Spec
 spec = do
@@ -37,6 +39,6 @@ spec = do
         testerSoft "номер"
 
 
-{- unpack values that are guaranteed to be Right{} -}
-fromRight' :: Either a b -> b
-fromRight' = fromRight undefined
+-- {- unpack values that are guaranteed to be Right{} -}
+-- fromRight' :: Either a b -> b
+-- fromRight' = fromRight undefined

@@ -1,5 +1,4 @@
 {-# OPTIONS_GHC -Wno-orphans  #-}
--- {-# LANGUAGE TemplateHaskell #-}
 module QFTSpec (spec) where
 
 import           Constants.StringWorks (parsingToken)
@@ -10,6 +9,7 @@ import           Structures.Quest      (QFieldType (..), allQFTs)
 import           Test.Hspec            (Spec, describe, it)
 -- required for TH derivation magic
 import           Test.QuickCheck       (Arbitrary, arbitrary, choose, property)
+import Data.Either
 
 -- I know that this is an "orphan instance" [-Worphans]. But I don't need this instance anywhere else. Yet
 
@@ -23,7 +23,7 @@ parserHelper ft = parseGen (fieldType tok) tok where
 
 parserHelper' :: QFieldType -> QFieldType -> ParseResult QFieldType
 parserHelper' ft ft' = parseGen (fieldType tok) tok' where
-    tok = parsingToken ft
+    tok  = parsingToken ft
     tok' = parsingToken ft'
 
 
@@ -33,10 +33,8 @@ tester x = Right x == parserHelper x
 -- we need an ugly hack here because QNotEquiv has token "!=" and it breaks the test for QAnswer
 -- this test verifies that the corresponding parsers succeed only on their tokens
 tester' :: QFieldType -> Bool
-tester' x
-    | x == QAnswer = [x] == [y | y <- allQFTs, y /= QNotEquiv, Right x == parserHelper' x y]
-    | otherwise = [x] == [y | y<- allQFTs, Right x == parserHelper' x y]
-
+tester' x = let set = (if x == QAnswer then filter (/= QNotEquiv) else id) allQFTs in 
+    [x] == rights (fmap (parserHelper' x) set)
 
 spec :: Spec
 spec = do
