@@ -1,8 +1,8 @@
--- This file has been generated from package.yaml by hpack version 0.20.0.
+-- This file has been generated from package.yaml by hpack version 0.28.2.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c7a05e4d8bb4cb310e98e6c854bc172435d462b7dfb8df6507a4600f28b0df50
+-- hash: 9a8ea2fdbebe493db93a5e468e25d21d89f15c608d61746def4da036beb15ba2
 
 name:           parse4s
 version:        0.1.0.0
@@ -13,7 +13,6 @@ copyright:      2018
 license-file:   LICENSE
 build-type:     Simple
 cabal-version:  >= 1.10
-
 extra-source-files:
     README.md
 
@@ -82,6 +81,7 @@ test-suite parse4s-test
       HeaderSpec
       Helpers
       HogDecimalTest
+      HogHeaderTest
       ImageLinkSpec
       InlineStructSpec
       JQSpec
