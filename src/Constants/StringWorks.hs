@@ -3,10 +3,10 @@ module Constants.StringWorks
 where
 
 import           Data.Text (Text)
+import Data.Maybe
 
 showMaybe :: Maybe String -> String
-showMaybe (Just s) = s
-showMaybe Nothing  = ""
+showMaybe = fromMaybe ""
 
 tokenToString :: String -> String
 tokenToString "?"       = "Вопрос"

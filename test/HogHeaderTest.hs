@@ -21,4 +21,4 @@ parseHeader :: Property
 parseHeader = property $ do
     xs <- forAll $ Gen.string  (Range.linear 1 100) Gen.alphaNum
     assert $ isRight $ parserHelper xs  -- ::  ()
-    return ()
+    -- return ()

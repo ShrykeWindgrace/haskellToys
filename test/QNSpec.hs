@@ -19,7 +19,7 @@ parserHelperSoft str = parseGen qSoftReset (forParse qm) where
     qm = Soft str
 
 forParse :: QModifier -> String
-forParse qm = unwords $ ($qm) <$> [parsingToken, show] 
+forParse qm = unwords $ [parsingToken, show] <*> [qm]
 
 
 testerHard :: Integer -> Bool
