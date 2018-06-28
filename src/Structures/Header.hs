@@ -5,8 +5,8 @@ module Structures.Header where
 import           Constants.StringWorks (Element4s, cssClass, dateLine, edLine,
                                         parsingToken, showNatural, titleLine,
                                         tokenToString)
-import Structures.Lines (Line)
 import           Data.Text             (append, pack)
+import           Structures.Lines      (Line)
 
 
 data HeaderItemType = Editor | Title | TDate deriving (Eq, Show, Enum)
