@@ -1,10 +1,10 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.31.0.
+-- This file has been generated from package.yaml by hpack version 0.31.1.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: d28504d09ae96b2304315ddd7c58058b83352584eeda0a284a4e4b2a1570e58d
+-- hash: f6640f65d0e0e119af1dc4e8722fb2941070874670d7e82f95bd6db319058de2
 
 name:           parse4s
 version:        0.1.0.0
@@ -18,14 +18,6 @@ extra-source-files:
     README.md
 
 library
-  hs-source-dirs:
-      src
-  build-depends:
-      base >=4.7 && <5
-    , lucid
-    , megaparsec
-    , optparse-applicative
-    , text
   exposed-modules:
       CLIOptionsLayer
       Constants.StringWorks
@@ -50,33 +42,32 @@ library
       Structures.Words
   other-modules:
       Paths_parse4s
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Werror -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -Wmissing-fields
+  build-depends:
+      base >=4.7 && <5
+    , lucid
+    , megaparsec
+    , optparse-applicative
+    , text
   default-language: Haskell2010
 
 executable parse4s-exe
   main-is: Main.hs
+  other-modules:
+      Paths_parse4s
   hs-source-dirs:
       app
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall -Werror -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall -Werror -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -Wmissing-fields
   build-depends:
       base >=4.7 && <5
     , parse4s
-  other-modules:
-      Paths_parse4s
   default-language: Haskell2010
 
 test-suite parse4s-test
   type: exitcode-stdio-1.0
   main-is: Main.hs
-  hs-source-dirs:
-      test
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall -Werror -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
-  build-depends:
-      QuickCheck
-    , base >=4.7 && <5
-    , hedgehog
-    , hspec
-    , megaparsec
-    , parse4s
   other-modules:
       DecimalSpec
       HeaderSpec
@@ -92,4 +83,14 @@ test-suite parse4s-test
       QNSpec
       Spec
       Paths_parse4s
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall -Werror -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -Wmissing-fields
+  build-depends:
+      QuickCheck
+    , base >=4.7 && <5
+    , hedgehog
+    , hspec
+    , megaparsec
+    , parse4s
   default-language: Haskell2010

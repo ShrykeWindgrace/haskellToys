@@ -3,11 +3,11 @@ module Structures.Quest where
 
 import           Constants.StringWorks (Element4s, cssClass, parsingToken,
                                         showNatural, tokenToString)
-import           Data.Maybe            (fromJust, isJust, isNothing)
+import           Data.Maybe            ({-fromJust, -}isJust{-, isNothing-})
 import           Data.Text             (append, pack)
 import           Structures.Header     (HeaderItem)
 import           Structures.Lines      (Line (..))
-import           Structures.QNumber    (QModifier (..), QModifierM, isSoft)
+import           Structures.QNumber    (QModifier (..), QModifierM{-, isSoft-})
 import           Structures.Words (OneWord(..), ILink(..))
 
 
@@ -118,10 +118,10 @@ testQuestion = Question (Just $ Hard 1) [
 
 enumerateQuestions :: Integer -> [Question] -> [Question]
 enumerateQuestions _ [] = []
-enumerateQuestions n (q:qs)
-    | isNothing (modifier q) = q {modifier = Just $ Hard n} : enumerateQuestions (n+1) qs
-    | isSoft (fromJust (modifier q)) = q : enumerateQuestions (n+1) qs
-    | otherwise = let (Hard newN) = fromJust (modifier q) in q : enumerateQuestions (newN+1) qs
+enumerateQuestions n (q:qs) = case modifier q of
+    Nothing -> q {modifier = Just $ Hard n} : enumerateQuestions (n+1) qs
+    Just (Soft _) -> q : enumerateQuestions (n+1) qs
+    Just (Hard newN) -> q : enumerateQuestions (newN+1) qs
 
 
 enumerateTours :: Tournament -> Tournament

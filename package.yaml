@@ -18,6 +18,14 @@ library:
   - text
   - optparse-applicative
   - megaparsec
+  ghc-options:
+  - -Wall
+  - -Werror
+  - -Wcompat
+  - -Wincomplete-record-updates
+  - -Wincomplete-uni-patterns
+  - -Wredundant-constraints
+  - -Wmissing-fields
 
 
 executables:
@@ -34,6 +42,8 @@ executables:
     - -Wincomplete-record-updates
     - -Wincomplete-uni-patterns
     - -Wredundant-constraints
+    - -Wmissing-fields
+
     dependencies:
       - parse4s
 
@@ -58,6 +68,8 @@ tests:
     - -Wincomplete-record-updates
     - -Wincomplete-uni-patterns
     - -Wredundant-constraints
+    - -Wmissing-fields
+    
 
 
 
