@@ -6,6 +6,7 @@ module Parsers.InlineSpace
     -- spaceChar,
     wordEnd,
     skipSpaces,
+    skipSpaces1,
     -- nonSpaceChar
   ) where
 
@@ -23,6 +24,8 @@ import           Parsers.Tech (Parser)
 skipSpaces :: Parser ()
 skipSpaces = skipMany (char ' ')
 
+skipSpaces1 :: Parser ()
+skipSpaces1 = (char ' ' <|> char '\n') >> skipMany (char ' ')
 
 blankLine :: Parser ()
 blankLine = () <$ (skipSpaces >> eol) <|> eof

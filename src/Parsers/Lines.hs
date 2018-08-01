@@ -2,7 +2,7 @@ module Parsers.Lines (pLineInner, pLines, pLineExternal, parseQFall) where
 
 import           Constants.StringWorks (parsingToken, tokenList)
 import           Parsers.Inline (oneWord)
-import           Parsers.InlineSpace   (skipSpaces)
+import           Parsers.InlineSpace   (skipSpaces, skipSpaces1)
 import           Parsers.Tech          (Parser)
 import           Structures.Lines (Line(..), ListLines(..))
 import           Structures.Quest (QField(..), QFieldType(..), allQFTs)
@@ -29,7 +29,7 @@ pLines = ListLines <$> some (char '-' >> skipSpaces >> pLineInner)
 parseQF :: QFieldType -> Parser QField
 parseQF qft = QField qft <$> do
     _ <- string (parsingToken qft)
-    skipSpaces
+    skipSpaces1
     _ <- optional newline
     some pLineExternal
 

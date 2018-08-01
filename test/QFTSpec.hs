@@ -18,11 +18,11 @@ instance Arbitrary QFieldType where
         
 
 parserHelper :: QFieldType -> ParseResult QFieldType
-parserHelper ft = parseGen (fieldType tok) tok where
+parserHelper ft = parseGen (fieldType tok) (tok ++ " ") where
     tok = parsingToken ft
 
 parserHelper' :: QFieldType -> QFieldType -> ParseResult QFieldType
-parserHelper' ft ft' = parseGen (fieldType tok) tok' where
+parserHelper' ft ft' = parseGen (fieldType tok) (tok' ++ " ") where
     tok  = parsingToken ft
     tok' = parsingToken ft'
 
@@ -33,8 +33,7 @@ tester x = Right x == parserHelper x
 -- we need an ugly hack here because QNotEquiv has token "!=" and it breaks the test for QAnswer
 -- this test verifies that the corresponding parsers succeed only on their tokens
 tester' :: QFieldType -> Bool
-tester' x = let set = (if x == QAnswer then filter (/= QNotEquiv) else id) allQFTs in 
-    [x] == rights (fmap (parserHelper' x) set)
+tester' x = [x] == rights (fmap (parserHelper' x) allQFTs)
 
 spec :: Spec
 spec = do

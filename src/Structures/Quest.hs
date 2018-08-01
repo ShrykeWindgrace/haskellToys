@@ -3,11 +3,11 @@ module Structures.Quest where
 
 import           Constants.StringWorks (Element4s, cssClass, parsingToken,
                                         showNatural, tokenToString)
-import           Data.Maybe            ({-fromJust, -}isJust{-, isNothing-})
+import           Data.Maybe            (isJust)
 import           Data.Text             (append, pack)
 import           Structures.Header     (HeaderItem)
 import           Structures.Lines      (Line (..))
-import           Structures.QNumber    (QModifier (..), QModifierM{-, isSoft-})
+import           Structures.QNumber    (QModifier (..), QModifierM)
 import           Structures.Words (OneWord(..), ILink(..))
 
 
