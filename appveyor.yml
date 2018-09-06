@@ -12,7 +12,7 @@ install:
 - 7z x stack.zip stack.exe
 - stack setup > nul
 # Install parsec, text and mtl, also alex and happy
-#- echo "" | appveyor-retry stack install happy-1.19.6
+- echo "" | appveyor-retry stack install happy
 
 
 #before_test:
