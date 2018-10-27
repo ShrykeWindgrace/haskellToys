@@ -1,8 +1,10 @@
--- This file has been generated from package.yaml by hpack version 0.28.2.
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.0.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 9a8ea2fdbebe493db93a5e468e25d21d89f15c608d61746def4da036beb15ba2
+-- hash: d28504d09ae96b2304315ddd7c58058b83352584eeda0a284a4e4b2a1570e58d
 
 name:           parse4s
 version:        0.1.0.0
@@ -12,7 +14,6 @@ maintainer:     tz@academ.email
 copyright:      2018
 license-file:   LICENSE
 build-type:     Simple
-cabal-version:  >= 1.10
 extra-source-files:
     README.md
 
