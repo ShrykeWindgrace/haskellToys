@@ -50,10 +50,7 @@ library
     , lucid
     , megaparsec
     , optparse-applicative
-<<<<<<< ed151c46d80354d84c0b3abb99ba82c293d56a2c
-=======
     , parser-combinators
->>>>>>> Migrate to ghc-8.6.4 and megaparsec-7
     , text
   default-language: Haskell2010
 
