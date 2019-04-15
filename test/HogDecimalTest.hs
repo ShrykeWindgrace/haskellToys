@@ -14,5 +14,5 @@ parseInt = property $ do
     xs <- forAll $ Gen.integral (Range.linear 0 1000)
     Right xs === parserHelper xs
 
-hogCheck :: IO ()
-hogCheck = () <$ check parseInt
+hogCheck :: IO Bool -- ()
+hogCheck = {-() <$ -}check parseInt

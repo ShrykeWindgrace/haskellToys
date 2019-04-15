@@ -7,8 +7,8 @@ import           Parsers.Tech          (Parser)
 import           Structures.Lines (Line(..), ListLines(..))
 import           Structures.Quest (QField(..), QFieldType(..), allQFTs)
 import           Text.Megaparsec       (choice, eof, lookAhead, optional,
-                                        sepEndBy1, some, try, (<|>))
-import           Text.Megaparsec.Char  (char, eol, newline, satisfy, string)
+                                        sepEndBy1, some, try, (<|>), satisfy)
+import           Text.Megaparsec.Char  (char, eol, newline, string)
 
 
 pLineInner :: Parser Line

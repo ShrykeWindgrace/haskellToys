@@ -18,6 +18,7 @@ library:
   - text
   - optparse-applicative
   - megaparsec
+  - parser-combinators
   ghc-options:
   - -Wall
   - -Werror

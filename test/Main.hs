@@ -10,6 +10,5 @@ import qualified HogHeaderTest  as HHT
 main :: IO ()
 main = do
     hspecWith defaultConfig {configFormatter = Just progress} Spec.spec
-    HDT.hogCheck
-    HHT.hogCheck
+    sequence_ [HDT.hogCheck, HHT.hogCheck]
 

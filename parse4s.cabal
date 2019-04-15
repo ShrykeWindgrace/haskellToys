@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f6640f65d0e0e119af1dc4e8722fb2941070874670d7e82f95bd6db319058de2
+-- hash: 873f73ab47a0326314791f697b0fc31e3fcfa7b6d4968a8ebfa063c3fe34fe62
 
 name:           parse4s
 version:        0.1.0.0
@@ -50,6 +50,10 @@ library
     , lucid
     , megaparsec
     , optparse-applicative
+<<<<<<< ed151c46d80354d84c0b3abb99ba82c293d56a2c
+=======
+    , parser-combinators
+>>>>>>> Migrate to ghc-8.6.4 and megaparsec-7
     , text
   default-language: Haskell2010
 

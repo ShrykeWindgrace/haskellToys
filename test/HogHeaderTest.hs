@@ -14,8 +14,8 @@ import           Structures.Header     (HeaderItem, HeaderItemType (Editor))
 parserHelper :: String -> ParseResult HeaderItem
 parserHelper n = parseGen parseEditor $ unwords [parsingToken Editor, n]
 
-hogCheck :: IO ()
-hogCheck = () <$ check parseHeader
+hogCheck :: IO Bool -- ()
+hogCheck = {-  -}check parseHeader
 
 parseHeader :: Property
 parseHeader = property $ do

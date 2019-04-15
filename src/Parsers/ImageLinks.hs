@@ -10,9 +10,10 @@ import           Parsers.InlineSpace  (skipSpaces)
 import           Parsers.Primitives   (decimal)
 import           Parsers.Tech         (toMaybe, Parser)
 import           Structures.Words     (ILink (..))
-import           Text.Megaparsec      (between, some)
-import           Text.Megaparsec.Char (char, noneOf, string)
-import           Text.Megaparsec.Perm (makePermParser, (<$$>), (<|?>))
+import           Text.Megaparsec      (between, noneOf, some)
+import           Text.Megaparsec.Char (char,  string)
+-- import           Text.Megaparsec.Perm (makePermParser, (<$$>), (<|?>))
+import Control.Applicative.Permutations
 
 
 
@@ -31,10 +32,11 @@ heiParse :: Parser Integer
 heiParse = sizeParse 'h'
 
 linkContents :: Parser ILink
-linkContents =  makePermParser $ ILink <$$>
-    (skipSpaces >>  some (noneOf ")\n") :: Parser String)
-    <|?> (Nothing,  toMaybe widParse)
-    <|?> (Nothing,  toMaybe heiParse)
+linkContents =  runPermutation $ ILink <$> toPermutation (skipSpaces >>  some (noneOf ")\n") :: Parser String) <*> (toPermutationWithDefault Nothing (toMaybe widParse)) <*> (toPermutationWithDefault Nothing (toMaybe heiParse))
+    -- makePermParser $ ILink <$$>
+    -- (skipSpaces >>  some (noneOf ")\n") :: Parser String)
+    -- <|?> (Nothing,  toMaybe widParse)
+    -- <|?> (Nothing,  toMaybe heiParse)
 
 
 -- (img w=20px h=40px kotik.jpg)

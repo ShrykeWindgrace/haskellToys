@@ -13,9 +13,10 @@ import           Parsers.QN            (questModifier)
 import           Parsers.Tech          (Parser)
 import           Structures.Quest      (Question (..), Tour (..),
                                         Tournament (..))
-import           Text.Megaparsec       (choice, dbg, lookAhead, many, many,
+import           Text.Megaparsec       (choice, lookAhead, many, many,
                                         sepEndBy1, some, try)
 import           Text.Megaparsec.Char  (string)
+import           Text.Megaparsec.Debug  (dbg)
 
 
 

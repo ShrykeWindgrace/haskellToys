@@ -5,8 +5,8 @@ import           Parsers.ImageLinks   (imageLink)
 import           Parsers.InlineSpace  (wordEnd)
 import           Parsers.Tech         (Parser)
 import           Structures.Words     (OneWord (..))
-import           Text.Megaparsec      (try, many, (<|>))
-import           Text.Megaparsec.Char (char, letterChar, noneOf)
+import           Text.Megaparsec      (try, many, (<|>), noneOf)
+import           Text.Megaparsec.Char (char, letterChar)
 
 
 stressedWord :: Parser OneWord
