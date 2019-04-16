@@ -7,6 +7,7 @@ module Parsers.Tech where
 import           Text.Megaparsec (Parsec, try)
 -- import           Text.Megaparsec.String (Parser)
 import Data.Void (Void)
+import Control.Applicative (optional)
 
 
 
@@ -23,7 +24,8 @@ import Data.Void (Void)
 -}
 toMaybe :: Parser a -> Parser (Maybe a)
 -- toMaybe _parser = Just <$> try _parser
-toMaybe = fmap Just . try
+-- toMaybe = fmap Just . try
+toMaybe = optional . try
 
 
 type Parser = Parsec Void String
