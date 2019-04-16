@@ -13,7 +13,9 @@ import           Text.Megaparsec      (parse)
 
 
 spec :: Spec
-spec = describe "question parser" $ it "should parse this quation" $ parse parseQuest "" testLine `shouldBe` Right expectedResult
+spec = describe "question parser" $
+    it "should parse this question" $
+        parse parseQuest "" testLine `shouldBe` Right expectedResult
 
 
 testLine :: String
