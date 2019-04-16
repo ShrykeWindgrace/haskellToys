@@ -17,28 +17,20 @@ import           Lucid                 (ToHtml, toHtml, toHtmlRaw, HtmlT, div_, 
 import           Render.Html.Tech      (htmlListFold, htmlListFoldRaw, htmlListFoldBr)
 import           Structures.Header (HeaderItem(..), HeaderItemType(Title))
 import           Structures.Lines (Line(Line, ListLinesStr), ListLines(ListLines))
-import           Structures.QNumber (QModifier(Soft, Hard))
+import           Structures.QNumber (QModifier(Soft))
 import           Structures.Quest (Question(..), QField(..), QFieldType(QText), Tour(..), Tournament(..), Comment(..))
 import           Structures.Words (OneWord(RegWord, StressedWord, ILinkStr), ILink(..))
 
 instance ToHtml QModifier where
-    toHtml a@(Soft line) = div_ [class_ $ cssClass a] $ do
+    
+    toHtml a = div_ [class_ $ cssClass a] $ do
             span_ [class_ "questWord"] $ toHtml $ showNatural a
             toHtml (" " :: String)
-            span_ [class_ "questNumber"] $ toHtml (line ++ ":")-- line is escaped
+            span_ [class_ "questNumber"] $ toHtml (show a ++ ":")-- line is escaped
 
-    toHtml a@(Hard int) = div_ [class_ $ cssClass a] $ do
-            span_ [class_ "questWord"] $ toHtml $ showNatural a
-            toHtml (" " :: String)
-            span_ [class_ "questNumber"] $ toHtml $ show int ++ ":"
-
-    toHtmlRaw a@(Soft line) = div_ [class_ $ cssClass a] $ do
+    toHtmlRaw a = div_ [class_ $ cssClass a] $ do
             span_ [class_ "questWord"] $ toHtmlRaw $ showNatural a
-            span_ [class_ "questNumber"] $ toHtmlRaw (line ++ ":") -- line is escaped
-
-    toHtmlRaw a@(Hard int) = div_ [class_ $ cssClass a] $ do
-            span_ [class_ "questWord"] $ toHtmlRaw $ showNatural a
-            span_ [class_ "questNumber"] $ toHtmlRaw $ show int ++ ":"
+            span_ [class_ "questNumber"] $ toHtmlRaw (show a ++ ":") -- line is escaped
 
 
 instance ToHtml OneWord where
