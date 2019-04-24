@@ -39,7 +39,9 @@ install:
 
 script:
 # Build the package, its tests, and its docs and run the tests, and generate coverage report
-- stack --no-terminal test --haddock --no-haddock-deps --coverage
+# - stack --no-terminal test --haddock --no-haddock-deps --coverage
+# Build the package, its tests, run the tests, and generate coverage report
+- stack --no-terminal test --coverage
 
 after_script:
 - travis_retry curl -L https://github.com/rubik/stack-hpc-coveralls/releases/download/v0.0.4.0/shc-linux-x64-7.8.4.tar.bz2 | tar -xj
