@@ -1,4 +1,4 @@
-module Parsers.Header (parseEditor, headerParsers) where
+module Parsers.Header (parseEditor, parseHeaderGen, headerParsers) where
 
 
 import           Constants.StringWorks (parsingToken)
