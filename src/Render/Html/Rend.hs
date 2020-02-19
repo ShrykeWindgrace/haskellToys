@@ -11,7 +11,7 @@ where
 import           Constants.StringWorks (cssClass, showNatural)
 import           Control.Monad         (when, unless)
 import           Data.List             (sort)
-import           Data.Maybe            (fromJust, isJust, maybeToList, maybe)
+import           Data.Maybe            (fromJust, isJust, maybeToList)
 import           Data.Text             hiding (foldr1, map)
 import           Lucid                 (ToHtml, toHtml, toHtmlRaw, HtmlT, div_, class_, span_, img_, src_, width_, ol_, li_, hr_, h1_, h2_)
 import           Render.Html.Tech      (htmlListFold, htmlListFoldRaw, htmlListFoldBr)
@@ -22,7 +22,7 @@ import           Structures.Quest (Question(..), QField(..), QFieldType(QText), 
 import           Structures.Words (OneWord(RegWord, StressedWord, ILinkStr), ILink(..))
 
 instance ToHtml QModifier where
-    
+
     toHtml a = div_ [class_ $ cssClass a] $ do
             span_ [class_ "questWord"] $ toHtml $ showNatural a
             toHtml (" " :: String)
@@ -121,4 +121,4 @@ instance ToHtml Tournament where
         htmlListFold tours
         -- todo comments
         -- todo numbering in questions and tours
-    toHtmlRaw = toHtml 
+    toHtmlRaw = toHtml
