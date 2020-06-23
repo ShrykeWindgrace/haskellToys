@@ -6,9 +6,9 @@ module CLIOptionsLayer (main') where
 
 
 import           Control.Applicative (optional)
-import           Control.Monad       (unless, when)
-import           Data.Either         (fromRight, isRight)
-import           Data.Maybe          (fromJust, isNothing)
+import           Control.Monad       (when)
+-- import           Data.Either         (isRight)
+-- import           Data.Maybe          (fromJust, isNothing)
 import           Data.Text           (pack)
 import qualified Data.Version        as DV (showVersion)
 import           Lucid               (Html, ToHtml, renderToFile, html_, head_, meta_, link_, charset_,rel_, href_, body_, toHtml)
@@ -90,13 +90,16 @@ mainParametrised Options{..}
       when printToConsole  $ do
         putStrLn ("Input file: " ++ input)
         putStrLn ("Output file: " ++ output)
-        unless (isNothing customCSS) (putStr "using custom css file: " >> print (fromJust customCSS))
+        maybe (pure ()) (\ccss -> putStr "using custom css file: " >> print ccss) customCSS
         cont <- readFile input
         let pd = TM.parse parseTournament "" cont
         -- print pd
-        when (isRight pd) $ do
-          print (fromRight undefined pd)
-          renderToFile output $ qtHelper $ SQ.enumerateTours $ fromRight undefined pd
+        case pd of
+            Right pd_ -> do
+                print pd_
+                renderToFile output $ qtHelper $ SQ.enumerateTours pd_
+            Left _ -> pure ()
+
 
 
 main' :: IO ()

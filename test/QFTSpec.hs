@@ -15,15 +15,14 @@ import Data.Either
 
 instance Arbitrary QFieldType where
     arbitrary = toEnum <$> choose (0, fromEnum (maxBound::QFieldType))
-        
+
 
 parserHelper :: QFieldType -> ParseResult QFieldType
-parserHelper ft = parseGen (fieldType tok) (tok ++ " ") where
+parserHelper ft = parseGen (fieldType ft) (tok ++ " ") where
     tok = parsingToken ft
 
 parserHelper' :: QFieldType -> QFieldType -> ParseResult QFieldType
-parserHelper' ft ft' = parseGen (fieldType tok) (tok' ++ " ") where
-    tok  = parsingToken ft
+parserHelper' ft ft' = parseGen (fieldType ft) (tok' ++ " ") where
     tok' = parsingToken ft'
 
 

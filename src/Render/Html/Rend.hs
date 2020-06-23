@@ -9,9 +9,9 @@ where
 
 
 import           Constants.StringWorks (cssClass, showNatural)
-import           Control.Monad         (when, unless)
+import           Control.Monad         (unless)
 import           Data.List             (sort)
-import           Data.Maybe            (fromJust, isJust, maybeToList)
+import           Data.Maybe            (maybeToList)
 import           Data.Text             hiding (foldr1, map)
 import           Lucid                 (ToHtml, toHtml, toHtmlRaw, HtmlT, div_, class_, span_, img_, src_, width_, ol_, li_, hr_, h1_, h2_)
 import           Render.Html.Tech      (htmlListFold, htmlListFoldRaw, htmlListFoldBr)
@@ -61,10 +61,10 @@ instance ToHtml Line where
 
 instance ToHtml ListLines where
     toHtml (ListLines list) = ol_ $
-        foldr1 mappend $ map (li_ [] . toHtml) list
+        foldMap (li_ [] . toHtml) list
 
     toHtmlRaw (ListLines list) = ol_ $
-        foldr1 mappend $ map (li_ [] . toHtmlRaw) list
+        foldMap (li_ [] . toHtmlRaw) list
 
 instance ToHtml Question where
     toHtml Question {..} = div_ [class_ $ cssClass (undefined :: Question)] $ do
@@ -106,13 +106,12 @@ toHtmlHeader fn (HeaderItem t str)
 instance ToHtml Tour where
     toHtml t@Tour{..} = div_ [class_ $ cssClass t] $ do
         h2_ $ toHtml $ "Тур " ++ maybe "без номера" show tModifier
-        when (isJust comment) $
-            div_ [class_ $ cssClass (undefined::Comment) ] $ toHtml $ unComment $ fromJust comment
+        maybe mempty (\c -> div_ [class_ $ cssClass (undefined::Comment) ] $ toHtml $ unComment $ c) comment
         htmlListFold quests
 
     toHtmlRaw t@Tour{..} = div_ [class_ $ cssClass t] $ do
-        when (isJust comment) $
-            div_ [class_ $ cssClass (undefined::Comment)  ] $ toHtmlRaw $ unComment $ fromJust comment
+        maybe mempty (\c ->
+            div_ [class_ $ cssClass (undefined::Comment)  ] $ toHtmlRaw $ unComment $ c) comment
         htmlListFoldRaw quests
 
 instance ToHtml Tournament where
