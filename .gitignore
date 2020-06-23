@@ -36,3 +36,5 @@ out*.txt
 
 *.log
 *.bk
+
+.hie
