@@ -65,7 +65,7 @@ data QFieldType = QText | QAnswer | QEquiv | QNotEquiv | QComment | QSource | QA
 
 
 allQFTs :: [QFieldType]
-allQFTs = [toEnum 0 ..]
+allQFTs = [minBound .. maxBound]
 
 
 instance Element4s QFieldType where

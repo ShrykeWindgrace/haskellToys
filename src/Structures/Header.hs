@@ -9,10 +9,10 @@ import           Data.Text             (append, pack)
 import           Structures.Lines      (Line)
 
 
-data HeaderItemType = Editor | Title | TDate deriving (Eq, Show, Enum)
+data HeaderItemType = Editor | Title | TDate deriving (Eq, Show, Enum, Bounded)
 
 allHeaderItemTypes :: [HeaderItemType]
-allHeaderItemTypes = [toEnum 0 ..]
+allHeaderItemTypes = [minBound .. maxBound]
 
 data HeaderItem = HeaderItem HeaderItemType Line deriving (Eq, Show)
 
