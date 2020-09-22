@@ -38,3 +38,6 @@ out*.txt
 *.bk
 
 .hie
+
+# idea folder
+out/

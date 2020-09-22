@@ -1,10 +1,10 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.33.0.
+-- This file has been generated from package.yaml by hpack version 0.34.2.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: da26b97b7b4b6cc62c5a48f6a0d631f871baceac3efbaac0c3f5a5dcd6b476e8
+-- hash: 72aa08cdf0989769e22c6411489609db3d51aca695bd94f369833f6e5c0c2bd0
 
 name:           parse4s
 version:        0.1.0.0
@@ -39,6 +39,9 @@ library
       Structures.QNumber
       Structures.Quest
       Structures.Words
+      Tokens.Parser
+      Tokens.Tech
+      Tokens.Tokens
   other-modules:
       Paths_parse4s
   hs-source-dirs:
