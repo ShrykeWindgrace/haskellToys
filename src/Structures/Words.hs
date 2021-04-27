@@ -1,3 +1,4 @@
+{-# language StrictData #-}
 module Structures.Words (OneWord (..), ILink(..)) where
 
 

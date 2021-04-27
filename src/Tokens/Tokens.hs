@@ -1,3 +1,5 @@
+{-# language StrictData #-}
+
 module Tokens.Tokens where
 
 

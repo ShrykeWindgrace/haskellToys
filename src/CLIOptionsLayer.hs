@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
+{-# language StrictData #-}
 
 
 module CLIOptionsLayer (main') where

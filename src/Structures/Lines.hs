@@ -1,3 +1,5 @@
+{-# language StrictData #-}
+
 module Structures.Lines where
 
 import           Structures.Words (OneWord)

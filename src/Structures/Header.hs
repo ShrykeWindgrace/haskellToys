@@ -1,4 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# language StrictData #-}
+
 module Structures.Header where
 
 

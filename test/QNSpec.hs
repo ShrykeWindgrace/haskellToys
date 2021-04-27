@@ -37,8 +37,3 @@ spec = do
         property testerHard
     describe "qSoftReset" $ it "should correctly parse soft resets" $
         testerSoft "номер"
-
-
--- {- unpack values that are guaranteed to be Right{} -}
--- fromRight' :: Either a b -> b
--- fromRight' = fromRight undefined
