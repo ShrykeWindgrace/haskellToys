@@ -6,7 +6,8 @@ import           Helpers          (parseGen, ParseResult)
 import           Parsers.Inline   (oneWord)
 import           Structures.Words (OneWord (..))
 import           Test.Hspec       (Arg, Expectation, Spec, SpecWith, describe,
-                                   it, shouldBe, shouldSatisfy)
+                                   it, shouldSatisfy)
+import Test.Hspec.Megaparsec (shouldParse)
 
 
 parseHelper :: String -> ParseResult OneWord
@@ -28,7 +29,7 @@ dataSetStressBadDescr :: [String]
 dataSetStressBadDescr = ["пустая строка", "повисшее ударение", "два ударения подряд", "два ударения не подряд"]
 
 shoulds :: [Expectation]
-shoulds = zipWith shouldBe (parseHelper <$> (dataSetStressGood ++ dataSetUnstressGood)) (Right <$> dssgr)
+shoulds = zipWith shouldParse (parseHelper <$> (dataSetStressGood ++ dataSetUnstressGood)) dssgr
 
 shouldsNeg :: [Expectation]
 shouldsNeg = (`shouldSatisfy` isLeft) <$> (parseHelper <$> dataSetStressBad)

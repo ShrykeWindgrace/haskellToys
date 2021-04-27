@@ -5,9 +5,9 @@ import           Data.Either           (isLeft, rights)
 import           Helpers               (parseGen, ParseResult)
 import           Parsers.QN            (qHardReset, qSoftReset)
 import           Structures.QNumber    (QModifier (..))
-import           Test.Hspec            (Expectation, Spec, describe, it,
-                                        shouldBe)
+import           Test.Hspec            (Expectation, Spec, describe, it)
 import           Test.QuickCheck       (property)
+import Test.Hspec.Megaparsec
 
 
 parserHelperHard :: Integer -> ParseResult QModifier
@@ -29,7 +29,7 @@ testerHard x
 
 
 testerSoft :: String -> Expectation -- for now test strings with one word
-testerSoft str = Right (Soft str) `shouldBe` parserHelperSoft str
+testerSoft str = parserHelperSoft str `shouldParse` Soft str
 
 spec :: Spec
 spec = do

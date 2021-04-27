@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 1cc470a3cd2486e46c1634d908084cc6da5da839b4d0878962af38f93e916360
+-- hash: 86746e49868f2c13cf8a6e2cfa951a48d5ca133d10c9453ac424b6b5a890669c
 
 name:           parse4s
 version:        0.1.0.0
@@ -96,6 +96,7 @@ test-suite parse4s-test
     , base >=4.7 && <5
     , hedgehog
     , hspec
+    , hspec-megaparsec
     , megaparsec
     , parse4s
   default-language: Haskell2010

@@ -8,14 +8,15 @@ import           Structures.Quest     (QField (..), QFieldType (..),
 import           Structures.Words     (ILink (ILink), OneWord (..))
 
 import           Parsers.Question     (parseQuest)
-import           Test.Hspec           (Spec, describe, it, shouldBe)
+import           Test.Hspec           (Spec, describe, it)
 import           Text.Megaparsec      (parse)
+import           Test.Hspec.Megaparsec (shouldParse)
 
 
 spec :: Spec
 spec = describe "question parser" $
     it "should parse this question" $
-        parse parseQuest "" testLine `shouldBe` Right expectedResult
+        parse parseQuest "" testLine `shouldParse` expectedResult
 
 
 testLine :: String

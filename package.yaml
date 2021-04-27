@@ -60,6 +60,7 @@ tests:
     - hedgehog
     - hspec
     - megaparsec
+    - hspec-megaparsec
 
     ghc-options:
     - -threaded

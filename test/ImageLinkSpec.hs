@@ -9,7 +9,8 @@ import           Helpers            (parseGen, ParseResult)
 import           Parsers.ImageLinks (imageLink)
 import           Structures.Words   (ILink (..))
 import           Test.Hspec         (Arg, Expectation, Spec, SpecWith, describe,
-                                     it, shouldBe)
+                                     it)
+import           Test.Hspec.Megaparsec (shouldParse)                                     
 
 parseHelper :: String -> ParseResult ILink
 parseHelper = parseGen imageLink
@@ -45,7 +46,7 @@ dataSetString ::[String]
 dataSetString = linkToParseable <$> dataSet
 
 shoulds :: [Expectation]
-shoulds = zipWith shouldBe (parseHelper <$> dataSetString) (Right <$> dataSet)
+shoulds = zipWith shouldParse (parseHelper <$> dataSetString) dataSet
 
 its' :: [Expectation -> SpecWith (Arg Expectation)]
 its' = it <$> map (++ " should be ok") dataSetString
@@ -63,24 +64,24 @@ specManual :: Spec
 specManual = do
     describe "(img test.jpg)" $
         it "should be well parsed to \"test.jpg\"" $
-            parseHelper "(img test.jpg)" `shouldBe` (Right $ ILink "test.jpg" Nothing Nothing)
+            parseHelper "(img test.jpg)" `shouldParse` ILink "test.jpg" Nothing Nothing
 
     describe "(img h=400px test.jpg)" $
         it "should be well-parsed to link and height" $
-            parseHelper "(img h=400px test.jpg)" `shouldBe` (Right $ ILink "test.jpg" Nothing (Just 400))
+            parseHelper "(img h=400px test.jpg)" `shouldParse` ILink "test.jpg" Nothing (Just 400)
 
     describe "(img w=600px test.jpg)" $
         it "should be well-parsed to link and width" $
-            parseHelper "(img w=600px test.jpg)" `shouldBe` (Right $ ILink "test.jpg" (Just 600) Nothing)
+            parseHelper "(img w=600px test.jpg)" `shouldParse` ILink "test.jpg" (Just 600) Nothing
 
     describe "(img w=600px h = 400px test.jpg)" $
         it "should be well-parsed to link and width" $
-             parseHelper "(img w=600px h = 400px test.jpg)" `shouldBe` (Right $ ILink "test.jpg" (Just 600) (Just 400))
+             parseHelper "(img w=600px h = 400px test.jpg)" `shouldParse` ILink "test.jpg" (Just 600) (Just 400)
 
 
     describe "(img h=400px w = 600px test.jpg)" $
         it "should be well-parsed to link and width" $
-            parseHelper "(img h=400px w = 600px test.jpg)" `shouldBe` (Right $ ILink "test.jpg" (Just 600) (Just 400))
+            parseHelper "(img h=400px w = 600px test.jpg)" `shouldParse` ILink "test.jpg" (Just 600) (Just 400)
 
 
 spec :: Spec
