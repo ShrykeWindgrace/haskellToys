@@ -1,4 +1,5 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE OverloadedStrings  #-}
 module Structures.QNumber ( QModifier(..), QModifierM, isSoft)
 
 
@@ -10,7 +11,7 @@ import           Constants.StringWorks (Element4s, cssClass, parsingToken,
 
 
 data QModifier = Soft String | Hard Integer
-    deriving (Eq)
+    deriving stock Eq
 
 
 instance Show QModifier where

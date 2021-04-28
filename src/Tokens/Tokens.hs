@@ -1,4 +1,5 @@
-{-# language StrictData #-}
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE StrictData         #-}
 
 module Tokens.Tokens where
 
@@ -24,7 +25,7 @@ data Token =
     Tour |
     SoftNumber |
     HardNumber
-        deriving (Eq, Show)
+        deriving stock (Eq, Show)
 
 
 parsingRepresentation :: Token -> String

@@ -1,9 +1,11 @@
 {-# language StrictData #-}
+{-# LANGUAGE DerivingStrategies #-}
+
 module Structures.Words (OneWord (..), ILink(..)) where
 
 
 data OneWord = StressedWord String Char String | RegWord String | ILinkStr ILink
-    deriving (Eq)
+    deriving stock Eq
 
 
 instance Show OneWord where
@@ -17,4 +19,4 @@ data ILink = ILink {
     link   :: String,
     width  :: Maybe Integer,
     height :: Maybe Integer
-    } deriving (Eq, Show)
+    } deriving stock (Eq, Show)

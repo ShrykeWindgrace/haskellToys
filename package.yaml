@@ -27,6 +27,7 @@ library:
   - -Wincomplete-uni-patterns
   - -Wredundant-constraints
   - -Wmissing-fields
+  - -Wmissing-deriving-strategies
   - -fwrite-ide-info
   - -hiedir=.hie/lib
 
@@ -45,6 +46,7 @@ executables:
     - -Wincomplete-uni-patterns
     - -Wredundant-constraints
     - -Wmissing-fields
+    - -Wmissing-deriving-strategies
     - -fwrite-ide-info
     - -hiedir=.hie/parse4s-exe
     dependencies:
@@ -73,6 +75,7 @@ tests:
     - -Wincomplete-uni-patterns
     - -Wredundant-constraints
     - -Wmissing-fields
+    - -Wmissing-deriving-strategies
     - -fwrite-ide-info
     - -hiedir=.hie/test
 

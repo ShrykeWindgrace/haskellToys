@@ -1,14 +1,15 @@
-{-# language StrictData #-}
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE StrictData         #-}
 
 module Structures.Lines where
 
 import           Structures.Words (OneWord)
 -- import           Constants.StringWorks
 
-data Line = Line [OneWord] | ListLinesStr ListLines deriving (Eq)
+data Line = Line [OneWord] | ListLinesStr ListLines deriving stock (Eq)
 
 instance Show Line where
-    show (Line _words) = unwords (show <$> _words)
+    show (Line _words)      = unwords (show <$> _words)
     show (ListLinesStr lns) = show lns
 
 -- instance Monoid Line where
@@ -17,4 +18,4 @@ instance Show Line where
     -- this instance supposes that these lines are not separated; there are no newlines here
 
 
-newtype ListLines = ListLines [Line] deriving (Eq, Show)
+newtype ListLines = ListLines [Line] deriving stock (Eq, Show)

@@ -1,4 +1,5 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE OverloadedStrings  #-}
 module Structures.Quest where
 
 import           Constants.StringWorks (Element4s, cssClass, parsingToken,
@@ -8,31 +9,31 @@ import           Data.Text             (append, pack)
 import           Structures.Header     (HeaderItem)
 import           Structures.Lines      (Line (..))
 import           Structures.QNumber    (QModifier (..), QModifierM)
-import           Structures.Words (OneWord(..), ILink(..))
+import           Structures.Words      (ILink (..), OneWord (..))
 
 
 data Question = Question {
     modifier :: QModifierM,
     fields   :: [QField]
-} deriving (Eq, Show)
+} deriving stock (Eq, Show)
 
 
 data Tour = Tour {
     quests    :: [Question],
     comment   :: Maybe Comment,
     tModifier :: QModifierM
-    } deriving (Eq, Show)
+    } deriving stock (Eq, Show)
 
 
 data Tournament = Tournament  {
     header     :: [HeaderItem],
     commentTNT :: Maybe Comment,
     tours      :: [Tour]
-    } deriving (Eq, Show)
+    } deriving stock (Eq, Show)
 
 
 
-newtype Comment = Comment { unComment :: Line } deriving (Eq, Show)
+newtype Comment = Comment { unComment :: Line } deriving stock (Eq, Show)
 
 
 instance Element4s Comment where
@@ -60,7 +61,7 @@ instance Element4s Tournament where
 
 
 
-data QFieldType = QText | QAnswer | QEquiv | QNotEquiv | QComment | QSource | QAuthor deriving (Eq, Enum, Ord, Show, Bounded)
+data QFieldType = QText | QAnswer | QEquiv | QNotEquiv | QComment | QSource | QAuthor deriving stock (Eq, Enum, Ord, Show, Bounded)
 
 
 
@@ -82,7 +83,7 @@ instance Element4s QFieldType where
     cssClass = pack . show  --the corresponding css class
 
 
-data QField = QField QFieldType [Line] deriving (Eq, Show)
+data QField = QField QFieldType [Line] deriving stock (Eq, Show)
 
 
 instance Element4s QField where

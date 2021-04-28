@@ -2,8 +2,8 @@ module Constants.StringWorks
 
 where
 
-import           Data.Text (Text)
-import Data.Maybe
+import           Data.Maybe (fromMaybe)
+import           Data.Text  (Text)
 
 showMaybe :: Maybe String -> String
 showMaybe = fromMaybe ""

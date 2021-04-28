@@ -1,5 +1,6 @@
-{-# LANGUAGE OverloadedStrings #-}
-{-# language StrictData #-}
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE OverloadedStrings  #-}
+{-# LANGUAGE StrictData         #-}
 
 module Structures.Header where
 
@@ -11,12 +12,12 @@ import           Data.Text             (append, pack)
 import           Structures.Lines      (Line)
 
 
-data HeaderItemType = Editor | Title | TDate deriving (Eq, Show, Enum, Bounded)
+data HeaderItemType = Editor | Title | TDate deriving stock (Eq, Show, Enum, Bounded)
 
 allHeaderItemTypes :: [HeaderItemType]
 allHeaderItemTypes = [minBound .. maxBound]
 
-data HeaderItem = HeaderItem HeaderItemType Line deriving (Eq, Show)
+data HeaderItem = HeaderItem HeaderItemType Line deriving stock (Eq, Show)
 
 instance Element4s HeaderItemType where
     parsingToken Editor = edLine
