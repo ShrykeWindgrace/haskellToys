@@ -41,3 +41,6 @@ out*.txt
 
 # idea folder
 out/
+
+# vscode
+.vscode/
