@@ -3,7 +3,7 @@ module Helpers (parseGen, ParseResult) where
 
 import           Data.Void       (Void)
 import           Parsers.Tech    (Parser)
-import           Text.Megaparsec
+import           Text.Megaparsec (ParseErrorBundle, parse)
 
 
 parseGen :: Parser a -> String -> ParseResult a

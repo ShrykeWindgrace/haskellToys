@@ -1,42 +1,29 @@
-{-# OPTIONS_GHC -Wno-orphans  #-}
 module QFTSpec (spec) where
 
 import           Constants.StringWorks (parsingToken)
--- import           Data.DeriveTH         (derive, makeArbitrary)
-import           Helpers               (parseGen, ParseResult)
+import           Data.Foldable         (traverse_)
+import           Helpers               (ParseResult, parseGen)
 import           Parsers.Field         (fieldType)
 import           Structures.Quest      (QFieldType (..), allQFTs)
 import           Test.Hspec            (Spec, describe, it)
--- required for TH derivation magic
-import           Test.QuickCheck       (Arbitrary, arbitrary, choose, property)
-import Data.Either
-
--- I know that this is an "orphan instance" [-Worphans]. But I don't need this instance anywhere else. Yet
-
-instance Arbitrary QFieldType where
-    arbitrary = toEnum <$> choose (0, fromEnum (maxBound::QFieldType))
+import           Test.Hspec.Megaparsec (shouldFailOn, shouldParse,
+                                        shouldSucceedOn)
 
 
 parserHelper :: QFieldType -> ParseResult QFieldType
-parserHelper ft = parseGen (fieldType ft) (tok ++ " ") where
-    tok = parsingToken ft
+parserHelper ft = parseGen (fieldType ft) (parsingToken ft <> " ")
 
-parserHelper' :: QFieldType -> QFieldType -> ParseResult QFieldType
-parserHelper' ft ft' = parseGen (fieldType ft) (tok' ++ " ") where
-    tok' = parsingToken ft'
+ownParseTest :: Spec
+ownParseTest = describe "question field type parser should correctly parse its own strings" $ traverse_ (\x -> it (show x)  (runner x) ) allQFTs where
+    runner qft = parserHelper qft `shouldParse` qft
 
-
-tester :: QFieldType -> Bool
-tester x = Right x == parserHelper x
-
--- we need an ugly hack here because QNotEquiv has token "!=" and it breaks the test for QAnswer
--- this test verifies that the corresponding parsers succeed only on their tokens
-tester' :: QFieldType -> Bool
-tester' x = [x] == rights (fmap (parserHelper' x) allQFTs)
+foreignParseTest :: Spec
+foreignParseTest = describe "question field type parser should correctly parse only its own strings" $ traverse_ (\(a,b,r) -> it (unwords ["testing", show a, "<->", show b]) r)
+    [ (l, r, cmp (runner l)  (parsingToken r <> " ")) | l <- allQFTs , r <- allQFTs , let cmp = if l == r then shouldSucceedOn else shouldFailOn ] where
+        runner :: QFieldType -> String -> ParseResult QFieldType
+        runner qft = parseGen (fieldType qft)
 
 spec :: Spec
 spec = do
-    describe "question field type parser" $ it "should correctly parse its own strings" $
-        property tester
-    describe "question field type parser" $ it "should correctly parse only its own strings" $
-        property tester'
+    ownParseTest
+    foreignParseTest
