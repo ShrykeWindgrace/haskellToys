@@ -8,11 +8,11 @@ jobs:
 - template: ./.azure/azure-osx-template.yml
   parameters:
     name: macOS
-    vmImage: macOS-10.14
+    vmImage: macos-11
     os: osx
 
 - template: ./.azure/azure-windows-template.yml
   parameters:
    name: Windows
-   vmImage: vs2017-win2016
+   vmImage: windows-latest
    os: windows
